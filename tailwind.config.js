@@ -10,6 +10,10 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        basic: "hsl(240, 7%, 14%)",
+      },
+      boxShadow: {
+        fallback: "0px 20px 80px 0px #223049",
       },
     },
   },
