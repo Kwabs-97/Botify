@@ -5,6 +5,7 @@ import WhyChooseBotify from "@/components/landing-page/main/WhyChooseBotify";
 import Container from "@/components/misc/Container";
 import Header2 from "@/components/typography/Header2";
 import CustomButton from "@/components/form-elements/CustomButton";
+import Footer from "@/components/landing-page/footer/Footer";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
           </div>
         </Container>
       </aside>
+      <Footer />
     </>
   );
 }
