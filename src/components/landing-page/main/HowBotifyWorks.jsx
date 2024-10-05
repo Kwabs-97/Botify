@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import Container from "../../misc/Container";
 import Header2 from "../../typography/Header2";
 import TabsContainer from "../../misc/TabsContainer";
@@ -13,10 +12,6 @@ import Header3 from "../../typography/Header3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function HowBotifyWorks() {
-  const [activeTab, setActiveTab] = useState(false);
-  const tabs = [1, 2, 3, 4];
-
-  const handleTabSwitch = () => {};
   return (
     <Container className="bg-gray-50 gap-20">
       <Header2 className="text-basic">How Botify Works</Header2>

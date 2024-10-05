@@ -1,6 +1,7 @@
 import Hero from "@/components/landing-page/header/Hero";
 import HowBotifyWorks from "@/components/landing-page/main/HowBotifyWorks";
 import Navbar from "@/components/landing-page/header/Navbar";
+import WhyChooseBotify from "@/components/landing-page/main/WhyChooseBotify";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       </header>
       <main>
         <HowBotifyWorks />
+        <WhyChooseBotify />
       </main>
     </>
   );
