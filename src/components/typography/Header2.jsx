@@ -3,7 +3,9 @@ import React from "react";
 
 function Header2({ children, className }) {
   return (
-    <p className={cn("font-bold text-5xl leading-10", className)}>{children}</p>
+    <p className={cn("font-bold text-5xl leading-[48px]", className)}>
+      {children}
+    </p>
   );
 }
 
