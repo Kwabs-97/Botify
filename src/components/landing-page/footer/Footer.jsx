@@ -69,6 +69,7 @@ function Footer() {
                   width={18}
                   height={18}
                   fill="#374151"
+                  className="hover:cursor-pointer"
                 >
                   <title>{icon.title}</title>
                   <path d={icon.path} />
