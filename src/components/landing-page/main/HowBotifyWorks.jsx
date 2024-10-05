@@ -1,15 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import Container from "../misc/Container";
-import Header2 from "../typography/Header2";
-import TabsContainer from "../misc/TabsContainer";
+import Container from "../../misc/Container";
+import Header2 from "../../typography/Header2";
+import TabsContainer from "../../misc/TabsContainer";
 import {
   connectData,
   customizeBot,
   shareBot,
   connectTools,
 } from "@/assets/images";
-import Header3 from "../typography/Header3";
+import Header3 from "../../typography/Header3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function HowBotifyWorks() {

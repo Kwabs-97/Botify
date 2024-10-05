@@ -1,6 +1,6 @@
-import Hero from "@/components/landing-page/Hero";
-import HowBotifyWorks from "@/components/landing-page/HowBotifyWorks";
-import Navbar from "@/components/landing-page/Navbar";
+import Hero from "@/components/landing-page/header/Hero";
+import HowBotifyWorks from "@/components/landing-page/main/HowBotifyWorks";
+import Navbar from "@/components/landing-page/header/Navbar";
 
 export default function Home() {
   return (

@@ -2,9 +2,9 @@
 import React from "react";
 import Image from "next/image";
 import { logo } from "@/assets/images";
-import Header4 from "../typography/Header4";
+import Header4 from "../../typography/Header4";
 import Link from "next/link";
-import CustomButton from "../form-elements/CustomButton";
+import CustomButton from "../../form-elements/CustomButton";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
