@@ -1,5 +1,4 @@
 import Sidebar from "@/components/layouts/Sidebar";
-import React from "react";
 
 function DashbordLayout({ children }) {
   return (
