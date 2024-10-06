@@ -1,7 +1,7 @@
-import Sidebar from "@/components/layouts/sidebar";
+import Sidebar from "@/components/layouts/Sidebar";
 import React from "react";
 
-function layout({ children }) {
+function DashbordLayout({ children }) {
   return (
     <div class="flex flex-row w-screen h-screen">
       <Sidebar />
@@ -10,4 +10,4 @@ function layout({ children }) {
   );
 }
 
-export default layout;
+export default DashbordLayout;
