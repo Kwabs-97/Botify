@@ -1,4 +1,4 @@
-import Sidebar from "@/components/layouts/Sidebar";
+import Sidebar from "@/components/layouts/sidebar";
 
 function DashbordLayout({ children }) {
   return (

@@ -1,4 +1,3 @@
-import Sidebar from "@/components/layouts/Sidebar";
 import { Avatar } from "@/assets/icons";
 import CustomInput from "@/components/form-elements/CustomInput";
 import CustomButton from "@/components/form-elements/CustomButton";
