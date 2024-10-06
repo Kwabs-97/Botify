@@ -27,7 +27,7 @@ function Sidebar({ children }) {
     },
   ];
   return (
-    <div className="min-h-screen flex flex-row w-screen">
+    <div className="h-full flex flex-row ">
       <div className=" bg-basic flex flex-col justify-between items-center  min-w-[240px]">
         <section className="links flex flex-col gap-4">
           <header>
@@ -76,7 +76,6 @@ function Sidebar({ children }) {
           </div>
         </section>
       </div>
-      <div className="w-full">{children}</div>
     </div>
   );
 }
