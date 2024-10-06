@@ -16,24 +16,29 @@ function Sidebar() {
 
   const navItems = [
     {
-      link: "Chatbots",
+      link: "/", // Set to an empty string for the root path
       icon: <Chatbot />,
+      name: "Chatbots", // Adding a name for readability in the link text
     },
     {
       link: "Issues",
       icon: <Database size={16} />,
+      name: "Issues",
     },
     {
       link: "Users",
       icon: <Users size={16} />,
+      name: "Users",
     },
     {
       link: "Integrations",
       icon: <Layers size={16} />,
+      name: "Integrations",
     },
     {
       link: "Help",
       icon: <CircleHelp size={16} />,
+      name: "Help",
     },
   ];
 
@@ -54,45 +59,57 @@ function Sidebar() {
           </header>
           <main className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              {navItems.slice(0, 3).map((navItem, i) => (
-                <Link
-                  href={`/dashboard/${navItem.link.toLowerCase()}`}
-                  key={i}
-                  className={`flex flex-row gap-4 px-4 py-2.5 items-center hover:ml-2 duration-200 ${
-                    pathname === `/dashboard/${navItem.link.toLowerCase()}`
-                      ? "bg-lightBlue bg-opacity-25 rounded-lg"
-                      : ""
-                  }`}
-                >
-                  <div>{navItem.icon}</div>
-                  <div className={`${isToggled ? "hidden" : ""}`}>
-                    <p>{navItem.link}</p>
-                  </div>
-                </Link>
-              ))}
+              {navItems.slice(0, 3).map((navItem, i) => {
+                const href = navItem.link
+                  ? `/dashboard/${navItem.link.toLowerCase()}`
+                  : "/";
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    href={href}
+                    key={i}
+                    className={`flex flex-row gap-4 px-4 py-2.5 items-center hover:ml-2 duration-200 ${
+                      isActive ? "bg-lightBlue bg-opacity-25 rounded-lg" : ""
+                    }`}
+                  >
+                    <div className={`${isActive ? "text-blue-400" : ""}`}>
+                      {navItem.icon}
+                    </div>
+                    <div className={`${isToggled ? "hidden" : ""}`}>
+                      <p className={`${isActive ? "text-blue-400" : ""}`}>
+                        {navItem.name}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
             <div className="flex flex-col gap-1">
               <header className={`px-4 py-2.5 ${isToggled ? "hidden" : ""}`}>
                 Settings
               </header>
-              {navItems.slice(3).map((navItem, i) => (
-                <Link
-                  key={i}
-                  href={`/dashboard/${navItem.link.toLowerCase()}`}
-                  className={`flex flex-row gap-4 px-4 py-2.5 items-center hover:ml-2  duration-200 ${
-                    pathname === `/dashboard/${navItem.link.toLowerCase()}`
-                      ? "bg-lightBlue bg-opacity-25 rounded-lg"
-                      : ""
-                  }`}
-                >
-                  <div>{navItem.icon}</div>
-                  <div>
-                    <p className={`${isToggled ? "hidden" : ""}`}>
-                      {navItem.link}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+              {navItems.slice(3).map((navItem, i) => {
+                const href = `/dashboard/${navItem.link.toLowerCase()}`;
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    href={href}
+                    key={i}
+                    className={`flex flex-row gap-4 px-4 py-2.5 items-center hover:ml-2 duration-200 ${
+                      isActive ? "bg-lightBlue bg-opacity-25 rounded-lg" : ""
+                    }`}
+                  >
+                    <div className={`${isActive ? "text-blue-400" : ""}`}>
+                      {navItem.icon}
+                    </div>
+                    <div className={`${isToggled ? "hidden" : ""}`}>
+                      <p className={`${isActive ? "text-blue-400" : ""}`}>
+                        {navItem.name}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </main>
         </section>
