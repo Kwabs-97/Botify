@@ -11,6 +11,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         basic: "hsl(240, 7%, 14%)",
+        basicLight: "hsl(223, 18%, 26%)",
+        lightGray: "hsl(220, 13%, 91%)",
+        lightBlue: "hsl(217, 91%, 60%)",
       },
       boxShadow: {
         fallback: "0px 20px 80px 0px #223049",

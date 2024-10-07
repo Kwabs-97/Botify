@@ -1,7 +1,7 @@
 import React from "react";
-import Container from "../misc/Container";
-import Header1 from "../typography/Header1";
-import CustomButton from "../form-elements/CustomButton";
+import Container from "../../misc/Container";
+import Header1 from "../../typography/Header1";
+import CustomButton from "../../form-elements/CustomButton";
 import { fallbackMessage } from "@/assets/images";
 
 export default function Hero() {
