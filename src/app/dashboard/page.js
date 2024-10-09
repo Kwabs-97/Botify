@@ -9,7 +9,8 @@ import Image from "next/image";
 import { AIAssitant } from "@/assets/icons";
 import { useState } from "react";
 
-function page() {
+function Page() {
+  const [start, setStart] = useState(false);
   return (
     <div className="flex flex-col gap-6 w-full min-h-screen bg-gray-50">
       <div className="header py-8 px-12 border-b border-b-gray-200">
@@ -59,4 +60,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
