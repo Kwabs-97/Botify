@@ -1,12 +1,17 @@
+"use client";
 import { Avatar } from "@/assets/icons";
 import CustomInput from "@/components/form-elements/CustomInput";
 import CustomButton from "@/components/form-elements/CustomButton";
 import { Search, Plus } from "@/assets/icons";
 import AddChatbotCard from "@/components/misc/AddChatbotCard";
+import QueryContainer from "@/components/misc/QueryContainer";
+import Image from "next/image";
+import { AIAssitant } from "@/assets/icons";
+import { useState } from "react";
 
 function page() {
   return (
-    <div className="flex flex-col gap-6 w-full min-h-screen bg-white relative">
+    <div className="flex flex-col gap-6 w-full min-h-screen bg-gray-50">
       <div className="header py-8 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col gap-1">
@@ -20,7 +25,7 @@ function page() {
           </div>
         </div>
       </div>
-      <div className="px-12">
+      <div className="flex-grow px-12">
         <div className="flex flex-col gap-6">
           {/* Search box */}
           <div className="search flex flex-row justify-between">
@@ -37,7 +42,19 @@ function page() {
           </div>
         </div>
       </div>
-      <div className=""></div>
+
+      {/* Flexbox positioning for bottom-right */}
+      <div className="flex flex-col items-center gap-4 self-end px-12 pb-8">
+        <QueryContainer type="chatbot">
+          👋 Hello I am Boti, ask me anything about Botify!
+        </QueryContainer>
+        <QueryContainer type="chatbot">
+          I will assist you create a chatbox like me
+        </QueryContainer>
+        <div className="self-end hover:cursor-pointer">
+          <Image src={AIAssitant} alt="icon" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -17,6 +17,7 @@ module.exports = {
       },
       boxShadow: {
         fallback: "0px 20px 80px 0px #223049",
+        lightFallback: "0px 0px 20px 15px #00000014",
       },
     },
   },
