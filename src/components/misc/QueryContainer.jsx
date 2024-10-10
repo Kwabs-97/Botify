@@ -1,7 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { AIAssitant } from "@/assets/icons";
+
 function QueryContainer({ children, className, type }) {
   return (
     <>
