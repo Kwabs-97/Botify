@@ -12,7 +12,7 @@ export default function CustomButton({
   return (
     <Button
       className={cn(
-        "bg-blue-600 rounded flex flex-row justify-center gap-1 items-center px-2 py-2.5 text-base hover:bg-blue-500 duration-300",
+        "bg-blue-600 rounded flex flex-row justify-center gap-1 items-center px-2 py-2.5 text-sm",
         className
       )}
     >
