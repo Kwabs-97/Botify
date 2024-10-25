@@ -5,3 +5,4 @@ export { default as Plus } from "./plus.svg";
 export { default as AIAssitant } from "./AIAssitant.svg";
 export { default as Upload } from "./upload.svg";
 export { default as search_right } from "./search_right.svg";
+export { default as filterIcon } from "./filter.svg";
