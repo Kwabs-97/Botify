@@ -8,6 +8,7 @@ import QueryContainer from "@/components/misc/QueryContainer";
 import Image from "next/image";
 import { AIAssitant } from "@/assets/icons";
 import { useState } from "react";
+import Link from "next/link";
 
 function Page() {
   const [start, setStart] = useState(false);
@@ -52,9 +53,9 @@ function Page() {
         <QueryContainer type="chatbot">
           I will assist you create a chatbox like me
         </QueryContainer>
-        <div className="self-end hover:cursor-pointer">
+        <Link className="self-end hover:cursor-pointer" href="/dashboard/boti">
           <Image src={AIAssitant} alt="icon" />
-        </div>
+        </Link>
       </div>
     </div>
   );

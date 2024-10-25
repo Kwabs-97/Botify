@@ -22,9 +22,11 @@ function Page() {
   const handleFileUpload = (file) => {
     if (file) {
       setDetectedFiles(1);
-    }
+    } else setDetectedFiles(0);
   };
-
+  const handleFileDelete = (file) => {
+    setDetectedFiles(0);
+  };
   useEffect(() => {
     console.log(detectedFiles);
   }, [detectedFiles]);
@@ -56,7 +58,10 @@ function Page() {
           </section>
           <section>
             <p className="text-gray-600">Upload files</p>
-            <CustomDropzone onFileUpload={handleFileUpload} />
+            <CustomDropzone
+              onFileUpload={handleFileUpload}
+              onFileDelete={handleFileDelete}
+            />
             <section className="flex flex-row gap-1 items-center">
               <Separator
                 orientation="horizontal"
@@ -75,7 +80,7 @@ function Page() {
               <CustomInput
                 type="url"
                 iconSrc={search_right}
-                className="w-full bg-gray-200 h-14"
+                className="w-full bg-gray-100 h-14"
                 placeholder="Enter website url"
               />
             </section>

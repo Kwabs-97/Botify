@@ -14,6 +14,7 @@ module.exports = {
         basicLight: "hsl(223, 18%, 26%)",
         lightGray: "hsl(220, 13%, 91%)",
         lightBlue: "hsl(217, 91%, 60%)",
+        darkGray: "hsl(220.91, 39.29%, 10.98%)",
       },
       boxShadow: {
         fallback: "0px 20px 80px 0px #223049",

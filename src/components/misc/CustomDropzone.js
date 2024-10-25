@@ -60,6 +60,7 @@ const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
     setUploadProgress(0);
     setUploadedFileURL(null);
     setIsLoading(false);
+    onFileDelete(selectedFile);
   };
 
   useEffect(() => {
