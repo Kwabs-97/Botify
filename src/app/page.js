@@ -9,7 +9,7 @@ import Footer from "@/components/landing-page/footer/Footer";
 
 export default function Home() {
   return (
-    <>
+    <div className="overflow-hidden">
       <header>
         <Navbar />
         <Hero />
@@ -37,6 +37,6 @@ export default function Home() {
         </Container>
       </aside>
       <Footer />
-    </>
+    </div>
   );
 }
