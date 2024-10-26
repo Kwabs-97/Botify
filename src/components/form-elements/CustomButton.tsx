@@ -3,12 +3,17 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+interface CustomButtonProps {
+  className?: string;
+  children: React.ReactNode;
+  iconSrc?: string;
+}
 export default function CustomButton({
   children,
   className,
   iconSrc,
   ...props
-}) {
+}: CustomButtonProps) {
   return (
     <Button
       className={cn(

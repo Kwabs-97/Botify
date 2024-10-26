@@ -3,10 +3,10 @@ import { Avatar } from "@/assets/icons";
 import { DataTable } from "@/components/misc/data-table";
 import { exportIcon } from "@/assets/icons";
 import SearchIcon from "@/components/misc/search";
-import { columns, Issue } from "./columns";
+import { columns, Users } from "./columns";
 import CustomButton from "@/components/form-elements/CustomButton";
 
-async function getUsers(): Promise<Issue[]> {
+async function getUsers(): Promise<Users[]> {
   return [
     {
       name: "Samuel Yeboah",
