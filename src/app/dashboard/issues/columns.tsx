@@ -3,28 +3,56 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 export type Issue = {
-  id: string;
+  id?: string;
   userQuery: string;
   botSource: string;
-  date: Date;
+  date: number;
   actions: string;
 };
 
 export const columns: ColumnDef<Issue>[] = [
   {
     accessorKey: "userQuery",
-    header: "User Query",
+    header: () => (
+      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+        User Query
+      </div>
+    ),
+    cell: ({ row }) => {
+      return <div className="p-3">{row.getValue("userQuery")}</div>;
+    },
   },
   {
     accessorKey: "botSource",
-    header: "Bot Source",
+    header: () => (
+      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+        Bot Source
+      </div>
+    ),
+    cell: ({ row }) => {
+      return <div className="p-3">{row.getValue("botSource")}</div>;
+    },
   },
   {
     accessorKey: "date",
-    header: "Date",
+    header: () => (
+      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+        Date
+      </div>
+    ),
+    cell: ({ row }) => {
+      return <div className="p-3">{row.getValue("date")}</div>;
+    },
   },
   {
     accessorKey: "actions",
-    header: "Actions",
+    header: () => (
+      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+        Actions
+      </div>
+    ),
+    cell: ({ row }) => {
+      return <div className="p-3">{row.getValue("actions")}</div>;
+    },
   },
 ];
