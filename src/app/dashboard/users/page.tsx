@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar } from "@/assets/icons";
-import { DataTable } from "@/components/misc/data-table";
+import { DataTable } from "./data-table";
 import { exportIcon } from "@/assets/icons";
 import SearchIcon from "@/components/misc/search";
 import { columns, Users } from "./columns";
