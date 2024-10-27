@@ -52,7 +52,7 @@ async function getIssues(): Promise<Issue[]> {
 }
 async function IssuesPage() {
   const data = await getIssues();
-  console.log(data);
+
   return (
     <div className="flex flex-col gap-5 overflow-hidden ">
       <div className="header py-8 px-12 border-b border-b-gray-200">
