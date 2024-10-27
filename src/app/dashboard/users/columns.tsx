@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { Avatar } from "@/assets/icons";
 
 export type Users = {
   id?: string;
@@ -19,7 +20,14 @@ export const columns: ColumnDef<Users>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      return <div className="p-3">{row.getValue("name")}</div>;
+      return (
+        <div className="p-3">
+          <div className="flex flex-row gap-3 items-center">
+            <Avatar />
+            {row.getValue("name")}
+          </div>
+        </div>
+      );
     },
   },
   {
