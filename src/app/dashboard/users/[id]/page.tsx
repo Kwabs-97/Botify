@@ -1,16 +1,24 @@
+"use client";
 import CustomButton from "@/components/form-elements/CustomButton";
 import React from "react";
 import { ArrowLeft, Ellipsis } from "lucide-react";
 import { Avatar } from "@/assets/icons";
+import { useRouter } from "next/navigation";
 
-async function page({ params }: { params: { id: string } }) {
+function Page({ params }: { params: { id: string } }) {
+  const router = useRouter();
   return (
     <div className="flex flex-col  overflow-hidden ">
       {/* header */}
       <div className="header py-8 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-4 items-center">
-            <ArrowLeft className="text-gray-500" />
+            <button
+              className="text-gray-500 hover:cursor-pointer"
+              onClick={() => router.back()}
+            >
+              <ArrowLeft />
+            </button>
             <h3 className="text-gray-900 text-2xl leading-8 font-bold">
               User ID
             </h3>
@@ -113,4 +121,4 @@ async function page({ params }: { params: { id: string } }) {
   );
 }
 
-export default page;
+export default Page;
