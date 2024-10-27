@@ -15,10 +15,11 @@ const Table = React.forwardRef(
     <div className="relative w-full overflow-auto max-h-[400px]">
       <table
         ref={ref}
-        className={cn("w-full caption-bottom text-sm", className)}
+        className={cn("w-full caption-bottom text-sm ", className)}
         {...props}
-      />
-      {children}
+      >
+        {children}
+      </table>
     </div>
   )
 );
@@ -53,7 +54,9 @@ const TableBody = React.forwardRef(
       ref={ref}
       className={cn("[&_tr:last-child]:border-0", className)}
       {...props}
-    />
+    >
+      {children}
+    </tbody>
   )
 );
 TableBody.displayName = "TableBody";

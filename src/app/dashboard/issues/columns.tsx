@@ -6,7 +6,7 @@ export type Issue = {
   id?: string;
   userQuery: string;
   botSource: string;
-  date: number;
+  date: string;
   actions: string;
 };
 

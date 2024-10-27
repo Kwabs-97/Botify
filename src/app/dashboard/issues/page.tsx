@@ -1,59 +1,58 @@
-import React from "react";
 import { Avatar } from "@/assets/icons";
 import { DataTable } from "./data-table";
 import FilterIcon from "@/components/misc/filter";
 import SearchIcon from "@/components/misc/search";
-import CustomInput from "@/components/form-elements/CustomInput";
-import { columns, Issue } from "./columns";
+import { Issue, columns } from "./columns";
 
 async function getIssues(): Promise<Issue[]> {
   return [
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
     {
       userQuery: "I want to know about the B2B services on your plartform",
       botSource: "Jobmanor",
-      date: new Date().getDate(),
+      date: new Date().toLocaleDateString(),
       actions: "Train",
     },
   ];
 }
-async function page() {
+async function IssuesPage() {
   const data = await getIssues();
+  console.log(data);
   return (
     <div className="flex flex-col gap-5 overflow-hidden ">
       <div className="header py-8 px-12 border-b border-b-gray-200">
@@ -83,4 +82,4 @@ async function page() {
   );
 }
 
-export default page;
+export default IssuesPage;

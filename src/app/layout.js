@@ -25,7 +25,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={gellixRegular.className} suppressHydrationWarning={true}>
+      <body
+        className={gellixRegular.className}
+        suppressHydrationWarning={true}
+        suppressContentEditableWarning
+      >
         {children}
       </body>
     </html>

@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -25,12 +26,23 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  // console.log("Received props:", { data, columns }); // Direct logging
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  useEffect(() => {
+    console.log(
+      table
+        .getRowModel()
+        .rows.map((row) =>
+          row.getVisibleCells().map((cell) => cell.column.columnDef.cell)
+        )
+    );
+  }, [table]);
   return (
     <div className="rounded-md border">
       <Table>

@@ -15,7 +15,7 @@ export const columns: ColumnDef<Users>[] = [
     accessorKey: "name",
     header: () => (
       <div className="text-gray-800 font-medium text-xs leading-4 p-3">
-        User Query
+        Name
       </div>
     ),
     cell: ({ row }) => {
@@ -26,7 +26,7 @@ export const columns: ColumnDef<Users>[] = [
     accessorKey: "email",
     header: () => (
       <div className="text-gray-800 font-medium text-xs leading-4 p-3">
-        Bot Source
+        Email
       </div>
     ),
     cell: ({ row }) => {
@@ -37,7 +37,7 @@ export const columns: ColumnDef<Users>[] = [
     accessorKey: "botSource",
     header: () => (
       <div className="text-gray-800 font-medium text-xs leading-4 p-3">
-        Date
+        Bot Source
       </div>
     ),
     cell: ({ row }) => {
@@ -48,7 +48,7 @@ export const columns: ColumnDef<Users>[] = [
     accessorKey: "lastSeen",
     header: () => (
       <div className="text-gray-800 font-medium text-xs leading-4 p-3">
-        Actions
+        Last Seen
       </div>
     ),
     cell: ({ row }) => {
