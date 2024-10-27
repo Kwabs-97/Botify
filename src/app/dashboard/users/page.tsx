@@ -3,103 +3,10 @@ import { Avatar } from "@/assets/icons";
 import { DataTable } from "./data-table";
 import { exportIcon } from "@/assets/icons";
 import SearchIcon from "@/components/misc/search";
-import { columns, Users } from "./columns";
+import { columns } from "./columns";
 import CustomButton from "@/components/form-elements/CustomButton";
+import getUsers from "@/data/users";
 
-async function getUsers(): Promise<Users[]> {
-  return [
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-    {
-      name: "Samuel Yeboah",
-      email: "kwabs@test.com",
-      botSource: "Jobmanor",
-      lastSeen: new Date().getDate(),
-    },
-  ];
-}
 async function page() {
   const data = await getUsers();
   return (
