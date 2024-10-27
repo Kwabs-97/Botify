@@ -38,6 +38,66 @@ async function getUsers(): Promise<Users[]> {
       botSource: "Jobmanor",
       lastSeen: new Date().getDate(),
     },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
+    {
+      name: "Samuel Yeboah",
+      email: "kwabs@test.com",
+      botSource: "Jobmanor",
+      lastSeen: new Date().getDate(),
+    },
   ];
 }
 async function page() {
