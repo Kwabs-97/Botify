@@ -1,0 +1,67 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import CustomInput from "@/components/form-elements/CustomInput";
+import CustomButton from "@/components/form-elements/CustomButton";
+import Stepper from "@/components/misc/Stepper";
+import Step1 from "@/components/misc/chatbot-steps/Step1";
+import Step2 from "@/components/misc/chatbot-steps/Step2";
+import { useRouter } from "next/navigation";
+
+function Page() {
+  const [step, setStep] = useState(1);
+  const totalSteps = 3;
+  const [detectedFiles, setDetectedFiles] = useState(null);
+
+  const handleNextStep = () => {
+    setStep((prevStep) => Math.min(prevStep + 1, totalSteps));
+  };
+  const handlePrevStep = () => {
+    setStep((prevStep) => Math.max(prevStep - 1, 1));
+  };
+
+  console.log(step);
+  const router = useRouter();
+  return (
+    <div className="flex flex-col w-full h-full overflow-hidden">
+      {/* Header */}
+      <div className="header py-6 px-12 border-b border-b-gray-200">
+        <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row gap-1 items-center">
+            <ArrowLeft
+              className="text-gray-500 hover:cursor-pointer"
+              onClick={router.back()}
+            />
+            <h3 className="text-gray-900 text-lg leading-8 font-bold">
+              Create a new chatbot
+            </h3>
+          </div>
+        </div>
+      </div>
+      {/* Preview*/}
+      {/* <Step1 /> */}
+      <Step2 />
+
+      {/* Steps */}
+      <div className="">
+        <section className="flex flex-row justify-between px-12 py-6">
+          <div className="flex flex-col gap-2">
+            <div className="text-gray-500 text-sm">step 1 of 2</div>
+            <Stepper totalSteps={2} currentStep={step} />
+          </div>
+          <div className="flex flex-row gap-4">
+            <CustomButton
+              className="bg-white text-blue-600 border border-blue-600"
+              onClick={handlePrevStep}
+            >
+              Go back
+            </CustomButton>
+            <CustomButton onClick={handleNextStep}>Continue</CustomButton>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+export default Page;

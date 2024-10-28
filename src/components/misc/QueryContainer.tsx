@@ -1,22 +1,27 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-function QueryContainer({ children, className, type }) {
+interface QueryContainerProps {
+  children: React.ReactNode;
+  className?: string;
+  type?: "user" | string;
+}
+function QueryContainer({ children, className, type }: QueryContainerProps) {
   return (
-    <>
+    <div className="px-4">
       <div
         className={cn(
           `${
             type === "user"
               ? "bg-blue-600 text-base text-gray-50 rounded-tr-[32px] rounded-br-[32px] rounded-bl rounded-tl-2xl "
               : "bg-white  text-black  rounded-tl-[32px] rounded-tr-2xl rounded-br rounded-bl-[32px]"
-          } p-4 shadow-lightFallback`,
+          } p-4 shadow-lightFallback w-max`,
           className
         )}
       >
         <p>{children}</p>
       </div>
-    </>
+    </div>
   );
 }
 

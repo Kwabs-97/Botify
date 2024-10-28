@@ -29,7 +29,9 @@
     "**/*.ts",
     "**/*.tsx",
     "src/app/dashboard/issues/data-table.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/components/form-elements/CustomInput.jsx",
+    "src/app/dashboard/new/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
