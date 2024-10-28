@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
 import CustomInput from "@/components/form-elements/CustomInput";
+import { motion } from "framer-motion";
 function Step1() {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
   const [step, setStep] = useState<number | null>(1);
@@ -18,7 +19,13 @@ function Step1() {
     setDetectedFiles(0);
   };
   return (
-    <div className="flex flex-row gap-8 px-12 flex-grow">
+    <motion.div
+      className="flex flex-row gap-8 px-12 flex-grow"
+      initial={{ x: "-100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Data sources */}
       <div className="flex flex-col gap-6 flex-1">
         <section className="flex flex-col gap-1">
@@ -81,7 +88,7 @@ function Step1() {
           <div></div>
         </section>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

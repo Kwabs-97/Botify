@@ -16,6 +16,7 @@ interface ButtonProps {
     | undefined;
   size?: "default" | "sm" | "lg" | "icon" | null;
   asChild?: boolean;
+  onClick?: React.ReactEventHandler;
   children: React.ReactNode;
 }
 const buttonVariants = cva(
@@ -56,6 +57,7 @@ const Button = React.forwardRef(
       size,
       asChild = false,
       children,
+      onClick,
       ...props
     }: ButtonProps,
     ref: React.Ref<HTMLButtonElement> | undefined
@@ -66,6 +68,7 @@ const Button = React.forwardRef(
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
+        onClick={onClick}
       >
         {children}
       </Comp>

@@ -1,14 +1,21 @@
+"use client";
 import React from "react";
 import CustomInput from "@/components/form-elements/CustomInput";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
 import { chatIcon, ellipse } from "@/assets/icons";
 import QueryContainer from "@/components/misc/QueryContainer";
+import { motion } from "framer-motion";
 function Step2() {
   return (
-    <div className="flex flex-row py-8 px-12 gap-5">
+    <motion.div
+      className="flex flex-row py-8 px-12 gap-5"
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "-100%" }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="flex flex-col gap-5 flex-1">
         <div className="flex flex-col gap-1">
           <h3 className="text-gray-900 font-bold text-2xl">Chatbot Details</h3>
@@ -81,7 +88,7 @@ function Step2() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

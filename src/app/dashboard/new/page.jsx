@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 function Page() {
   const [step, setStep] = useState(1);
-  const totalSteps = 3;
+  const totalSteps = 2;
   const [detectedFiles, setDetectedFiles] = useState(null);
 
   const handleNextStep = () => {
@@ -30,7 +30,7 @@ function Page() {
           <div className="flex flex-row gap-1 items-center">
             <ArrowLeft
               className="text-gray-500 hover:cursor-pointer"
-              onClick={router.back()}
+              onClick={() => router.back()}
             />
             <h3 className="text-gray-900 text-lg leading-8 font-bold">
               Create a new chatbot
@@ -40,23 +40,33 @@ function Page() {
       </div>
       {/* Preview*/}
       {/* <Step1 /> */}
-      <Step2 />
+      {/* <Step2 /> */}
+
+      {step === 1 && <Step1 />}
+      {step === 2 && <Step2 />}
 
       {/* Steps */}
       <div className="">
         <section className="flex flex-row justify-between px-12 py-6">
           <div className="flex flex-col gap-2">
-            <div className="text-gray-500 text-sm">step 1 of 2</div>
-            <Stepper totalSteps={2} currentStep={step} />
+            <div className="text-gray-500 text-sm">step {step} of 2</div>
+            <Stepper totalSteps={totalSteps} currentStep={step} />
           </div>
           <div className="flex flex-row gap-4">
             <CustomButton
               className="bg-white text-blue-600 border border-blue-600"
               onClick={handlePrevStep}
+              disabled={step === 1}
             >
               Go back
             </CustomButton>
-            <CustomButton onClick={handleNextStep}>Continue</CustomButton>
+            <CustomButton
+              onClick={handleNextStep}
+              disabled={step === totalSteps}
+              className={`${step === 2 && "px-6"}`}
+            >
+              {step === 2 ? "Finish" : "Continue"}
+            </CustomButton>
           </div>
         </section>
       </div>
