@@ -6,8 +6,9 @@ import {
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData(); // Use formData to handle URL-encoded data
-    const body = Object.fromEntries(formData); // Convert form data to an object
+    // const formData = await req.formData(); // Use formData to handle URL-encoded data
+    // const body = Object.fromEntries(formData); // Convert form data to an object
+    const body = await req.json();
     console.log(body);
 
     const chatbotData: ChatbotDataInterface = {

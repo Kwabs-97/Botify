@@ -8,6 +8,7 @@ import Step2 from "@/components/misc/chatbot-steps/Step2";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 function Page() {
   //step state
@@ -31,7 +32,13 @@ function Page() {
 
   //submitting state
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post("/api/routes/new", data);
+      console.log(res);
+    } catch (error) {
+      console.log("error creating new chatbot", error);
+    }
     console.log(data);
   };
 

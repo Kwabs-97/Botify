@@ -27,7 +27,7 @@ function Step2({ register }: stepProps) {
         </div>
         <div className="flex flex-col gap-4 ">
           <CustomInput
-            name="chatbot"
+            name="chatbot_name"
             register={register}
             placeholder="Enter the name of your chatbot"
             label="Chatbot Name"
@@ -36,7 +36,7 @@ function Step2({ register }: stepProps) {
           <CustomInput
             labelWithAutogenerate
             register={register}
-            name="welcome"
+            name="welcome_message"
             textarea
             customLabel="Customize your welcome message"
             placeholder="Enter the name of your chatbot"
@@ -45,7 +45,7 @@ function Step2({ register }: stepProps) {
             labelWithAutogenerate
             textarea
             register={register}
-            name="fallback"
+            name="fallback_message"
             customLabel="Customize your fallback message"
             placeholder="Enter message to show when chatbot cannot provide a resopnse"
           />
