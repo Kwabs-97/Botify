@@ -13,22 +13,27 @@ interface CustomInputProps {
   label?: React.ReactNode;
   labelWithAutogenerate?: React.ReactNode;
   placeholder?: string;
+  register?: (name: string) => object;
+  name: string;
   customLabel?: React.ReactNode;
   type?: string;
-  register: { register: (arg: any) => void };
+
   textarea?: boolean;
 }
 function CustomInput({
   className,
   iconSrc,
   label,
+  register,
+  name,
   labelWithAutogenerate,
   customLabel,
   textarea,
-  register,
+
   ...props
 }: CustomInputProps) {
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const inputProps = register ? register(name) : {};
   return (
     <div className="flex flex-col gap-2">
       {label && <Label>{label}</Label>}
@@ -44,6 +49,7 @@ function CustomInput({
           )}
         >
           <Textarea
+            {...inputProps}
             placeholder={props.placeholder}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -60,10 +66,10 @@ function CustomInput({
           )}
         >
           <Input
+            {...inputProps}
             className={`border-none text-basicLight h-full w-full py-3 bg-transparent outline-none placeholder:text-placeholder`}
             placeholder={props.placeholder}
             type={props.type}
-            register={register}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />

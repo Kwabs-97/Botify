@@ -7,7 +7,11 @@ import Image from "next/image";
 import { chatIcon, ellipse } from "@/assets/icons";
 import QueryContainer from "@/components/misc/QueryContainer";
 import { motion } from "framer-motion";
-function Step2() {
+
+interface stepProps {
+  register: (name: string) => object;
+}
+function Step2({ register }: stepProps) {
   return (
     <motion.div
       className="flex flex-row py-8 px-12 gap-5"
@@ -23,12 +27,16 @@ function Step2() {
         </div>
         <div className="flex flex-col gap-4 ">
           <CustomInput
+            name="chatbot"
+            register={register}
             placeholder="Enter the name of your chatbot"
             label="Chatbot Name"
           />
 
           <CustomInput
             labelWithAutogenerate
+            register={register}
+            name="welcome"
             textarea
             customLabel="Customize your welcome message"
             placeholder="Enter the name of your chatbot"
@@ -36,6 +44,8 @@ function Step2() {
           <CustomInput
             labelWithAutogenerate
             textarea
+            register={register}
+            name="fallback"
             customLabel="Customize your fallback message"
             placeholder="Enter message to show when chatbot cannot provide a resopnse"
           />

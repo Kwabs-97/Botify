@@ -7,7 +7,10 @@ import { search_right } from "@/assets/icons";
 import CustomInput from "@/components/form-elements/CustomInput";
 import { motion } from "framer-motion";
 
-function Step1({ register }: { register: (arg: any) => void }) {
+interface stepProps {
+  register: (name: string) => object;
+}
+function Step1({ register }: stepProps) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
   const [step, setStep] = useState<number | null>(1);
 
@@ -58,6 +61,7 @@ function Step1({ register }: { register: (arg: any) => void }) {
             </h3>
             <CustomInput
               register={register}
+              name="website"
               type="url"
               iconSrc={search_right}
               className="w-full bg-gray-100 h-14"

@@ -22,12 +22,10 @@ function Page() {
   };
 
   //form-handling
-  const { formState, register, getValues } = useForm();
+  const { formState, register, handleSubmit } = useForm();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = getValues();
-    onSubmit(formData);
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   //routing
@@ -51,9 +49,11 @@ function Page() {
       {/* Preview*/}
       {/* <Step1 /> */}
       {/* <Step2 /> */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {step === 1 && <Step1 register={register} />}
         {step === 2 && <Step2 register={register} />}
+
+        <button type="submit">submit</button>
       </form>
 
       {/* Steps */}

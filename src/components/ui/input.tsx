@@ -7,13 +7,22 @@ interface InputProps {
   type?: string;
   id?: string;
   placeholder?: string;
+  inputProps?: object;
   onFocus?: () => void;
   onBlur?: () => void;
 }
 
 const Input = React.forwardRef(
   (
-    { className, type, onFocus, onBlur, placeholder, ...props }: InputProps,
+    {
+      className,
+      type,
+      onFocus,
+      onBlur,
+      inputProps,
+      placeholder,
+      ...props
+    }: InputProps,
     ref: React.Ref<HTMLInputElement>
   ) => {
     return (
@@ -29,6 +38,7 @@ const Input = React.forwardRef(
         )}
         ref={ref}
         {...props}
+        {...inputProps}
       />
     );
   }
