@@ -1,19 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import CustomInput from "@/components/form-elements/CustomInput";
 import CustomButton from "@/components/form-elements/CustomButton";
 import Stepper from "@/components/misc/Stepper";
 import Step1 from "@/components/misc/chatbot-steps/Step1";
 import Step2 from "@/components/misc/chatbot-steps/Step2";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function Page() {
+  //step state
   const [step, setStep] = useState(1);
   const totalSteps = 2;
+
+  //file state
   const [detectedFiles, setDetectedFiles] = useState(null);
 
+  //handle steps
   const handleNextStep = () => {
     setStep((prevStep) => Math.min(prevStep + 1, totalSteps));
   };
@@ -23,15 +27,23 @@ function Page() {
 
   //form-handling
   const { formState, register, handleSubmit } = useForm();
+  const { isSubmitting } = formState;
 
+  //submitting state
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const onSubmit = (data) => {
     console.log(data);
+  };
+
+  //handle finish
+  const handleFinish = () => {
+    handleSubmit(onSubmit)();
   };
 
   //routing
   const router = useRouter();
   return (
-    <div className="flex flex-col w-full h-full overflow-hidden">
+    <div className="flex flex-col w-full h-full overflow-hidden gap-5">
       {/* Header */}
       <div className="header py-6 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
@@ -49,12 +61,12 @@ function Page() {
       {/* Preview*/}
       {/* <Step1 /> */}
       {/* <Step2 /> */}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {step === 1 && <Step1 register={register} />}
-        {step === 2 && <Step2 register={register} />}
-
-        <button type="submit">submit</button>
-      </form>
+      <div className="flex-grow px-12">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {step === 1 && <Step1 register={register} />}
+          {step === 2 && <Step2 register={register} />}
+        </form>
+      </div>
 
       {/* Steps */}
       <div className="">
@@ -65,15 +77,22 @@ function Page() {
           </div>
           <div className="flex flex-row gap-4">
             <CustomButton
-              className="bg-white text-blue-600 border border-blue-600"
+              className={`bg-white text-blue-600 border border-blue-600 ${
+                step === 1
+                  ? "bg-gray-200 border-none text-white cursor-not-allowed"
+                  : "bg-white"
+              }`}
               onClick={handlePrevStep}
               disabled={step === 1}
             >
               Go back
             </CustomButton>
             <CustomButton
-              onClick={handleNextStep}
-              disabled={step === totalSteps}
+              onClick={() => {
+                handleNextStep();
+                step === 2 && handleFinish();
+              }}
+              disabled={step === totalSteps || isSubmitting}
               className={`${step === 2 && "px-6"}`}
             >
               {step === 2 ? "Finish" : "Continue"}

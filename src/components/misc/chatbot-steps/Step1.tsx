@@ -24,7 +24,7 @@ function Step1({ register }: stepProps) {
   };
   return (
     <motion.div
-      className="flex flex-row gap-8 px-12 flex-grow"
+      className="flex flex-row gap-8 px-12 flex-grow overflow-hidden"
       initial={{ x: "-100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}

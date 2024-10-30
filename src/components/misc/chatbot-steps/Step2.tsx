@@ -14,7 +14,7 @@ interface stepProps {
 function Step2({ register }: stepProps) {
   return (
     <motion.div
-      className="flex flex-row py-8 px-12 gap-5"
+      className="flex flex-row overflow-hidden gap-5"
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "-100%" }}
