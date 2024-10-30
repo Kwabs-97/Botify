@@ -7,6 +7,7 @@ import Stepper from "@/components/misc/Stepper";
 import Step1 from "@/components/misc/chatbot-steps/Step1";
 import Step2 from "@/components/misc/chatbot-steps/Step2";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 function Page() {
   const [step, setStep] = useState(1);
@@ -20,7 +21,16 @@ function Page() {
     setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
-  console.log(step);
+  //form-handling
+  const { formState, register, getValues } = useForm();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = getValues();
+    onSubmit(formData);
+  };
+
+  //routing
   const router = useRouter();
   return (
     <div className="flex flex-col w-full h-full overflow-hidden">
@@ -41,9 +51,10 @@ function Page() {
       {/* Preview*/}
       {/* <Step1 /> */}
       {/* <Step2 /> */}
-
-      {step === 1 && <Step1 />}
-      {step === 2 && <Step2 />}
+      <form onSubmit={handleSubmit}>
+        {step === 1 && <Step1 register={register} />}
+        {step === 2 && <Step2 register={register} />}
+      </form>
 
       {/* Steps */}
       <div className="">

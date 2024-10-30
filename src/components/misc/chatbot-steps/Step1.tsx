@@ -6,7 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
 import CustomInput from "@/components/form-elements/CustomInput";
 import { motion } from "framer-motion";
-function Step1() {
+
+function Step1({ register }: { register: (arg: any) => void }) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
   const [step, setStep] = useState<number | null>(1);
 
@@ -56,6 +57,7 @@ function Step1() {
               Website link
             </h3>
             <CustomInput
+              register={register}
               type="url"
               iconSrc={search_right}
               className="w-full bg-gray-100 h-14"

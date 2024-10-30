@@ -15,6 +15,7 @@ interface CustomInputProps {
   placeholder?: string;
   customLabel?: React.ReactNode;
   type?: string;
+  register: { register: (arg: any) => void };
   textarea?: boolean;
 }
 function CustomInput({
@@ -24,6 +25,7 @@ function CustomInput({
   labelWithAutogenerate,
   customLabel,
   textarea,
+  register,
   ...props
 }: CustomInputProps) {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -61,6 +63,7 @@ function CustomInput({
             className={`border-none text-basicLight h-full w-full py-3 bg-transparent outline-none placeholder:text-placeholder`}
             placeholder={props.placeholder}
             type={props.type}
+            register={register}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />
