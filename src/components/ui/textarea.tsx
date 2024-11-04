@@ -4,14 +4,21 @@ import { cn } from "@/lib/utils";
 
 interface TextAreaProps {
   className?: string;
-
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   onFocus?: () => void;
   onBlur?: () => void;
 }
 const Textarea = React.forwardRef(
   (
-    { className, placeholder, onFocus, onBlur, ...props }: TextAreaProps,
+    {
+      className,
+      placeholder,
+      onFocus,
+      onChange,
+      onBlur,
+      ...props
+    }: TextAreaProps,
     ref: React.Ref<HTMLTextAreaElement>
   ) => {
     return (
@@ -22,6 +29,7 @@ const Textarea = React.forwardRef(
         )}
         placeholder={placeholder}
         ref={ref}
+        onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
         {...props}

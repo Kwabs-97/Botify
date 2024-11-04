@@ -13,6 +13,8 @@ interface CustomInputProps {
   label?: React.ReactNode;
   labelWithAutogenerate?: React.ReactNode;
   placeholder?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeForTextArea?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   register?: (name: string) => object;
   name: string;
   customLabel?: React.ReactNode;
@@ -26,6 +28,8 @@ function CustomInput({
   label,
   register,
   name,
+  onChangeForTextArea,
+  onChange,
   labelWithAutogenerate,
   customLabel,
   textarea,
@@ -50,6 +54,7 @@ function CustomInput({
         >
           <Textarea
             {...inputProps}
+            onChange={onChangeForTextArea}
             placeholder={props.placeholder}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -70,6 +75,7 @@ function CustomInput({
             className={`border-none text-basicLight h-full w-full py-3 bg-transparent outline-none placeholder:text-placeholder`}
             placeholder={props.placeholder}
             type={props.type}
+            onChange={onChange}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />

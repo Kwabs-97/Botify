@@ -5,8 +5,9 @@ export interface ChatbotDataInterface {
   chatbot_name: string;
   welcome_message: string;
   fallback_message: string;
-  lastTrained?: string;
-  isVisible?: string;
+  lastTrained?: Date;
+  isVisible?: boolean;
+  collectUserEmail?: boolean;
 }
 
 export const getChatbotById = async (id: string) => {

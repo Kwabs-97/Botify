@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import CustomInput from "@/components/form-elements/CustomInput";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -7,11 +7,35 @@ import Image from "next/image";
 import { chatIcon, ellipse } from "@/assets/icons";
 import QueryContainer from "@/components/misc/QueryContainer";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  selectChatbotFallbackMessage,
+  selectChatbotName,
+  selectChatbotWelcomeMessage,
+  setChatbotName,
+  setChatbotFallbackMessage,
+  setChatbotWelcomeMessage,
+} from "@/redux/features/collectDetails/detailsSlice";
 
 interface stepProps {
   register: (name: string) => object;
 }
 function Step2({ register }: stepProps) {
+  const [collectUsersEmail, setCollectUsersEmail] = React.useState(false);
+  function handleSwitch(checked: boolean) {
+    setCollectUsersEmail(checked);
+  }
+
+  useEffect(() => {
+    register("collectUsersEmail");
+  });
+
+  const dispatch = useDispatch();
+  const chatbotName = useSelector(selectChatbotName);
+  const chatbotWelcomeMessage = useSelector(selectChatbotWelcomeMessage);
+  const ChatbotFallbackMessage = useSelector(selectChatbotFallbackMessage);
+
   return (
     <motion.div
       className="flex flex-row overflow-hidden gap-5"
@@ -31,6 +55,10 @@ function Step2({ register }: stepProps) {
             register={register}
             placeholder="Enter the name of your chatbot"
             label="Chatbot Name"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              console.log(e.target.value);
+              dispatch(setChatbotName(e.target.value));
+            }}
           />
 
           <CustomInput
@@ -40,22 +68,42 @@ function Step2({ register }: stepProps) {
             textarea
             customLabel="Customize your welcome message"
             placeholder="Enter the name of your chatbot"
+            onChangeForTextArea={(
+              e: React.ChangeEvent<HTMLTextAreaElement>
+            ) => {
+              dispatch(setChatbotWelcomeMessage(e.target.value ?? ""));
+              console.log(e.target.value);
+            }}
           />
           <CustomInput
             labelWithAutogenerate
             textarea
             register={register}
             name="fallback_message"
+            onChangeForTextArea={(
+              e: React.ChangeEvent<HTMLTextAreaElement>
+            ) => {
+              dispatch(setChatbotFallbackMessage(e.target.value ?? ""));
+              console.log(e.target.value);
+            }}
             customLabel="Customize your fallback message"
-            placeholder="Enter message to show when chatbot cannot provide a resopnse"
+            placeholder="Enter message to show when the chatbot cannot provide a response"
           />
 
           <div className="flex flex-row justify-between w-full p-3 border border-gray-200 rounded-lg">
             <Label htmlFor="collectUsersEmail">Collect users email</Label>
-            <Switch />
+            <Switch
+              {...register("collectUsersEmail")}
+              id="collectUsersEmail"
+              name="collectUsersEmail"
+              checked={collectUsersEmail}
+              onCheckedChange={handleSwitch}
+            />
           </div>
         </div>
       </div>
+
+      {/* Preview */}
       <div className="flex-1 flex-col gap-6">
         <div>
           <h3 className="text-gray-900 font-bold text-2xl">Preview</h3>
@@ -68,7 +116,7 @@ function Step2({ register }: stepProps) {
               </div>
               <div className="flex flex-col ">
                 <h5 className="font-bold text-xl text-gray-900">
-                  Chatbot name
+                  {chatbotName || "Chatbot name"}
                 </h5>
                 <div className="flex flex-row gap-2.5 items-center">
                   <Image src={ellipse} alt="onlineEllipseIcon" />
@@ -85,7 +133,7 @@ function Step2({ register }: stepProps) {
                 className="bg-white text-black shadow-lg"
                 type="user"
               >
-                Welcome message
+                {chatbotWelcomeMessage || "Welcome Message"}
               </QueryContainer>
               <QueryContainer
                 className="bg-white text-black shadow-lg "

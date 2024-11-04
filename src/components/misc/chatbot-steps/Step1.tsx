@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
 import CustomInput from "@/components/form-elements/CustomInput";
+import { useDispatch, UseDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
 interface stepProps {
@@ -13,6 +14,8 @@ interface stepProps {
 function Step1({ register }: stepProps) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
   const [step, setStep] = useState<number | null>(1);
+
+  const dispatch = useDispatch();
 
   const handleFileUpload = (file: File) => {
     if (file) {
