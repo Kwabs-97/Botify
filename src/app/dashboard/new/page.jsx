@@ -7,15 +7,12 @@ import Step1 from "@/components/misc/chatbot-steps/Step1";
 import Step2 from "@/components/misc/chatbot-steps/Step2";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 function Page() {
   //step state
   const [step, setStep] = useState(1);
   const totalSteps = 2;
-
-  //file state
-  const [detectedFiles, setDetectedFiles] = useState(null);
 
   //handle steps
   const handleNextStep = () => {
@@ -29,10 +26,14 @@ function Page() {
   const { formState, register, handleSubmit } = useForm();
   const { isSubmitting } = formState;
 
-  //submitting state
-  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // console.log(data);
+    try {
+      const result = await axios.post("/api/routes/new", data);
+      console.log(result.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //handle finish
@@ -43,7 +44,13 @@ function Page() {
   //routing
   const router = useRouter();
   return (
-    <div className="flex flex-col w-full h-full overflow-hidden gap-5">
+    <div
+      initial={{ x: "-100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col w-full h-full overflow-hidden gap-5"
+    >
       {/* Header */}
       <div className="header py-6 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
