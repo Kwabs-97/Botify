@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import ReduxProvider from "@/lib/Providers/ReduxProvider";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -24,14 +25,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={gellixRegular.className}
-        suppressHydrationWarning={true}
-        suppressContentEditableWarning
-      >
-        {children}
-      </body>
-    </html>
+    <ReduxProvider>
+      <html lang="en">
+        <body
+          className={gellixRegular.className}
+          suppressHydrationWarning={true}
+          suppressContentEditableWarning
+        >
+          {children}
+        </body>
+      </html>
+    </ReduxProvider>
   );
 }
