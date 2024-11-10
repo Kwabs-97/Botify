@@ -9,7 +9,9 @@ export default function Hero() {
     <Container className="gap-20">
       <div className="flex flex-col gap-6 justify-center items-center max-w-[600px]">
         <section>
-          <Header1>Build AI-Powered Chatbot in minutes</Header1>
+          <Header1 className="text-white">
+            Build AI-Powered Chatbot in minutes
+          </Header1>
         </section>
         <section>
           <p className="text-center text-gray-300 ">
