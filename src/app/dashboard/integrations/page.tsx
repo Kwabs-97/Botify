@@ -1,5 +1,4 @@
 "use client";
-import CustomInput from "@/components/form-elements/CustomInput";
 import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 
@@ -12,7 +11,6 @@ function Page() {
   return (
     <div>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <CustomInput name="example" register={register} />
         <button>submit</button>
       </form>
     </div>
