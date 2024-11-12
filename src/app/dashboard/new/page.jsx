@@ -27,20 +27,18 @@ function Page() {
   };
 
   //form-handling
-  const { formState, register, handleSubmit } = useForm({});
+  const { formState, register, handleSubmit, setValue } = useForm({});
   const { isSubmitting } = formState;
 
-  //submitting state
-  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const onSubmit = async (data) => {
     console.log(data);
-    try {
-      const res = await axios.post("/api/routes/new", data);
-      console.log(res);
-    } catch (error) {
-      console.log("error creating new chatbot", error);
-    }
-    console.log(data);
+    // try {
+    //   const res = await axios.post("/api/routes/new", data);
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log("error creating new chatbot", error);
+    // }
+    // console.log(data);
   };
 
   //handle finish

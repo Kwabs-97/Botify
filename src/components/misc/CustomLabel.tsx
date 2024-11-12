@@ -11,7 +11,7 @@ interface LabelProps {
 
 function CustomLabel({ htmlFor, children }: LabelProps) {
   return (
-    <div className="flex flex-row items-center justify-between ">
+    <div className="flex flex-row items-center justify-between hover:cursor-pointer ">
       <Label htmlFor={htmlFor}>{children}</Label>
       <div className="flex flex-row gap-2.5">
         <Image src={sparksIcon} alt="icon" />

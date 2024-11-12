@@ -7,11 +7,13 @@ export interface ChatbotDataInterface {
   chatbotName: string;
   chatbotWelcomeMessage: string;
   chatbotFallbackMessage: string;
+  chatbotWebsiteLink: string;
 }
 
 const initialState: ChatbotDataInterface = {
   collectUserEmail: false,
   chatbotName: "",
+  chatbotWebsiteLink: "",
   chatbotFallbackMessage: "",
   chatbotWelcomeMessage: "",
 };
@@ -22,6 +24,9 @@ export const detailsSlice = createSlice({
   reducers: {
     setCollectUsersEmail: (state, action: PayloadAction<boolean>) => {
       state.collectUserEmail = action.payload;
+    },
+    setWebsiteLink: (state, action: PayloadAction<string>) => {
+      state.chatbotWebsiteLink = action.payload;
     },
     setChatbotName: (state, action: PayloadAction<string>) => {
       state.chatbotName = action.payload;
@@ -39,6 +44,7 @@ export const {
   setCollectUsersEmail,
   setChatbotFallbackMessage,
   setChatbotName,
+  setWebsiteLink,
   setChatbotWelcomeMessage,
 } = detailsSlice.actions;
 

@@ -11,17 +11,17 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     console.log(body);
 
-    const chatbotData: ChatbotDataInterface = {
-      chatbot_name: body.chatbot_name as string,
-      welcome_message: body.welcome_message as string,
-      fallback_message: body.fallback_message as string,
-      lastTrained: body.lastTrained as Date,
-      isVisible: body.isVisible as boolean,
-      collectUserEmail: body.collectUserEmail as boolean,
-      // Add other properties as needed
-    };
+    // const chatbotData: ChatbotDataInterface = {
+    //   chatbot_name: body.chatbot_name as string,
+    //   welcome_message: body.welcome_message as string,
+    //   fallback_message: body.fallback_message as string,
+    //   lastTrained: body.lastTrained as Date,
+    //   isVisible: body.isVisible as boolean,
+    //   collectUserEmail: body.collectUserEmail as boolean,
+    //   // Add other properties as needed
+    // };
 
-    await createChatbot(chatbotData);
+    // await createChatbot(chatbotData);
 
     return NextResponse.json({ message: "success" }, { status: 200 });
   } catch (error) {

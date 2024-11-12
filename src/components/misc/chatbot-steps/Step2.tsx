@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import CustomInput from "@/components/form-elements/CustomInput";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -17,12 +17,16 @@ import {
   setChatbotFallbackMessage,
   setChatbotWelcomeMessage,
 } from "@/redux/features/collectDetails/detailsSlice";
+import Input from "@/components/ui/input";
+import Textarea from "@/components/ui/textarea";
 
 interface stepProps {
   register: (name: string) => object;
 }
 function Step2({ register }: stepProps) {
   const [collectUsersEmail, setCollectUsersEmail] = React.useState(false);
+  //setting debouncing..
+  const [timeoutId, setTimeoutId] = useState<number>();
   function handleSwitch(checked: boolean) {
     setCollectUsersEmail(checked);
   }
@@ -50,7 +54,7 @@ function Step2({ register }: stepProps) {
           <p className="text-gray-600">Fine tune your chatbot</p>
         </div>
         <div className="flex flex-col gap-4 ">
-          <CustomInput
+          {/* <CustomInput
             name="chatbot_name"
             register={register}
             placeholder="Enter the name of your chatbot"
@@ -59,35 +63,29 @@ function Step2({ register }: stepProps) {
               console.log(e.target.value);
               dispatch(setChatbotName(e.target.value));
             }}
+          /> */}
+
+          <Input
+            name="chatbot_name"
+            register={register}
+            label="Chatbot Name"
+            placeholder="Enter the name of your chatbot"
+            className="w-full text-black"
           />
 
-          <CustomInput
-            labelWithAutogenerate
+          <Textarea
             register={register}
             name="welcome_message"
-            textarea
-            customLabel="Customize your welcome message"
-            placeholder="Enter the name of your chatbot"
-            onChangeForTextArea={(
-              e: React.ChangeEvent<HTMLTextAreaElement>
-            ) => {
-              dispatch(setChatbotWelcomeMessage(e.target.value ?? ""));
-              console.log(e.target.value);
-            }}
-          />
-          <CustomInput
+            label="Customize your welcome message"
             labelWithAutogenerate
-            textarea
+            placeholder="Enter your welcome message"
+          />
+          <Textarea
             register={register}
             name="fallback_message"
-            onChangeForTextArea={(
-              e: React.ChangeEvent<HTMLTextAreaElement>
-            ) => {
-              dispatch(setChatbotFallbackMessage(e.target.value ?? ""));
-              console.log(e.target.value);
-            }}
-            customLabel="Customize your fallback message"
-            placeholder="Enter message to show when the chatbot cannot provide a response"
+            label="Customize your fallback message"
+            labelWithAutogenerate
+            placeholder="Enter your fallback message"
           />
 
           <div className="flex flex-row justify-between w-full p-3 border border-gray-200 rounded-lg">

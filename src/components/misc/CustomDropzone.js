@@ -68,7 +68,7 @@ const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
   }, [selectedFile]);
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-[500px]">
       {/* Dropzone */}
       <div
         className={`border-2 border-dashed rounded-lg p-6 mb-4

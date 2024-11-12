@@ -1,51 +1,78 @@
+"use client";
 import * as React from "react";
-
+import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+import CustomLabel from "../misc/CustomLabel";
+import { Label } from "./label";
 
 interface InputProps {
   className?: string;
   type?: string;
+  name: string;
   id?: string;
+  label?: React.ReactNode;
   placeholder?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  inputProps?: object;
+  labelWithAutogenerate?: React.ReactNode;
+  iconSrc?: string;
+  register?: (name: string) => object;
   onFocus?: () => void;
+  customLabel?: React.ReactNode;
   onBlur?: () => void;
 }
 
-const Input = React.forwardRef(
-  (
-    {
-      className,
-      type,
-      onFocus,
-      onBlur,
-      onChange,
-      inputProps,
-      placeholder,
-      ...props
-    }: InputProps,
-    ref: React.Ref<HTMLInputElement>
-  ) => {
-    return (
-      <input
-        onFocus={onFocus}
-        type={type}
-        id={props.id}
-        onBlur={onBlur}
-        onChange={onChange}
-        placeholder={placeholder}
+const Input = ({
+  className,
+  label,
+  type,
+  name,
+  register,
+  onFocus,
+  labelWithAutogenerate,
+  onBlur,
+  customLabel,
+  iconSrc,
+  placeholder,
+  ...props
+}: InputProps) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  return (
+    <div className="flex flex-col gap-2">
+      {label && <Label>{label}</Label>}
+      {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
+
+      <div
         className={cn(
-          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-normal file:text-foreground placeholder:text-sm placeholder:text-gray-400  disabled:cursor-not-allowed disabled:opacity-50",
+          `flex flex-row rounded-lg border px-4  bg-gray-50 min-h-[50px] border-lightGray items-center justify-between duration-100 ${
+            isFocused ? "border-2 border-blue-500" : ""
+          }`,
           className
         )}
-        ref={ref}
-        {...props}
-        {...inputProps}
-      />
-    );
-  }
-);
-Input.displayName = "Input";
+      >
+        <input
+          type={type}
+          {...register?.(name)}
+          id={props.id}
+          name={name !== undefined ? name : ""}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder={placeholder}
+          className={cn(
+            "border-none h-full w-full text-gray-900 bg-transparent focus:outline-none",
+            className
+          )}
+          {...props}
+        />
 
-export { Input };
+        {iconSrc && (
+          <div className="px-2">
+            <Image src={iconSrc} alt="icon" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Input;
