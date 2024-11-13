@@ -1,6 +1,5 @@
 "use client";
 import { Avatar } from "@/assets/icons";
-import CustomInput from "@/components/form-elements/CustomInput";
 import CustomButton from "@/components/form-elements/CustomButton";
 import { Search, Plus } from "@/assets/icons";
 import AddChatbotCard from "@/components/misc/AddChatbotCard";
@@ -9,6 +8,7 @@ import Image from "next/image";
 import { AIAssitant } from "@/assets/icons";
 import { useState } from "react";
 import Link from "next/link";
+import Input from "@/components/ui/input";
 
 function Page() {
   const [start, setStart] = useState(false);
@@ -31,11 +31,7 @@ function Page() {
         <div className="flex flex-col gap-6">
           {/* Search box */}
           <div className="search flex flex-row justify-between">
-            <CustomInput
-              type="search"
-              placeholder="Search..."
-              iconSrc={Search}
-            />
+            <Input type="search" placeholder="Search..." iconSrc={Search} />
             <CustomButton iconSrc={Plus}>Add Chatbot</CustomButton>
           </div>
           {/* Add chatbot */}

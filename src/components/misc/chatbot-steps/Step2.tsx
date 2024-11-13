@@ -1,22 +1,12 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import CustomInput from "@/components/form-elements/CustomInput";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
 import { chatIcon, ellipse } from "@/assets/icons";
 import QueryContainer from "@/components/misc/QueryContainer";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
 
-import {
-  selectChatbotFallbackMessage,
-  selectChatbotName,
-  selectChatbotWelcomeMessage,
-  setChatbotName,
-  setChatbotFallbackMessage,
-  setChatbotWelcomeMessage,
-} from "@/redux/features/collectDetails/detailsSlice";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 
@@ -34,11 +24,6 @@ function Step2({ register }: stepProps) {
   useEffect(() => {
     register("collectUsersEmail");
   });
-
-  const dispatch = useDispatch();
-  const chatbotName = useSelector(selectChatbotName);
-  const chatbotWelcomeMessage = useSelector(selectChatbotWelcomeMessage);
-  const ChatbotFallbackMessage = useSelector(selectChatbotFallbackMessage);
 
   return (
     <motion.div
@@ -114,7 +99,7 @@ function Step2({ register }: stepProps) {
               </div>
               <div className="flex flex-col ">
                 <h5 className="font-bold text-xl text-gray-900">
-                  {chatbotName || "Chatbot name"}
+                  Chatbot Name
                 </h5>
                 <div className="flex flex-row gap-2.5 items-center">
                   <Image src={ellipse} alt="onlineEllipseIcon" />
@@ -131,7 +116,7 @@ function Step2({ register }: stepProps) {
                 className="bg-white text-black shadow-lg"
                 type="user"
               >
-                {chatbotWelcomeMessage || "Welcome Message"}
+                Welcome Message
               </QueryContainer>
               <QueryContainer
                 className="bg-white text-black shadow-lg "

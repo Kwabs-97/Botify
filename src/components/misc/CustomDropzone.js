@@ -63,9 +63,9 @@ const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
     onFileDelete(selectedFile);
   };
 
-  useEffect(() => {
-    console.log(selectedFile);
-  }, [selectedFile]);
+  // useEffect(() => {
+  //   console.log(selectedFile);
+  // }, [selectedFile]);
 
   return (
     <div className="w-full max-w-[500px]">

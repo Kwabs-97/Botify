@@ -4,7 +4,6 @@ import CustomDropzone from "../CustomDropzone";
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
-import CustomInput from "@/components/form-elements/CustomInput";
 import { motion } from "framer-motion";
 
 import { useAppSelector } from "@/hooks/hooks";
@@ -25,9 +24,6 @@ function Step1({ register }: stepProps) {
     setDetectedFiles(0);
   };
 
-  const websiteLink = useAppSelector(
-    (state) => state.details.chatbotWebsiteLink
-  );
   return (
     <motion.div
       className="flex flex-row gap-8  flex-grow overflow-hidden"

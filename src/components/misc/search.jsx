@@ -1,9 +1,9 @@
 import React from "react";
-import CustomInput from "../form-elements/CustomInput";
 import { Search } from "@/assets/icons";
+import Input from "../ui/input";
 
 function SearchIcon() {
-  return <CustomInput iconSrc={Search} placeholder="Search ..." />;
+  return <Input iconSrc={Search} placeholder="Search ..." />;
 }
 
 export default SearchIcon;
