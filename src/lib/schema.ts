@@ -6,5 +6,5 @@ export const chatbotSchema = z.object({
     .string()
     .min(1, { message: "Welcome message is required" }),
   fallback_message: z.string().optional(),
-  website_link: z.string().url().optional(),
+  website_url: z.string().url().optional(),
 });

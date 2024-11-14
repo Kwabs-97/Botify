@@ -6,9 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
 import { motion } from "framer-motion";
 
-import { useAppSelector } from "@/lib/hooks";
 import Input from "@/components/ui/input";
-import { error } from "console";
 interface stepProps {
   errors?: { [key: string]: { message: string } | undefined };
 
@@ -63,9 +61,9 @@ function Step1({ register, errors }: stepProps) {
           <section className="flex flex-col gap-2">
             <Input
               label="Website link"
-              name="website_link"
+              name="website_url"
               register={register}
-              errors={{ website_link: errors?.website_link }}
+              errors={{ website_url: errors?.website_url }}
               className="min-h-[50px]"
               placeholder="Enter website url"
               iconSrc={search_right}

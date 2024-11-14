@@ -1,27 +1,16 @@
 import { NextResponse, NextRequest } from "next/server";
-import {
-  ChatbotDataInterface,
-  createChatbot,
-} from "../../models/chatbot.model";
+import { createChatbot } from "../../models/chatbot.model";
+import { ChatbotDataInterface } from "@/app/types";
 
 export async function POST(req: NextRequest) {
+  if (!req.body) {
+    return NextResponse.json({ message: "no body" }, { status: 400 });
+  }
   try {
-    // const formData = await req.formData(); // Use formData to handle URL-encoded data
-    // const body = Object.fromEntries(formData); // Convert form data to an object
     const body = await req.json();
-    console.log(body);
-
-    // const chatbotData: ChatbotDataInterface = {
-    //   chatbot_name: body.chatbot_name as string,
-    //   welcome_message: body.welcome_message as string,
-    //   fallback_message: body.fallback_message as string,
-    //   lastTrained: body.lastTrained as Date,
-    //   isVisible: body.isVisible as boolean,
-    //   collectUserEmail: body.collectUserEmail as boolean,
-    //   // Add other properties as needed
-    // };
-
-    // await createChatbot(chatbotData);
+    // console.log(body);
+    const chatbotData: ChatbotDataInterface = body;
+    const result = await createChatbot(chatbotData);
 
     return NextResponse.json({ message: "success" }, { status: 200 });
   } catch (error) {

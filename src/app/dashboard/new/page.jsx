@@ -30,13 +30,13 @@ function Page() {
 
   const onSubmit = async (data) => {
     console.log(data);
-    // try {
-    //   const res = await axios.post("/api/routes/new", data);
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log("error creating new chatbot", error);
-    // }
-    // console.log(data);
+    try {
+      const res = await axios.post("/api/routes/new", data);
+      console.log(res);
+    } catch (error) {
+      console.log("error creating new chatbot", error);
+    }
+    console.log(data);
   };
   //handle steps
   const handleNextStep = () => {

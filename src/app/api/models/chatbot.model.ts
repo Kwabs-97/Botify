@@ -1,14 +1,6 @@
 import { NextResponse } from "next/server";
 import pool from "../config/db";
-
-export interface ChatbotDataInterface {
-  chatbot_name: string;
-  welcome_message: string;
-  fallback_message: string;
-  lastTrained?: Date;
-  isVisible?: boolean;
-  collectUserEmail?: boolean;
-}
+import { ChatbotDataInterface } from "@/app/types";
 
 export const getChatbotById = async (id: string) => {
   const res = await pool.query(
@@ -34,7 +26,7 @@ export const createChatbot = async (chatbotData: ChatbotDataInterface) => {
 
     const { chatbot_name, fallback_message, welcome_message } = chatbotData;
     const result = await pool.query(
-      "INSERT INTO chatbot_details (chatbot_name, welcome_message, fallback_message) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO details (name, welcome_message, fallback_message) VALUES ($1, $2, $3) RETURNING *",
       [chatbot_name, welcome_message, fallback_message]
     );
 
