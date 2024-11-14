@@ -11,7 +11,7 @@ export async function GET() {
     }
 
     return NextResponse.json(
-      { message: "chatbots fetched successfully" },
+      { message: "chatbots fetched successfully", chatbots: res },
       { status: 200 }
     );
   } catch (error) {

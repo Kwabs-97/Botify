@@ -12,10 +12,14 @@ export const getChatbotById = async (id: string) => {
 };
 
 export const getAllChatbots = async () => {
-  const res = await pool.query("SELECT * FROM chatbot_details");
-  const chatbots = res.rows;
-  if (!chatbots) return null;
-  return chatbots;
+  try {
+    const res = await pool.query("SELECT * FROM details");
+    const chatbots = res.rows;
+    if (!chatbots) return null;
+    return chatbots;
+  } catch (error) {
+    console.log(error, "Error fetching all chatbots");
+  }
 };
 
 export const createChatbot = async (chatbotData: ChatbotDataInterface) => {
