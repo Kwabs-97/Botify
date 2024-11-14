@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import { Label } from "./label";
 import CustomLabel from "../misc/CustomLabel";
 
-interface TextAreaProps {
+interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   name: string;
   label?: React.ReactNode;
@@ -15,6 +16,13 @@ interface TextAreaProps {
   placeholder?: string;
   onFocus?: () => void;
   onBlur?: () => void;
+  errors?: {
+    [key: string]:
+      | {
+          message: string;
+        }
+      | undefined;
+  };
   customLabel?: React.ReactNode;
 }
 
@@ -28,6 +36,7 @@ const Textarea = ({
   customLabel,
   labelWithAutogenerate,
   onChange,
+  errors,
   onBlur,
   ...props
 }: TextAreaProps) => {
@@ -59,6 +68,11 @@ const Textarea = ({
           {...props}
         />
       </div>
+      {errors && (
+        <p className="text-red-500 text-sm font-normal">
+          {errors[name]?.message}
+        </p>
+      )}
     </div>
   );
 };

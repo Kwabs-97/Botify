@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { chatbotSchema } from "@/lib/schema";
 
 function Page() {
   //step state
@@ -18,17 +19,14 @@ function Page() {
   //file state
   const [detectedFiles, setDetectedFiles] = useState(null);
 
-  //handle steps
-  const handleNextStep = () => {
-    setStep((prevStep) => Math.min(prevStep + 1, totalSteps));
-  };
-  const handlePrevStep = () => {
-    setStep((prevStep) => Math.max(prevStep - 1, 1));
-  };
-
   //form-handling
-  const { formState, register, handleSubmit, setValue } = useForm({});
-  const { isSubmitting } = formState;
+  const {
+    formState: { errors, isSubmitting },
+    register,
+    handleSubmit,
+  } = useForm({
+    resolver: zodResolver(chatbotSchema),
+  });
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -39,6 +37,13 @@ function Page() {
     //   console.log("error creating new chatbot", error);
     // }
     // console.log(data);
+  };
+  //handle steps
+  const handleNextStep = () => {
+    setStep((prevStep) => Math.min(prevStep + 1, totalSteps));
+  };
+  const handlePrevStep = () => {
+    setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   //handle finish
@@ -69,8 +74,8 @@ function Page() {
       {/* <Step2 /> */}
       <div className="flex-grow px-12">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {step === 1 && <Step1 register={register} />}
-          {step === 2 && <Step2 register={register} />}
+          {step === 1 && <Step1 register={register} errors={errors} />}
+          {step === 2 && <Step2 register={register} errors={errors} />}
         </form>
       </div>
 

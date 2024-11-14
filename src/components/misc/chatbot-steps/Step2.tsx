@@ -11,12 +11,12 @@ import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 
 interface stepProps {
+  errors?: { [key: string]: { message: string } | undefined };
   register: (name: string) => object;
 }
-function Step2({ register }: stepProps) {
+function Step2({ register, errors }: stepProps) {
   const [collectUsersEmail, setCollectUsersEmail] = React.useState(false);
-  //setting debouncing..
-  const [timeoutId, setTimeoutId] = useState<number>();
+
   function handleSwitch(checked: boolean) {
     setCollectUsersEmail(checked);
   }
@@ -38,7 +38,7 @@ function Step2({ register }: stepProps) {
           <h3 className="text-gray-900 font-bold text-2xl">Chatbot Details</h3>
           <p className="text-gray-600">Fine tune your chatbot</p>
         </div>
-        <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-2 ">
           {/* <CustomInput
             name="chatbot_name"
             register={register}
@@ -52,6 +52,7 @@ function Step2({ register }: stepProps) {
 
           <Input
             name="chatbot_name"
+            errors={{ chatbot_name: errors?.chatbot_name }}
             register={register}
             label="Chatbot Name"
             placeholder="Enter the name of your chatbot"
@@ -59,6 +60,7 @@ function Step2({ register }: stepProps) {
 
           <Textarea
             register={register}
+            errors={{ welcome_message: errors?.welcome_message }}
             name="welcome_message"
             label="Customize your welcome message"
             labelWithAutogenerate
@@ -67,6 +69,7 @@ function Step2({ register }: stepProps) {
           <Textarea
             register={register}
             name="fallback_message"
+            errors={{ fallback_message: errors?.fallback_message }}
             label="Customize your fallback message"
             labelWithAutogenerate
             placeholder="Enter your fallback message"

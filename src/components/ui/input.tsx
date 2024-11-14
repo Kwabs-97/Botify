@@ -16,41 +16,45 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   customLabel?: React.ReactNode;
   onFocus?: () => void;
   onBlur?: () => void;
+  errors?: {
+    [key: string]:
+      | {
+          message: string;
+        }
+      | undefined;
+  };
 }
 
 const Input = ({
   label,
-
+  errors,
   register,
   onFocus,
+  className,
   onChange,
   labelWithAutogenerate,
   onBlur,
   customLabel,
   iconSrc,
-
   ...props
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {label && <Label>{label}</Label>}
       {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
 
       <div
         className={cn(
-          `flex flex-row rounded-lg border px-4 bg-gray-50 min-h-[50px] border-lightGray items-center justify-between duration-100 ${
+          `flex flex-row rounded-lg border px-4 bg-gray-50 min-h-[40px] border-lightGray items-center justify-between duration-100 ${
             isFocused ? "border-2 border-blue-500" : ""
           }`,
-          props.className
+          className
         )}
       >
         <input
-          className={cn(
-            "border-none h-full w-full text-gray-900 bg-transparent outline-none placeholder:text-gray-400",
-            props.className
-          )}
+          className="border-none h-full w-full text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
           {...register?.(props.name)}
           onFocus={() => {
             setIsFocused(true);
@@ -69,6 +73,11 @@ const Input = ({
           </div>
         )}
       </div>
+      {errors?.[props.name]?.message && (
+        <p className="text-red-500 text-sm font-normal">
+          {errors[props.name]?.message}
+        </p>
+      )}
     </div>
   );
 };

@@ -8,10 +8,13 @@ import { motion } from "framer-motion";
 
 import { useAppSelector } from "@/lib/hooks";
 import Input from "@/components/ui/input";
+import { error } from "console";
 interface stepProps {
+  errors?: { [key: string]: { message: string } | undefined };
+
   register: (name: string) => object;
 }
-function Step1({ register }: stepProps) {
+function Step1({ register, errors }: stepProps) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
   const [step, setStep] = useState<number | null>(1);
 
@@ -62,6 +65,8 @@ function Step1({ register }: stepProps) {
               label="Website link"
               name="website_link"
               register={register}
+              errors={{ website_link: errors?.website_link }}
+              className="min-h-[50px]"
               placeholder="Enter website url"
               iconSrc={search_right}
             />
