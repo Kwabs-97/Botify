@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
 import { motion } from "framer-motion";
 
-import { useAppSelector } from "@/hooks/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import Input from "@/components/ui/input";
 interface stepProps {
   register: (name: string) => object;

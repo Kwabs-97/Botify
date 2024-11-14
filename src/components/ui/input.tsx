@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import { useState } from "react";
 import Image from "next/image";
@@ -6,33 +5,30 @@ import { cn } from "@/lib/utils";
 import CustomLabel from "../misc/CustomLabel";
 import { Label } from "./label";
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
-  type?: string;
+  type?: "text" | "email" | "password" | "number";
   name: string;
-  id?: string;
   label?: React.ReactNode;
-  placeholder?: string;
   labelWithAutogenerate?: React.ReactNode;
   iconSrc?: string;
   register?: (name: string) => object;
-  onFocus?: () => void;
   customLabel?: React.ReactNode;
+  onFocus?: () => void;
   onBlur?: () => void;
 }
 
 const Input = ({
-  className,
   label,
-  type,
-  name,
+
   register,
   onFocus,
+  onChange,
   labelWithAutogenerate,
   onBlur,
   customLabel,
   iconSrc,
-  placeholder,
+
   ...props
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -44,24 +40,26 @@ const Input = ({
 
       <div
         className={cn(
-          `flex flex-row rounded-lg border px-4  bg-gray-50 min-h-[50px] border-lightGray items-center justify-between duration-100 ${
+          `flex flex-row rounded-lg border px-4 bg-gray-50 min-h-[50px] border-lightGray items-center justify-between duration-100 ${
             isFocused ? "border-2 border-blue-500" : ""
           }`,
-          className
+          props.className
         )}
       >
         <input
-          type={type}
-          {...register?.(name)}
-          id={props.id}
-          name={name !== undefined ? name : ""}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          placeholder={placeholder}
           className={cn(
-            "border-none h-full w-full text-gray-900 bg-transparent focus:outline-none",
-            className
+            "border-none h-full w-full text-gray-900 bg-transparent outline-none placeholder:text-gray-400",
+            props.className
           )}
+          {...register?.(props.name)}
+          onFocus={() => {
+            setIsFocused(true);
+            onFocus?.();
+          }}
+          onBlur={() => {
+            setIsFocused(false);
+            onBlur?.();
+          }}
           {...props}
         />
 

@@ -55,7 +55,6 @@ function Step2({ register }: stepProps) {
             register={register}
             label="Chatbot Name"
             placeholder="Enter the name of your chatbot"
-            className="w-full text-black"
           />
 
           <Textarea

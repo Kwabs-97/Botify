@@ -29,7 +29,6 @@ const Textarea = ({
   labelWithAutogenerate,
   onChange,
   onBlur,
-
   ...props
 }: TextAreaProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
