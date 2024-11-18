@@ -42,20 +42,20 @@ const Input = ({
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 w-full">
       {label && <Label>{label}</Label>}
       {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
 
       <div
         className={cn(
-          `flex flex-row rounded-lg border px-4 bg-gray-50 min-h-[40px] border-lightGray items-center justify-between duration-100 ${
+          `flex flex-row rounded-lg border  bg-gray-50 min-h-[40px] border-lightGray items-center justify-between duration-100 ${
             isFocused ? "border-2 border-blue-500" : ""
           }`,
           className
         )}
       >
         <input
-          className="border-none h-full w-full text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
+          className="border-none h-full w-full px-4 py-3 text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
           {...register?.(props.name)}
           onFocus={() => {
             setIsFocused(true);

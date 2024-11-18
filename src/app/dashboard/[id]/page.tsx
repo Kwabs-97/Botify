@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MoveLeft } from "lucide-react";
 import CustomButton from "@/components/form-elements/CustomButton";
 import Chatbot from "@/components/misc/chatbot/chatbot";
+import Playground from "@/components/misc/chatbot/playground";
 const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
   try {
   } catch (error) {}
@@ -85,7 +86,9 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
         </div>
 
         {/*Chatbot playground */}
-        <div className="flex-1"></div>
+        <div className="flex-1">
+          <Playground />
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface QueryContainerProps {
   children: React.ReactNode | string;
   className?: string;
-  type?: "user" | string;
+  type?: "user" | "bot" | string;
 }
 function QueryContainer({ children, className, type }: QueryContainerProps) {
   return (

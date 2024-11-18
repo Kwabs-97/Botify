@@ -43,4 +43,12 @@ body {
   .h4 {
     @apply text-2xl leading-8;
   }
+
+  .h5 {
+    @apply font-bold text-lg text-gray-900
+  }
+
+  .regular {
+    @apply font-normal text-base text-black
+  }
 }
