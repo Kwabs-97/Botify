@@ -5,7 +5,7 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator";
 
 import { cn } from "@/lib/utils";
 interface SeparatorProps {
-  className: string;
+  className?: string;
   orientation?: "horizontal" | "vertical";
   decorative?: boolean;
 }

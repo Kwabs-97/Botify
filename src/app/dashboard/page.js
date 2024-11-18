@@ -13,7 +13,7 @@ import axios from "axios";
 import ChatbotCard from "@/components/misc/ChatbotCard";
 import { useRouter } from "next/navigation";
 
-function Page() {
+function Page({ params }) {
   const [isLoading, setIsLoading] = useState(false);
   const [chatbots, setChatbots] = useState([]);
   const router = useRouter();
@@ -31,13 +31,23 @@ function Page() {
     };
     fetchBots();
   }, [setChatbots]); // Re-run the effect when setChatbots changes
+  const handleNavigation = () => {
+    router.push(
+      `dashboard/${chatbots.map((chatbot) => {
+        return chatbot.id;
+      })}`
+    );
+  };
   const displayChatbots = chatbots.map((chatbot) => (
-    <ChatbotCard key={chatbot.id}>{chatbot.name}</ChatbotCard>
+    <ChatbotCard key={chatbot.id} handleNavigation={handleNavigation}>
+      {chatbot.name}
+    </ChatbotCard>
   ));
 
   const hanldeAddChatbot = () => {
     router.push("/dashboard/new");
   };
+
   return (
     <div className="flex flex-col gap-6 w-full min-h-screen bg-gray-50">
       <div className="header py-8 px-12 border-b border-b-gray-200">
@@ -75,7 +85,7 @@ function Page() {
       </div>
 
       {/* Flexbox positioning for bottom-right */}
-      <div className="flex flex-col items-center gap-4 self-end px-12 pb-8">
+      {/* <div className="flex flex-col items-center gap-4 self-end px-12 pb-8">
         <QueryContainer type="chatbot">
           👋 Hello I am Boti, ask me anything about Botify!
         </QueryContainer>
@@ -85,7 +95,7 @@ function Page() {
         <Link className="self-end hover:cursor-pointer" href="/dashboard/boti">
           <Image src={AIAssitant} alt="icon" />
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

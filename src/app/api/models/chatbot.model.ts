@@ -3,10 +3,7 @@ import pool from "../config/db";
 import { ChatbotDataInterface } from "@/app/types";
 
 export const getChatbotById = async (id: string) => {
-  const res = await pool.query(
-    "SELECT * FROM chatbot_details WHERE id === $1",
-    [id]
-  );
+  const res = await pool.query("SELECT * FROM details WHERE id === $1", [id]);
   if (!res.rows) return null;
   return res.rows;
 };
