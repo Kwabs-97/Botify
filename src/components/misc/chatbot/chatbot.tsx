@@ -62,7 +62,7 @@ function Chatbot() {
       {/*Separator */}
 
       <Separator className="bg-gray-100" />
-      <div className="2xl:h-28 2xl:bg-green-400 2xl:overflow-y-scroll">
+      <div className="">
         <form action="" className="">
           <div className="flex flex-col gap-2 ">
             <Input

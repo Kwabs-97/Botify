@@ -5,6 +5,8 @@ import { MoveLeft } from "lucide-react";
 import CustomButton from "@/components/form-elements/CustomButton";
 import Chatbot from "@/components/misc/chatbot/chatbot";
 import Playground from "@/components/misc/chatbot/playground";
+import DataSource from "@/components/misc/chatbot/data-source";
+import Settings from "@/components/misc/chatbot/settings";
 const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
   try {
   } catch (error) {}
@@ -83,6 +85,12 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
               <Chatbot />
             </div>
           )}
+          {activeStep === "Data Sources" && (
+            <div>
+              <DataSource />
+            </div>
+          )}
+          {activeStep === "Settings" && <Settings />}
         </div>
 
         {/*Chatbot playground */}

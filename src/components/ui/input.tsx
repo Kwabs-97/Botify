@@ -42,7 +42,7 @@ const Input = ({
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex flex-col gap-1">
       {label && <Label>{label}</Label>}
       {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
 

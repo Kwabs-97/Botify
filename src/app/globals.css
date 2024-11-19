@@ -20,7 +20,6 @@ body {
   background: var(--basic);
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
-
 }
 
 @layer utilities {
@@ -41,14 +40,14 @@ body {
   }
 
   .h4 {
-    @apply text-2xl leading-8;
+    @apply text-2xl leading-8 font-bold;
   }
 
   .h5 {
-    @apply font-bold text-lg text-gray-900
+    @apply font-bold text-lg text-gray-900;
   }
 
   .regular {
-    @apply font-normal text-base text-black
+    @apply font-normal text-base text-black;
   }
 }
