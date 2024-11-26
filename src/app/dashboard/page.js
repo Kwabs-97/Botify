@@ -12,11 +12,13 @@ import Input from "@/components/ui/input";
 import axios from "axios";
 import ChatbotCard from "@/components/misc/ChatbotCard";
 import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 function Page({ params }) {
   const [isLoading, setIsLoading] = useState(false);
   const [chatbots, setChatbots] = useState([]);
   const router = useRouter();
+
   useEffect(() => {
     const fetchChatBots = async () => {
       try {
@@ -25,26 +27,20 @@ function Page({ params }) {
         console.log(res.data.chatbots);
         setChatbots(res.data.chatbots);
       } catch (error) {
+        console.error("Failed to fetch chatbots:", error);
+      } finally {
         setIsLoading(false);
-        console.log(error);
       }
     };
-    fetchChatBots();
-  }, [setChatbots]); // Re-run the effect when setChatbots changes
-  const handleNavigation = () => {
-    router.push(
-      `dashboard/${chatbots.map((chatbot) => {
-        return chatbot.id;
-      })}`
-    );
-  };
-  const displayChatbots = chatbots.map((chatbot) => (
-    <ChatbotCard key={chatbot.id} handleNavigation={handleNavigation}>
-      {chatbot.name}
-    </ChatbotCard>
-  ));
 
-  const hanldeAddChatbot = () => {
+    fetchChatBots();
+  }, []);
+
+  const handleNavigation = (id) => {
+    router.push(`dashboard/${id}`);
+  };
+
+  const handleAddChatbot = () => {
     router.push("/dashboard/new");
   };
 
@@ -68,34 +64,36 @@ function Page({ params }) {
           {/* Search box */}
           <div className="search flex flex-row justify-between">
             <Input type="search" placeholder="Search..." iconSrc={Search} />
-            <CustomButton onClick={hanldeAddChatbot} iconSrc={Plus}>
+            <CustomButton onClick={handleAddChatbot} iconSrc={Plus}>
               Add Chatbot
             </CustomButton>
           </div>
 
-          {/* Add chatbot */}
-          {chatbots ? (
-            displayChatbots
-          ) : (
-            <div className="add-chatbot w-full items-start">
-              <AddChatbotCard />
+          {/* Conditional rendering */}
+          {isLoading ? (
+            <div className="flex flex-row items-center justify-center w-full h-full">
+              <p className="text-gray-900">Loading chatbots...</p>
+              <LoadingSpinner className="text-gray-500" />
             </div>
+          ) : chatbots.length > 0 ? (
+            <div className="flex flex-row items-center gap-4 flex-wrap overflow-y-scroll max-h-[450px]">
+              {
+                // Display chatbots if available
+                chatbots.map((chatbot) => (
+                  <ChatbotCard
+                    key={chatbot.id}
+                    handleNavigation={() => handleNavigation(chatbot.id)}
+                  >
+                    {chatbot.name}
+                  </ChatbotCard>
+                ))
+              }
+            </div>
+          ) : (
+            ""
           )}
         </div>
       </div>
-
-      {/* Flexbox positioning for bottom-right */}
-      {/* <div className="flex flex-col items-center gap-4 self-end px-12 pb-8">
-        <QueryContainer type="chatbot">
-          👋 Hello I am Boti, ask me anything about Botify!
-        </QueryContainer>
-        <QueryContainer type="chatbot">
-          I will assist you create a chatbox like me
-        </QueryContainer>
-        <Link className="self-end hover:cursor-pointer" href="/dashboard/boti">
-          <Image src={AIAssitant} alt="icon" />
-        </Link>
-      </div> */}
     </div>
   );
 }
