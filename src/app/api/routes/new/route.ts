@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     // console.log(body);
     const chatbotData: ChatbotDataInterface = body;
+    console.log(chatbotData);
     const result = await createChatbot(chatbotData);
 
     return NextResponse.json({ message: "success" }, { status: 200 });
