@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { chatbotSchema } from "@/lib/schema";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 function Page() {
   //step state
@@ -104,8 +105,13 @@ function Page() {
                 step === 2 && handleFinish();
               }}
               disabled={step === totalSteps || isSubmitting}
-              className={`${step === 2 && "px-6"}`}
+              className={`${step === 2 && "px-6"} ${
+                isSubmitting
+                  ? "bg-gray-200 border-none text-white cursor-not-allowed"
+                  : ""
+              }`}
             >
+              {isSubmitting && <LoadingSpinner />}
               {step === 2 ? "Finish" : "Continue"}
             </CustomButton>
           </div>
