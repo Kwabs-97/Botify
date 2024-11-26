@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 function Settings() {
   return (
-    <div className="text-gray-900 overflow-y-scroll max-h-[600px] gap-6 flex flex-col">
+    <div className="text-gray-900 overflow-y-scroll max-h-[500px] gap-6 flex flex-col">
       <div className="flex flex-col gap-6">
         <div>
           <h3 className="h4 ">Appearance</h3>

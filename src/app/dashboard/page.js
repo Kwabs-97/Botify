@@ -18,7 +18,7 @@ function Page({ params }) {
   const [chatbots, setChatbots] = useState([]);
   const router = useRouter();
   useEffect(() => {
-    const fetchBots = async () => {
+    const fetchChatBots = async () => {
       try {
         setIsLoading(true);
         const res = await axios.get("api/routes/chatbots");
@@ -29,7 +29,7 @@ function Page({ params }) {
         console.log(error);
       }
     };
-    fetchBots();
+    fetchChatBots();
   }, [setChatbots]); // Re-run the effect when setChatbots changes
   const handleNavigation = () => {
     router.push(
