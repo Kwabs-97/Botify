@@ -90,7 +90,7 @@ function Page({ params }) {
               }
             </div>
           ) : (
-            ""
+            <AddChatbotCard />
           )}
         </div>
       </div>
