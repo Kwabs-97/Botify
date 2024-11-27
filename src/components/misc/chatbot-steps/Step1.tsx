@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import CustomDropzone from "../CustomDropzone";
+import CustomDropzone from "@/components/misc/CustomDropzone";
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
@@ -15,15 +15,6 @@ interface stepProps {
 function Step1({ register, errors }: stepProps) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
   const [step, setStep] = useState<number | null>(1);
-
-  const handleFileUpload = (file: File) => {
-    if (file) {
-      setDetectedFiles(1);
-    } else setDetectedFiles(0);
-  };
-  const handleFileDelete = (file: File) => {
-    setDetectedFiles(0);
-  };
 
   return (
     <motion.div
@@ -43,10 +34,7 @@ function Step1({ register, errors }: stepProps) {
         </section>
         <section>
           <p className="text-gray-600">Upload files</p>
-          <CustomDropzone
-            onFileUpload={handleFileUpload}
-            onFileDelete={handleFileDelete}
-          />
+          <CustomDropzone register={register} />
           <section className="flex flex-row gap-1 items-center">
             <Separator
               orientation="horizontal"

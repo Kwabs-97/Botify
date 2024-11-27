@@ -4,6 +4,7 @@ import React from "react";
 import { ArrowLeft, Ellipsis } from "lucide-react";
 import { Avatar } from "@/assets/icons";
 import { useRouter } from "next/navigation";
+import NavigateBack from "@/components/misc/ArrowLeft";
 
 function Page({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -13,12 +14,7 @@ function Page({ params }: { params: { id: string } }) {
       <div className="header py-8 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-4 items-center">
-            <button
-              className="text-gray-500 hover:cursor-pointer"
-              onClick={() => router.back()}
-            >
-              <ArrowLeft />
-            </button>
+            <NavigateBack />
             <h3 className="text-gray-900 text-2xl leading-8 font-bold">
               User ID
             </h3>

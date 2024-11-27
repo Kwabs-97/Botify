@@ -2,29 +2,19 @@
 import React, { useEffect, useState } from "react";
 import { Trash, X } from "lucide-react";
 
-const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+interface inputPropsInterface {
+  register?: (name: string) => object;
+}
+
+const CustomDropzone = ({ register, ...props }: inputPropsInterface) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadedFileURL, setUploadedFileURL] = useState(null);
+  const [uploadedFileURL, setUploadedFileURL] = useState<null | string>(null);
   const [error, setError] = useState(null);
 
-  // Simulate file upload progress
-  const simulateFileUpload = () => {
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 10;
-      setUploadProgress(progress);
-      if (progress >= 100) {
-        clearInterval(interval);
-        setIsLoading(false);
-        setUploadedFileURL("dummy-url");
-      }
-    }, 200);
-  };
-
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     setDragActive(true);
   };
@@ -33,26 +23,29 @@ const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
     setDragActive(false);
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setDragActive(false);
     const file = e.dataTransfer.files[0];
+    console.log(file);
     handleFileSelection(file);
   };
 
-  const handleFileSelection = (file) => {
+  const handleFileSelection = (file: File) => {
     if (file) {
       setSelectedFile(file);
       setIsLoading(true);
       setUploadProgress(0);
-      simulateFileUpload();
     }
   };
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    handleFileSelection(file);
-    onFileUpload(file);
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      handleFileSelection(file);
+      console.log(file);
+    }
   };
 
   const handleDelete = () => {
@@ -60,12 +53,7 @@ const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
     setUploadProgress(0);
     setUploadedFileURL(null);
     setIsLoading(false);
-    onFileDelete(selectedFile);
   };
-
-  // useEffect(() => {
-  //   console.log(selectedFile);
-  // }, [selectedFile]);
 
   return (
     <div className="w-full max-w-[500px]">
@@ -114,10 +102,12 @@ const CustomDropzone = ({ onFileUpload, onFileDelete }) => {
           </p>
           <input
             type="file"
+            {...register?.("file")}
             className="hidden w-full h-full"
             onChange={handleFileInputChange}
             accept=".pdf,.doc,.docx,.txt"
-            max={1}
+            name="file"
+            {...props}
           />
         </label>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { MoveLeft } from "lucide-react";
+import NavigateBack from "@/components/misc/ArrowLeft";
 import CustomButton from "@/components/form-elements/CustomButton";
 import Chatbot from "@/components/misc/chatbot/chatbot";
 import Playground from "@/components/misc/chatbot/playground";
@@ -36,7 +36,8 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
       <div className="header py-8 px-12 border border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-4 items-center">
-            <MoveLeft color="#6B7280" />
+            {/* <ArrowLeft  /> */}
+            <NavigateBack />
             <p className="h4 font-bold text-gray-900">Jobmanor</p>
           </div>
           <div className="url flex flex-row gap-4">

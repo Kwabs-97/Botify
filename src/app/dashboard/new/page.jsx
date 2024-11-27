@@ -12,6 +12,7 @@ import axios from "axios";
 import { chatbotSchema } from "@/lib/schema";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import SettingUpChatbot from "@/components/misc/setting-up";
+import NavigateBack from "@/components/misc/ArrowLeft";
 
 function Page() {
   //handle navigation after successful adding c
@@ -73,10 +74,7 @@ function Page() {
           <div className="header py-6 px-12 border-b border-b-gray-200">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row gap-1 items-center">
-                <ArrowLeft
-                  className="text-gray-500 hover:cursor-pointer"
-                  onClick={() => router.back()}
-                />
+                <NavigateBack />
                 <h3 className="text-gray-900 text-lg leading-8 font-bold">
                   Create a new chatbot
                 </h3>
