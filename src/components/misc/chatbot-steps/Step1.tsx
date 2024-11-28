@@ -5,12 +5,12 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { search_right } from "@/assets/icons";
 import { motion } from "framer-motion";
+import { UseFormRegister } from "react-hook-form";
 
 import Input from "@/components/ui/input";
 interface stepProps {
   errors?: { [key: string]: { message: string } | undefined };
-
-  register?: (name: string) => object;
+  register?: UseFormRegister<any>; // Change this line
 }
 function Step1({ register, errors }: stepProps) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
