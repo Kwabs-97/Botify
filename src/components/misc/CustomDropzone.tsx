@@ -4,7 +4,10 @@ import { Trash } from "lucide-react";
 import { UseFormRegister } from "react-hook-form";
 import { POST } from "@/app/api/routes/new/route";
 
-const CustomDropzone = () => {
+interface CustomDropzoneProps {
+  register?: (name: string) => object;
+}
+const CustomDropzone = (register: CustomDropzoneProps) => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [uploading, setUploading] = useState<boolean>(false);
