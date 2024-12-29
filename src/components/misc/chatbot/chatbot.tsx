@@ -23,16 +23,19 @@ function Chatbot({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
     resolver: zodResolver(chatbotSchema),
   });
 
-  // const onSubmit = async (data: ChatbotDataInterface) => {
-  //   console.log(data);
-  //   try {
-  //     const res = await axios.post("/api/routes/new", data);
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log("error creating new chatbot", error);
-  //   }
-  //   console.log(data);
-  // };
+  const onSubmit = async (data: ChatbotDataInterface) => {
+    console.log(data);
+
+    if (!chatbotData) {
+      try {
+        const res = await axios.post("/api/routes/new", data);
+        console.log(res);
+      } catch (error) {
+        console.log("error creating new chatbot", error);
+      }
+      console.log(data);
+    }
+  };
   return (
     <>
       {!chatbotData && (
@@ -61,7 +64,7 @@ function Chatbot({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
 
         <Separator className="bg-gray-100" />
         <div className="">
-          <form action="" className="">
+          <form action="" className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-2 ">
               <Input
                 name="chatbot_name"

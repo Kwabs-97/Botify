@@ -9,6 +9,7 @@ import DataSource from "@/components/misc/chatbot/data-source";
 import Settings from "@/components/misc/chatbot/settings";
 import axios from "axios";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { ChatbotDataInterface } from "@/app/types";
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
@@ -17,7 +18,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   const [dashStyles, setDashStyles] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const [chatbotData, setChatbotData] = useState({});
+  const [chatbotData, setChatbotData] = useState<ChatbotDataInterface>({});
 
   const navRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -60,7 +61,9 @@ const Page = ({ params }: { params: { id: string } }) => {
           <div className="flex flex-row gap-4 items-center">
             {/* <ArrowLeft  /> */}
             <NavigateBack />
-            <p className="h4 font-bold text-gray-900">Jobmanor</p>
+            <p className="h4 font-bold text-gray-900">
+              {chatbotData && chatbotData?.name}
+            </p>
           </div>
           <div className="url flex flex-row gap-4">
             <div className="bg-blue-50 text-blue-500 p-2.5 rounded-lg text-sm">
