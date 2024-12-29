@@ -7,13 +7,17 @@ import Chatbot from "@/components/misc/chatbot/chatbot";
 import Playground from "@/components/misc/chatbot/playground";
 import DataSource from "@/components/misc/chatbot/data-source";
 import Settings from "@/components/misc/chatbot/settings";
-const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
-  try {
-  } catch (error) {}
+import axios from "axios";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+const Page = ({ params }: { params: { id: string } }) => {
+  const id = params.id;
 
   const navItems = ["Chatbot", "Data Sources", "Settings"];
   const [activeStep, setActiveStep] = useState("Chatbot");
   const [dashStyles, setDashStyles] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [chatbotData, setChatbotData] = useState({});
 
   const navRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -29,8 +33,26 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
       });
     }
   }, [activeStep]);
+
+  useEffect(() => {
+    async function getChatbot() {
+      try {
+        setIsLoading(true);
+        const res = await axios.get(`/api/routes/chatbots/${id}`);
+        console.log(res);
+        setChatbotData(res.data.chatbot);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getChatbot();
+  }, []);
+
   return (
-    <div className="flex flex-col overflow-hidden ">
+    <div className="flex flex-col">
       {/*Header*/}
 
       <div className="header py-8 px-12 border border-b-gray-200">
@@ -50,6 +72,11 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
       </div>
 
       {/*Main */}
+      {isLoading && (
+        <div>
+          <LoadingSpinner className="" />
+        </div>
+      )}
       <div className="flex flex-row gap-6">
         {/*Data */}
         <div className="flex flex-col px-8 flex-1">
@@ -83,7 +110,7 @@ const Page = ({ params }: { params: Promise<{ slug: string }> }) => {
 
           {activeStep === "Chatbot" && (
             <div>
-              <Chatbot />
+              <Chatbot chatbotData={chatbotData} />
             </div>
           )}
           {activeStep === "Data Sources" && (

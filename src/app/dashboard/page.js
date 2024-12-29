@@ -45,7 +45,7 @@ function Page({ params }) {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full min-h-screen bg-gray-50">
+    <div className="flex flex-col gap-6 w-full min-h-screen bg-gray-50 overflow-hidden">
       <div className="header py-8 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col gap-1">

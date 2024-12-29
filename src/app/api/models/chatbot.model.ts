@@ -2,9 +2,9 @@ import pool from "../config/db";
 import { ChatbotDataInterface } from "@/app/types";
 
 export const getChatbotById = async (id: string) => {
-  const res = await pool.query("SELECT * FROM details WHERE id === $1", [id]);
+  const res = await pool.query("SELECT * FROM details WHERE id = $1", [id]);
   if (!res.rows) return null;
-  return res.rows;
+  return res.rows[0];
 };
 
 export const getAllChatbots = async () => {

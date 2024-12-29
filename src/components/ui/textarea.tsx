@@ -50,7 +50,7 @@ const Textarea = ({
 
       <div
         className={cn(
-          `flex flex-row rounded  p-4 bg-gray-50 border min-h-[90px] border-lightGray items-center justify-between duration-100 ${
+          `flex flex-row rounded  px-2 py-1 bg-gray-50 border h-[70px] border-lightGray items-center justify-between duration-100 ${
             isFocused ? "border-2 border-blue-500" : ""
           }`,
           className
