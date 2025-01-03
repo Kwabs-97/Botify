@@ -9,6 +9,7 @@ interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   name: string;
+  genWelcomeMessage?: () => void;
   label?: React.ReactNode;
   labelWithAutogenerate?: React.ReactNode;
   register?: (name: string) => object;
@@ -34,6 +35,7 @@ const Textarea = ({
   label,
   register,
   customLabel,
+  genWelcomeMessage,
   labelWithAutogenerate,
   onChange,
   errors,
@@ -45,7 +47,11 @@ const Textarea = ({
     <div className="flex flex-col gap-2">
       <div className="flex flex-row justify-between">
         {label && <Label>{label}</Label>}
-        {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
+        {labelWithAutogenerate && genWelcomeMessage && (
+          <CustomLabel genWelcomeMessage={genWelcomeMessage}>
+            {customLabel}
+          </CustomLabel>
+        )}
       </div>
 
       <div

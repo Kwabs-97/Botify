@@ -1,5 +1,6 @@
 "use client";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import axios from "axios";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
@@ -16,14 +17,30 @@ interface stepProps {
 }
 function Step2({ register, errors }: stepProps) {
   const [collectUsersEmail, setCollectUsersEmail] = React.useState(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [welcomeMessage, setWelcomeMessage] = React.useState<string>("");
 
   function handleSwitch(checked: boolean) {
     setCollectUsersEmail(checked);
   }
 
-  useEffect(() => {
-    register("collectUsersEmail");
-  });
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  const genWelcomeMessage = async () => {
+    if (nameInputRef.current) {
+      const name = nameInputRef.current.value;
+      try {
+        setLoading(true);
+        const res = await axios.get(`/api/routes/genWelcomeMessage/${name}`);
+        const data = res.data;
+        setWelcomeMessage(data.welcomeMessage);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <motion.div
@@ -39,21 +56,11 @@ function Step2({ register, errors }: stepProps) {
           <p className="text-gray-600">Fine tune your chatbot</p>
         </div>
         <div className="flex flex-col gap-2 ">
-          {/* <CustomInput
-            name="chatbot_name"
-            register={register}
-            placeholder="Enter the name of your chatbot"
-            label="Chatbot Name"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              console.log(e.target.value);
-              dispatch(setChatbotName(e.target.value));
-            }}
-          /> */}
-
           <Input
             name="chatbot_name"
             errors={{ chatbot_name: errors?.chatbot_name }}
             register={register}
+            ref={nameInputRef}
             label="Chatbot Name"
             placeholder="Enter the name of your chatbot"
           />
@@ -62,8 +69,10 @@ function Step2({ register, errors }: stepProps) {
             register={register}
             errors={{ welcome_message: errors?.welcome_message }}
             name="welcome_message"
+            defaultValue={welcomeMessage ? welcomeMessage : " "}
             label="Customize your welcome message"
             labelWithAutogenerate
+            genWelcomeMessage={genWelcomeMessage}
             placeholder="Enter your welcome message"
           />
           <Textarea
@@ -118,14 +127,9 @@ function Step2({ register, errors }: stepProps) {
                 className="bg-white text-black shadow-lg"
                 type="user"
               >
-                Welcome Message
+                {welcomeMessage}
               </QueryContainer>
-              <QueryContainer
-                className="bg-white text-black shadow-lg "
-                type="user"
-              >
-                No response message
-              </QueryContainer>
+
               <div></div>
             </div>
           </div>

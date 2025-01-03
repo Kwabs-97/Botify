@@ -8,7 +8,7 @@ interface QueryContainerProps {
 }
 function QueryContainer({ children, className, type }: QueryContainerProps) {
   return (
-    <div className="px-4">
+    <div className="">
       <div
         className={cn(
           `${

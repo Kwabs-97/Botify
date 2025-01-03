@@ -13,18 +13,18 @@ import { ChatbotDataInterface } from "@/app/types";
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
-  const navItems = ["Chatbot", "Data Sources", "Settings"];
+  const tabs = ["Chatbot", "Data Sources", "Settings"];
   const [activeStep, setActiveStep] = useState("Chatbot");
   const [dashStyles, setDashStyles] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const [chatbotData, setChatbotData] = useState<ChatbotDataInterface>({});
 
-  const navRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const activeIndex = navItems.indexOf(activeStep);
-    const activeNav = navRefs.current[activeIndex];
+    const activeIndex = tabs.indexOf(activeStep);
+    const activeNav = tabRefs.current[activeIndex];
 
     if (activeNav) {
       const { offsetWidth, offsetLeft } = activeNav;
@@ -86,11 +86,11 @@ const Page = ({ params }: { params: { id: string } }) => {
           <div className="py-4">
             {/*Navigation*/}
             <nav className="flex flex-row gap-10 w-full relative border-b border-gray-200">
-              {navItems.map((navItem, i) => (
+              {tabs.map((navItem, i) => (
                 <div
                   key={i}
                   ref={(el) => {
-                    navRefs.current[i] = el;
+                    tabRefs.current[i] = el;
                   }}
                   className="cursor-pointer"
                   onClick={() => setActiveStep(navItem)}
@@ -126,7 +126,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
         {/*Chatbot playground */}
         <div className="flex-1">
-          <Playground />
+          <Playground chatbotData={chatbotData} />
         </div>
       </div>
     </div>

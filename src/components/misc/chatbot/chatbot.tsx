@@ -24,8 +24,6 @@ function Chatbot({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
   });
 
   const onSubmit = async (data: ChatbotDataInterface) => {
-    console.log(data);
-
     if (!chatbotData) {
       try {
         const res = await axios.post("/api/routes/new", data);
@@ -33,7 +31,6 @@ function Chatbot({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
       } catch (error) {
         console.log("error creating new chatbot", error);
       }
-      console.log(data);
     }
   };
   return (
@@ -43,7 +40,7 @@ function Chatbot({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
           <LoadingSpinner className="" />
         </div>
       )}
-      <div className="text-gray-900 overflow-y-scroll max-h-[400px] gap-6 flex flex-col">
+      <div className="text-gray-900 gap-6 flex flex-col">
         <div>
           <div className="flex flex-row gap-2 ">
             <div className="p-4 rounded-2xl bg-gray-50 flex flex-col">

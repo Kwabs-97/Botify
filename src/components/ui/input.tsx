@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import CustomLabel from "../misc/CustomLabel";
@@ -26,7 +26,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   };
 }
 
-const Input = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
   label,
   errors,
   register,
@@ -38,17 +38,17 @@ const Input = ({
   customLabel,
   iconSrc,
   ...props
-}: InputProps) => {
+}, ref) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex flex-col gap-1">
       {label && <Label>{label}</Label>}
       {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
 
       <div
         className={cn(
-          `flex flex-row rounded-lg border  bg-gray-50 min-h-[40px] border-lightGray items-center justify-between duration-100 ${
+          `flex flex-row rounded-lg border bg-gray-50 min-h-[40px] border-lightGray items-center justify-between duration-100 ${
             isFocused ? "border-2 border-blue-500" : ""
           }`,
           className
@@ -57,6 +57,7 @@ const Input = ({
         <input
           className="border-none h-full w-full px-4 py-3 text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
           {...register?.(props.name)}
+          ref={ref}
           onFocus={() => {
             setIsFocused(true);
             onFocus?.();
@@ -65,6 +66,7 @@ const Input = ({
             setIsFocused(false);
             onBlur?.();
           }}
+          onChange={onChange}
           {...props}
         />
 
@@ -81,6 +83,8 @@ const Input = ({
       )}
     </div>
   );
-};
+});
+
+Input.displayName = "Input";
 
 export default Input;

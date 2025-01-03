@@ -1,11 +1,13 @@
 import React from "react";
 import ChatInput from "./chatInput";
 import QueryContainer from "../QueryContainer";
+import { ChatbotDataInterface } from "@/app/types";
 
-function Playground() {
+function Playground({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
+  console.log(chatbotData.welcome_message);
   return (
-    <div className="flex flex-col gap-2.5 bg-gray-50 h-screen px-6 ">
-      <header className="py-4 px-6 bg-white">
+    <div className="flex flex-col gap-2.5 bg-gray-50 h-screen py-4 px-6">
+      <header className=" bg-white">
         <h4 className="h5">Chatbot Playground</h4>
       </header>
       <div className="py-4 gap-6 flex-grow">
@@ -18,12 +20,9 @@ function Playground() {
             Jobmanor?
           </p>
         </div> */}
-        <QueryContainer>
-          Hi, thanks for visiting! How can I assist you with questions about
-          Jobmanor?
-        </QueryContainer>
+        <QueryContainer>{chatbotData.welcome_message}</QueryContainer>
       </div>
-      <div className="sticky bottom-0 bg-gray-50 w-full py-6">
+      <div className="sticky bottom-0 bg-gray-50 py-4">
         <ChatInput />
       </div>
     </div>

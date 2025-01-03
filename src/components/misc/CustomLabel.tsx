@@ -7,11 +7,19 @@ interface LabelProps {
   htmlFor?: string;
   autogenerate?: boolean;
   children: React.ReactNode;
+  genWelcomeMessage?: () => void;
 }
 
-function CustomLabel({ htmlFor, children }: LabelProps) {
+// const genWelcomeMessage = async () => {
+//   console.log("genWelcomeMessage is clicked from Custom label");
+// };
+
+function CustomLabel({ htmlFor, children, genWelcomeMessage }: LabelProps) {
   return (
-    <div className="flex flex-row items-center justify-between hover:cursor-pointer ">
+    <div
+      className="flex flex-row items-center justify-between hover:cursor-pointer "
+      onClick={genWelcomeMessage}
+    >
       <Label htmlFor={htmlFor}>{children}</Label>
       <div className="flex flex-row gap-2.5">
         <Image src={sparksIcon} alt="icon" />
