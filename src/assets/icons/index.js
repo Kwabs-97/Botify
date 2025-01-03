@@ -10,3 +10,5 @@ export { default as exportIcon } from "./export.svg";
 export { default as sparksIcon } from "./iconoir_sparks-solid.svg";
 export { default as chatIcon } from "./Frame 1000001811.svg";
 export { default as ellipse } from "./Ellipse 2.svg";
+export { default as Attachment } from "./Attachement.tsx";
+export { default as Send } from "./Send.tsx";

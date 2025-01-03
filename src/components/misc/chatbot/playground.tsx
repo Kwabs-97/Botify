@@ -4,7 +4,7 @@ import QueryContainer from "../QueryContainer";
 
 function Playground() {
   return (
-    <div className="flex flex-col gap-2.5 bg-gray-50 h-screen">
+    <div className="flex flex-col gap-2.5 bg-gray-50 h-screen px-6 ">
       <header className="py-4 px-6 bg-white">
         <h4 className="h5">Chatbot Playground</h4>
       </header>
@@ -23,7 +23,7 @@ function Playground() {
           Jobmanor?
         </QueryContainer>
       </div>
-      <div className="sticky bottom-0 bg-gray-50">
+      <div className="sticky bottom-0 bg-gray-50 w-full py-6">
         <ChatInput />
       </div>
     </div>

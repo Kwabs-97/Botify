@@ -11,7 +11,7 @@ const ChatbotCard = ({
 }) => {
   return (
     <div
-      className="w-[352px] h-[200px] border rounded-lg flex flex-col border-gray-200 bg-white gap-1 hover:cursor-pointer"
+      className="w-[300px] h-[200px] border rounded-lg flex flex-col border-gray-200 bg-white gap-1 hover:cursor-pointer"
       onClick={handleNavigation}
     >
       <div className="self-end px-2.5 py-3">{<Ellipsis color="#6B7280" />}</div>
