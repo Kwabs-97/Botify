@@ -1,46 +1,17 @@
-"use client";
-import React, { useEffect, useRef } from "react";
-import axios from "axios";
-import { Label } from "@/components/ui/label";
+import React, { useRef } from "react";
+import { useFormContext } from "react-hook-form";
+import Input from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import Image from "next/image";
-import { chatIcon, ellipse } from "@/assets/icons";
-import QueryContainer from "@/components/misc/QueryContainer";
+import { Label } from "@/components/ui/label";
+import Textarea from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 
-import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
-
-interface stepProps {
-  errors?: { [key: string]: { message: string } | undefined };
-  register: (name: string) => object;
-}
-function Step2({ register, errors }: stepProps) {
-  const [collectUsersEmail, setCollectUsersEmail] = React.useState(false);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [welcomeMessage, setWelcomeMessage] = React.useState<string>("");
-
-  function handleSwitch(checked: boolean) {
-    setCollectUsersEmail(checked);
-  }
-
-  const nameInputRef = useRef<HTMLInputElement>(null);
-
-  const genWelcomeMessage = async () => {
-    if (nameInputRef.current) {
-      const name = nameInputRef.current.value;
-      try {
-        setLoading(true);
-        const res = await axios.get(`/api/routes/genWelcomeMessage/${name}`);
-        const data = res.data;
-        setWelcomeMessage(data.welcomeMessage);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+const Step2 = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const nameInputRef = useRef(null);
 
   return (
     <motion.div
@@ -58,7 +29,6 @@ function Step2({ register, errors }: stepProps) {
         <div className="flex flex-col gap-2 ">
           <Input
             name="chatbot_name"
-            errors={{ chatbot_name: errors?.chatbot_name }}
             register={register}
             ref={nameInputRef}
             label="Chatbot Name"
@@ -67,18 +37,14 @@ function Step2({ register, errors }: stepProps) {
 
           <Textarea
             register={register}
-            errors={{ welcome_message: errors?.welcome_message }}
             name="welcome_message"
-            defaultValue={welcomeMessage ? welcomeMessage : " "}
             label="Customize your welcome message"
             labelWithAutogenerate
-            genWelcomeMessage={genWelcomeMessage}
             placeholder="Enter your welcome message"
           />
           <Textarea
             register={register}
             name="fallback_message"
-            errors={{ fallback_message: errors?.fallback_message }}
             label="Customize your fallback message"
             labelWithAutogenerate
             placeholder="Enter your fallback message"
@@ -86,57 +52,12 @@ function Step2({ register, errors }: stepProps) {
 
           <div className="flex flex-row justify-between w-full p-3 border border-gray-200 rounded-lg">
             <Label htmlFor="collectUsersEmail">Collect users email</Label>
-            <Switch
-              {...register("collectUsersEmail")}
-              id="collectUsersEmail"
-              name="collectUsersEmail"
-              checked={collectUsersEmail}
-              onCheckedChange={handleSwitch}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Preview */}
-      <div className="flex-1 flex-col gap-6">
-        <div>
-          <h3 className="text-gray-900 font-bold text-2xl">Preview</h3>
-        </div>
-        <div className="flex items-center justify-center px-8 pt-16 bg-gray-50 rounded-2xl ">
-          <div className="flex flex-col  shadow-lg min-w-[472px] min-h-[350px]">
-            <div className="p-6 flex flex-row gap-4 rounded-tl-2xl rounded-tr-2xl border-b border-b-gray-200 bg-white">
-              <div>
-                <Image src={chatIcon} alt="chatIcon" />
-              </div>
-              <div className="flex flex-col ">
-                <h5 className="font-bold text-xl text-gray-900">
-                  Chatbot Name
-                </h5>
-                <div className="flex flex-row gap-2.5 items-center">
-                  <Image src={ellipse} alt="onlineEllipseIcon" />
-                  <p className="text-sm text-gray-900">Online</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-4 py-6">
-              <div>
-                <p className="text-base text-[#64748A] text-center">Today</p>
-              </div>
-              <QueryContainer
-                className="bg-white text-black shadow-lg"
-                type="user"
-              >
-                {welcomeMessage}
-              </QueryContainer>
-
-              <div></div>
-            </div>
+            <Switch />
           </div>
         </div>
       </div>
     </motion.div>
   );
-}
+};
 
 export default Step2;

@@ -8,7 +8,7 @@ const model = new ChatGroq({
 export async function generateWelcomeMessage(companyName: string) {
   const messages = [
     new SystemMessage(
-      "Generate a two-line welcome message for the company named below"
+      "You're a chatbot agent, generate a one-line simple welcome message for the company named below and ask how you can be of help"
     ),
     new HumanMessage(companyName),
   ];
