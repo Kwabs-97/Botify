@@ -24,23 +24,23 @@ function Step2({ register, errors }: stepProps) {
     setCollectUsersEmail(checked);
   }
 
-  const nameInputRef = useRef<HTMLInputElement>(null);
+  // const nameInputRef = useRef<HTMLInputElement>(null);
 
-  const genWelcomeMessage = async () => {
-    if (nameInputRef.current) {
-      const name = nameInputRef.current.value;
-      try {
-        setLoading(true);
-        const res = await axios.get(`/api/routes/genWelcomeMessage/${name}`);
-        const data = res.data;
-        setWelcomeMessage(data.welcomeMessage);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+  // const genWelcomeMessage = async () => {
+  //   if (nameInputRef.current) {
+  //     const name = nameInputRef.current.value;
+  //     try {
+  //       setLoading(true);
+  //       const res = await axios.get(`/api/routes/genWelcomeMessage/${name}`);
+  //       const data = res.data;
+  //       setWelcomeMessage(data.welcomeMessage);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
 
   return (
     <motion.div
@@ -60,7 +60,6 @@ function Step2({ register, errors }: stepProps) {
             name="chatbot_name"
             errors={{ chatbot_name: errors?.chatbot_name }}
             register={register}
-            ref={nameInputRef}
             label="Chatbot Name"
             placeholder="Enter the name of your chatbot"
           />
@@ -72,7 +71,7 @@ function Step2({ register, errors }: stepProps) {
             defaultValue={welcomeMessage ? welcomeMessage : " "}
             label="Customize your welcome message"
             labelWithAutogenerate
-            genWelcomeMessage={genWelcomeMessage}
+            // genWelcomeMessage={genWelcomeMessage}
             placeholder="Enter your welcome message"
           />
           <Textarea

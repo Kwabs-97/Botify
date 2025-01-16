@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import React from "react";
+
 import CustomButton from "@/components/form-elements/CustomButton";
 import Stepper from "@/components/misc/Stepper";
 import Step1 from "@/components/misc/chatbot-steps/Step1";
@@ -21,9 +21,7 @@ function Page() {
     formState: { errors, isSubmitting },
     register,
     handleSubmit,
-  } = useForm({
-    resolver: zodResolver(chatbotSchema),
-  });
+  } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
@@ -36,7 +34,6 @@ function Page() {
     } catch (error) {
       console.log("error creating new chatbot", error);
     }
-    console.log(data);
   });
 
   //routing

@@ -33,6 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       errors,
       register,
       onFocus,
+      name,
       className,
       onChange,
       labelWithAutogenerate,
@@ -60,17 +61,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         >
           <input
             className="border-none h-full w-full px-4 py-3 text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
-            {...register?.(props.name)}
-            ref={ref}
+            {...register?.(name)}
             onFocus={() => {
               setIsFocused(true);
               onFocus?.();
             }}
             onBlur={() => {
               setIsFocused(false);
-              onBlur?.();
             }}
-            onChange={onChange}
             {...props}
           />
 
@@ -80,9 +78,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {errors?.[props.name]?.message && (
+        {errors?.[name]?.message && (
           <p className="text-red-500 text-sm font-normal">
-            {errors[props.name]?.message}
+            {errors[name]?.message}
           </p>
         )}
       </div>

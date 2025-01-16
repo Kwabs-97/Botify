@@ -10,7 +10,7 @@ import { UseFormRegister } from "react-hook-form";
 import Input from "@/components/ui/input";
 interface stepProps {
   errors?: { [key: string]: { message: string } | undefined };
-  register?: (name: string) => object; // Change this line
+  register?: (name: string) => object;
 }
 function Step1({ register, errors }: stepProps) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
