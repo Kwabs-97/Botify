@@ -11,36 +11,38 @@ function Settings() {
     "#049BE5",
     "#4CAF50",
     "#F47D02",
-    "#9C27B0",
-    "#E91E63",
+    // "#9C27B0",
+    // "#E91E63",
   ];
   return (
     <>
-      <div className="text-gray-900 overflow-y-scroll max-h-[500px] gap-6 flex flex-col">
-        <div className="flex flex-col gap-6">
+      <div className="text-gray-900 overflow-y-scroll max-h-[500px] gap-2 flex flex-col">
+        <div className="flex flex-col">
           <div>
-            <h3 className="h4 ">Appearance</h3>
+            <h3 className="text-gray-900 text-lg leading-8 font-bold">
+              Appearance
+            </h3>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
             <h5>Chatbot Color</h5>
-            <div className="flex flex-row gap-4 max-w-[536px] flex-wrap">
+            <div className="flex flex-row gap-1 max-w-[536px] flex-wrap">
               {chatbotColors.map((chatbotColor, i) => (
                 <input
                   key={i}
                   type="color"
                   defaultValue={chatbotColor}
-                  className="w-24 h-[53px]"
+                  className="w-24 h-[50px]"
                 />
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
             <h5>Chatbot Icon</h5>
             <div className="flex flex-row gap-4">
-              <div className="border rounded-lg border-dashed border-blue-600 py-5 flex items-center justify-center flex-1">
+              <div className="border rounded-lg border-dashed border-blue-600 py-2 flex items-center justify-center flex-1">
                 <p>None</p>
               </div>
-              <div className="border rounded-lg border-dashed border-blue-600 flex flex-row py-5 flex-1 items-center justify-center">
+              <div className="border rounded-lg border-dashed border-blue-600 flex flex-row py-2 flex-1 items-center justify-center">
                 <p>Upload</p>
               </div>
             </div>
@@ -48,8 +50,10 @@ function Settings() {
         </div>
         <Separator className="bg-gray-50" />
         <div>
-          <div className="flex flex-col gap-4">
-            <h4 className="h4">Notification</h4>
+          <div className="flex flex-col ">
+            <h4 className="text-gray-900 text-lg leading-8 font-bold">
+              Notification
+            </h4>
             <div>
               <p>Send offline fallback message email notification to</p>
               <Input name="email" placeholder="Enter email address" />
@@ -58,8 +62,10 @@ function Settings() {
         </div>
         <Separator />
         <div>
-          <div className="flex flex-col gap-4">
-            <h4 className="h4">Branding</h4>
+          <div className="flex flex-col">
+            <h4 className="text-gray-900 text-lg leading-8 font-bold">
+              Branding
+            </h4>
             <div className="flex flex-row items-center gap-6">
               <p>{`Display "Powered By" badge`}</p>
               <Switch />
@@ -68,12 +74,16 @@ function Settings() {
         </div>
         <Separator className="" />
         <div>
-          <div className="flex flex-col gap-6">
-            <div>
-              <h4 className="h4">Danger Zone</h4>
-            </div>
-            <div className="flex flex-col gap-2">
-              <h5 className="h5">Delete chatbot</h5>
+          <div className="flex flex-col">
+            {/* <div>
+              <h4 className="text-gray-900 text-lg leading-8 font-bold">
+                Danger Zone
+              </h4>
+            </div> */}
+            <div className="flex flex-col gap-0 ">
+              <h5 className="text-gray-900 text-lg leading-8 font-bold">
+                Delete chatbot
+              </h5>
               <p>This action will permanently delete this chatbot</p>
             </div>
             <div className="flex flex-col gap-4">
@@ -85,7 +95,7 @@ function Settings() {
               <div>
                 <Input name="delete" placeholder="delete chatbot" />
               </div>
-              <div className="self-end">
+              <div className="">
                 <Button className="bg-red-500 text-white">Delete</Button>
               </div>
             </div>

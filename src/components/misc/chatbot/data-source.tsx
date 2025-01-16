@@ -25,10 +25,7 @@ function DataSource() {
         </section>
         <section>
           <p className="text-gray-600">Upload files</p>
-          <CustomDropzone
-            onFileDelete={handleFileDelete}
-            onFileUpload={handleFileUpload}
-          />
+          <CustomDropzone />
           <section className="flex flex-row gap-1 items-center">
             <Separator
               orientation="horizontal"
