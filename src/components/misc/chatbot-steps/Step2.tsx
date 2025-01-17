@@ -70,17 +70,16 @@ function Step2({ register, errors }: stepProps) {
             name="welcome_message"
             defaultValue={welcomeMessage ? welcomeMessage : " "}
             label="Customize your welcome message"
-            labelWithAutogenerate
-            // genWelcomeMessage={genWelcomeMessage}
             placeholder="Enter your welcome message"
+            labelWithAutogenerate
           />
           <Textarea
             register={register}
             name="fallback_message"
             errors={{ fallback_message: errors?.fallback_message }}
             label="Customize your fallback message"
-            labelWithAutogenerate
             placeholder="Enter your fallback message"
+            labelWithAutogenerate
           />
 
           <div className="flex flex-row justify-between w-full p-3 border border-gray-200 rounded-lg">

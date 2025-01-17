@@ -47,11 +47,7 @@ const Textarea = ({
     <div className="flex flex-col gap-2">
       <div className="flex flex-row justify-between">
         {label && <Label>{label}</Label>}
-        {labelWithAutogenerate && genWelcomeMessage && (
-          <CustomLabel genWelcomeMessage={genWelcomeMessage}>
-            {customLabel}
-          </CustomLabel>
-        )}
+        {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
       </div>
 
       <div
