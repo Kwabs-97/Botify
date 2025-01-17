@@ -10,6 +10,7 @@ import Settings from "@/components/misc/chatbot/settings";
 import axios from "axios";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { ChatbotDataInterface } from "@/app/types";
+import { useForm } from "react-hook-form";
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
@@ -19,6 +20,12 @@ const Page = ({ params }: { params: { id: string } }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [chatbotData, setChatbotData] = useState<ChatbotDataInterface>({});
+
+  const {
+    register,
+    formState: { isSubmitting, errors },
+    handleSubmit,
+  } = useForm();
 
   const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -75,60 +82,64 @@ const Page = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/*Main */}
-      {isLoading && (
-        <div>
-          <LoadingSpinner className="" />
-        </div>
-      )}
-      <div className="flex flex-row gap-6">
-        {/*Data */}
-        <div className="flex flex-col px-8 flex-1">
-          <div className="py-4">
-            {/*Navigation*/}
-            <nav className="flex flex-row gap-10 w-full relative border-b border-gray-200">
-              {tabs.map((navItem, i) => (
-                <div
-                  key={i}
-                  ref={(el) => {
-                    tabRefs.current[i] = el;
-                  }}
-                  className="cursor-pointer"
-                  onClick={() => setActiveStep(navItem)}
-                >
-                  <p
-                    className={`py-2.5 text-sm ${
-                      activeStep === navItem ? "text-blue-500" : "text-gray-500"
-                    }`}
+      <form action="">
+        {isLoading && (
+          <div>
+            <LoadingSpinner className="" />
+          </div>
+        )}
+        <div className="flex flex-row gap-6">
+          {/*Data */}
+          <div className="flex flex-col px-8 flex-1">
+            <div className="py-4">
+              {/*Navigation*/}
+              <nav className="flex flex-row gap-10 w-full relative border-b border-gray-200">
+                {tabs.map((navItem, i) => (
+                  <div
+                    key={i}
+                    ref={(el) => {
+                      tabRefs.current[i] = el;
+                    }}
+                    className="cursor-pointer"
+                    onClick={() => setActiveStep(navItem)}
                   >
-                    {navItem}
-                  </p>
-                </div>
-              ))}
-              <span
-                className="absolute bottom-0 h-0.5 bg-blue-500 transition-all duration-300"
-                style={dashStyles}
-              />
-            </nav>
+                    <p
+                      className={`py-2.5 text-sm ${
+                        activeStep === navItem
+                          ? "text-blue-500"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {navItem}
+                    </p>
+                  </div>
+                ))}
+                <span
+                  className="absolute bottom-0 h-0.5 bg-blue-500 transition-all duration-300"
+                  style={dashStyles}
+                />
+              </nav>
+            </div>
+
+            {activeStep === "Chatbot" && (
+              <div>
+                <Chatbot chatbotData={chatbotData} />
+              </div>
+            )}
+            {activeStep === "Data Sources" && (
+              <div>
+                <DataSource />
+              </div>
+            )}
+            {activeStep === "Settings" && <Settings register={register} />}
           </div>
 
-          {activeStep === "Chatbot" && (
-            <div>
-              <Chatbot chatbotData={chatbotData} />
-            </div>
-          )}
-          {activeStep === "Data Sources" && (
-            <div>
-              <DataSource />
-            </div>
-          )}
-          {activeStep === "Settings" && <Settings />}
+          {/*Chatbot playground */}
+          <div className="flex-1">
+            <Playground chatbotData={chatbotData} />
+          </div>
         </div>
-
-        {/*Chatbot playground */}
-        <div className="flex-1">
-          <Playground chatbotData={chatbotData} />
-        </div>
-      </div>
+      </form>
     </div>
   );
 };

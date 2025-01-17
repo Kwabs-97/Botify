@@ -4,19 +4,23 @@ import { Upload } from "@/assets/icons";
 import Input from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
-function Settings() {
+interface SettingsProps {
+  register?: UseFormRegister<FieldValues>;
+}
+function Settings({ register }: SettingsProps) {
   const chatbotColors = [
     "#2563EB",
-    "#049BE5",
-    "#4CAF50",
-    "#F47D02",
+    // "#049BE5",
+    // "#4CAF50",
+    // "#F47D02",
     // "#9C27B0",
     // "#E91E63",
   ];
   return (
     <>
-      <div className="text-gray-900 overflow-y-scroll max-h-[500px] gap-2 flex flex-col">
+      <div className="text-gray-900 gap-2 flex flex-col">
         <div className="flex flex-col">
           <div>
             <h3 className="text-gray-900 text-lg leading-8 font-bold">
@@ -26,17 +30,16 @@ function Settings() {
           <div className="flex flex-col gap-1">
             <h5>Chatbot Color</h5>
             <div className="flex flex-row gap-1 max-w-[536px] flex-wrap">
-              {chatbotColors.map((chatbotColor, i) => (
-                <input
-                  key={i}
-                  type="color"
-                  defaultValue={chatbotColor}
-                  className="w-24 h-[50px]"
-                />
-              ))}
+              <input
+                name="chatbotColor"
+                {...register}
+                type="color"
+                defaultValue="#2563EB"
+                className="w-24 h-[50px]"
+              />
             </div>
           </div>
-          <div className="flex flex-col gap-1">
+          {/* <div className="flex flex-col gap-1">
             <h5>Chatbot Icon</h5>
             <div className="flex flex-row gap-4">
               <div className="border rounded-lg border-dashed border-blue-600 py-2 flex items-center justify-center flex-1">
@@ -46,7 +49,7 @@ function Settings() {
                 <p>Upload</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <Separator className="bg-gray-50" />
         <div>
