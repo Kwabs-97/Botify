@@ -77,7 +77,10 @@ function Page() {
                 <div className="text-gray-500 text-sm">
                   step {currentStepIndex + 1} of {steps.length}
                 </div>
-                <Stepper totalSteps={steps.length} currentStep={step} />
+                <Stepper
+                  totalSteps={steps.length}
+                  currentStep={currentStepIndex + 1}
+                />
               </div>
               <div className="flex flex-row gap-4">
                 <CustomButton
