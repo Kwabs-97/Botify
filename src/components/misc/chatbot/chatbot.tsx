@@ -13,7 +13,6 @@ import { ChatbotDataInterface } from "@/app/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 function Chatbot({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
-  console.log(chatbotData);
   //form-handling
   const {
     formState: { errors, isSubmitting },

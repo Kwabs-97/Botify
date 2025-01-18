@@ -8,8 +8,9 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface SettingsProps {
   register?: UseFormRegister<FieldValues>;
+  autosaveOnBlur?: () => void;
 }
-function Settings({ register }: SettingsProps) {
+function Settings({ register, autosaveOnBlur }: SettingsProps) {
   const chatbotColors = [
     "#2563EB",
     // "#049BE5",
@@ -18,6 +19,10 @@ function Settings({ register }: SettingsProps) {
     // "#9C27B0",
     // "#E91E63",
   ];
+
+  function showOnBlur() {
+    console.log("show on onBlur");
+  }
   return (
     <>
       <div className="text-gray-900 gap-2 flex flex-col">
@@ -31,8 +36,8 @@ function Settings({ register }: SettingsProps) {
             <h5>Chatbot Color</h5>
             <div className="flex flex-row gap-1 max-w-[536px] flex-wrap">
               <input
-                name="chatbotColor"
-                {...register}
+                name="color"
+                {...register?.("color")}
                 type="color"
                 defaultValue="#2563EB"
                 className="w-24 h-[50px]"
@@ -59,7 +64,11 @@ function Settings({ register }: SettingsProps) {
             </h4>
             <div>
               <p>Send offline fallback message email notification to</p>
-              <Input name="email" placeholder="Enter email address" />
+              <input
+                className="w-full h-11 border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
+                placeholder="Enter email address"
+                {...register?.("fallbackMessageEmail")}
+              />
             </div>
           </div>
         </div>
@@ -71,7 +80,6 @@ function Settings({ register }: SettingsProps) {
             </h4>
             <div className="flex flex-row items-center gap-6">
               <p>{`Display "Powered By" badge`}</p>
-              <Switch />
             </div>
           </div>
         </div>

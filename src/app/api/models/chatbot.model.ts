@@ -2,7 +2,11 @@ import pool from "../config/db";
 import { ChatbotDataInterface } from "@/app/types";
 
 export const getChatbotById = async (id: string) => {
-  const res = await pool.query("SELECT * FROM details WHERE id = $1", [id]);
+  const res = await pool.query(
+    "SELECT  name, last_trained,isvisible, islive,welcome_message, fallback_message,files, website_url,color,icon, display_brand_badge, offline_fallback_notification_email FROM details JOIN data_source ON details.id = $1 JOIN settings ON data_source.chatbot_id = $1",
+    [id]
+  );
+
   if (!res.rows) return null;
   return res.rows[0];
 };
@@ -24,11 +28,15 @@ export const createChatbot = async (chatbotData: ChatbotDataInterface) => {
       throw new Error("Chatbot data is required");
     }
 
-    const { chatbot_name, fallback_message, welcome_message, website_url } =
+    console.log(
+      "chatbot data at the chatbot model----------------",
+      chatbotData
+    );
+    const { name, fallback_message, welcome_message, website_url } =
       chatbotData;
     const result1 = await pool.query(
       "INSERT INTO details (name, welcome_message, fallback_message) VALUES ($1, $2, $3) RETURNING *",
-      [chatbot_name, welcome_message, fallback_message]
+      [name, welcome_message, fallback_message]
     );
 
     const id: string = result1.rows[0].id;
@@ -38,10 +46,36 @@ export const createChatbot = async (chatbotData: ChatbotDataInterface) => {
       [id, website_url]
     );
 
+    const result3 = await pool.query(
+      "INSERT INTO settings (chatbot_id) VALUES ($1) RETURNING *",
+      [id]
+    );
+
+    // const result3 = await pool.query("INSERT INTO settings (chatbot_id, color, display_brand_badge, offline_fallback_notification_email", [])
     console.log(result2);
     return { details: result1.rows[0], data_source: result2.rows[0] };
   } catch (error) {
     console.error("Error creating chatbot:", error);
     throw new Error("Failed to create chatbot");
+  }
+};
+
+export const updateChatbot = async (chatbotData: ChatbotDataInterface) => {
+  const id = chatbotData.id;
+  if (!id) {
+    throw new Error("chatbot id is missing");
+  }
+  try {
+    const result1 = await pool.query(
+      "UPDATE settings SET chatbot_id = $1, color = $2, offline_fallback_notification_email = $3 WHERE chatbot_id = $4",
+      [
+        chatbotData.id,
+        chatbotData.color,
+        chatbotData.fallbackMessageEmail,
+        chatbotData.id,
+      ]
+    );
+  } catch (error) {
+    console.log("Error updating chatbot", error);
   }
 };

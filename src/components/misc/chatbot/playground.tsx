@@ -4,7 +4,6 @@ import QueryContainer from "../QueryContainer";
 import { ChatbotDataInterface } from "@/app/types";
 
 function Playground({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
-  console.log(chatbotData.welcome_message);
   return (
     <div className="flex flex-col gap-2.5 bg-gray-50 h-screen py-4 px-6">
       <header className=" bg-white">

@@ -14,6 +14,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelWithAutogenerate?: React.ReactNode;
   iconSrc?: string;
   register?: (name: string) => object;
+  autosaveOnBlur?: () => void;
   customLabel?: React.ReactNode;
   onFocus?: () => void;
   onBlur?: () => void;
@@ -39,6 +40,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       labelWithAutogenerate,
       onBlur,
       customLabel,
+      autosaveOnBlur,
       iconSrc,
       ...props
     },
@@ -64,10 +66,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {...register?.(name)}
             onFocus={() => {
               setIsFocused(true);
-              onFocus?.();
             }}
             onBlur={() => {
               setIsFocused(false);
+              console.log("onBlur");
             }}
             {...props}
           />

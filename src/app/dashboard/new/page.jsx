@@ -24,7 +24,7 @@ function Page() {
   } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    console.log("chatbot data from the frontend ----------------", data);
     try {
       const res = await axios.post("/api/routes/new", data);
       console.log(res);

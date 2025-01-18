@@ -24,24 +24,6 @@ function Step2({ register, errors }: stepProps) {
     setCollectUsersEmail(checked);
   }
 
-  // const nameInputRef = useRef<HTMLInputElement>(null);
-
-  // const genWelcomeMessage = async () => {
-  //   if (nameInputRef.current) {
-  //     const name = nameInputRef.current.value;
-  //     try {
-  //       setLoading(true);
-  //       const res = await axios.get(`/api/routes/genWelcomeMessage/${name}`);
-  //       const data = res.data;
-  //       setWelcomeMessage(data.welcomeMessage);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  // };
-
   return (
     <motion.div
       className="flex flex-row overflow-hidden gap-5"
@@ -57,8 +39,8 @@ function Step2({ register, errors }: stepProps) {
         </div>
         <div className="flex flex-col gap-2 ">
           <Input
-            name="chatbot_name"
-            errors={{ chatbot_name: errors?.chatbot_name }}
+            name="name"
+            errors={{ name: errors?.name }}
             register={register}
             label="Chatbot Name"
             placeholder="Enter the name of your chatbot"

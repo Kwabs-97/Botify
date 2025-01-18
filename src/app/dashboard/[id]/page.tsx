@@ -13,7 +13,6 @@ import { ChatbotDataInterface } from "@/app/types";
 import { useForm } from "react-hook-form";
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
-
   const tabs = ["Chatbot", "Data Sources", "Settings"];
   const [activeStep, setActiveStep] = useState("Chatbot");
   const [dashStyles, setDashStyles] = useState({});
@@ -23,6 +22,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   const {
     register,
+    setValue,
     formState: { isSubmitting, errors },
     handleSubmit,
   } = useForm();
@@ -59,6 +59,24 @@ const Page = ({ params }: { params: { id: string } }) => {
     getChatbot();
   }, []);
 
+  const autosaveOnBlur = handleSubmit(async (data) => {
+    const chatbotSettings = {
+      ...data,
+      id,
+    };
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/routes/chatbots/update",
+        chatbotSettings
+      );
+      const resData = await res.data;
+      console.log("response from chatbot update request", resData);
+    } catch (error) {
+      console.log("error updating chatbot", error);
+    }
+  });
+
   return (
     <div className="flex flex-col">
       {/*Header*/}
@@ -82,7 +100,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/*Main */}
-      <form action="">
+      <form onBlur={autosaveOnBlur}>
         {isLoading && (
           <div>
             <LoadingSpinner className="" />
