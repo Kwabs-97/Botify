@@ -29,7 +29,7 @@ export const getAllChatbots = async () => {
 export const createChatbot = async (chatbotData: ChatbotDataInterface) => {
   try {
     if (!chatbotData) {
-      throw new Error("Chatbot data is required");
+      throw new Error("Chatbot data is missing");
     }
 
     console.log(
