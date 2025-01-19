@@ -12,8 +12,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    await updateChatbot(chatbotData);
-    return NextResponse.json({ message: "update success" }, { status: 201 });
+    const res = await updateChatbot(chatbotData);
+    return NextResponse.json(
+      { message: "update success", data: res },
+      { status: 201 }
+    );
   } catch (error) {
     console.log("error updating chatbot data", error);
     return NextResponse.json(

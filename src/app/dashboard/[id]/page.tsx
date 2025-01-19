@@ -13,6 +13,7 @@ import { ChatbotDataInterface } from "@/app/types";
 import { useForm } from "react-hook-form";
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
+  console.log(id);
   const tabs = ["Chatbot", "Data Sources", "Settings"];
   const [activeStep, setActiveStep] = useState("Chatbot");
   const [dashStyles, setDashStyles] = useState({});
@@ -22,7 +23,8 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   const {
     register,
-    setValue,
+
+    watch,
     formState: { isSubmitting, errors },
     handleSubmit,
   } = useForm();
@@ -57,13 +59,17 @@ const Page = ({ params }: { params: { id: string } }) => {
       }
     }
     getChatbot();
-  }, []);
+  }, [id]);
+
+  console.log("--- fetch for all chatbots---------", chatbotData);
 
   const autosaveOnBlur = handleSubmit(async (data) => {
     const chatbotSettings = {
       ...data,
       id,
     };
+
+    console.log(chatbotSettings);
 
     try {
       const res = await axios.post(
@@ -76,6 +82,24 @@ const Page = ({ params }: { params: { id: string } }) => {
       console.log("error updating chatbot", error);
     }
   });
+
+  const chatbotDetails = {
+    name: chatbotData?.name,
+    welcome_message: chatbotData?.welcome_message,
+    fallback_message: chatbotData?.fallback_message,
+    collect_user_email: chatbotData?.collect_user_email,
+  };
+
+  const settings = {
+    color: chatbotData?.color,
+    offline_fallback_notification_email:
+      chatbotData?.offline_fallback_notification_email,
+  };
+
+  const dataSource = {
+    files: "",
+    website_url: chatbotData?.website_url,
+  };
 
   return (
     <div className="flex flex-col">
@@ -141,15 +165,21 @@ const Page = ({ params }: { params: { id: string } }) => {
 
             {activeStep === "Chatbot" && (
               <div>
-                <Chatbot chatbotData={chatbotData} />
+                <Chatbot chatbotData={chatbotDetails} />
               </div>
             )}
             {activeStep === "Data Sources" && (
               <div>
-                <DataSource />
+                <DataSource chatbotData={dataSource} />
               </div>
             )}
-            {activeStep === "Settings" && <Settings register={register} />}
+            {activeStep === "Settings" && (
+              <Settings
+                register={register}
+                chatbotData={settings}
+                watch={watch}
+              />
+            )}
           </div>
 
           {/*Chatbot playground */}

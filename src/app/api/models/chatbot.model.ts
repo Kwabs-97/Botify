@@ -3,7 +3,11 @@ import { ChatbotDataInterface } from "@/app/types";
 
 export const getChatbotById = async (id: string) => {
   const res = await pool.query(
-    "SELECT  name, last_trained,isvisible, islive,welcome_message, fallback_message,files, website_url,color,icon, display_brand_badge, offline_fallback_notification_email FROM details JOIN data_source ON details.id = $1 JOIN settings ON data_source.chatbot_id = $1",
+    `SELECT name, last_trained, isvisible, islive, welcome_message, fallback_message, files, website_url, color, icon, display_brand_badge, offline_fallback_notification_email
+   FROM details
+   LEFT JOIN data_source ON details.id = data_source.chatbot_id
+   LEFT JOIN settings ON details.id = settings.chatbot_id
+   WHERE details.id = $1`,
     [id]
   );
 
@@ -67,14 +71,14 @@ export const updateChatbot = async (chatbotData: ChatbotDataInterface) => {
   }
   try {
     const result1 = await pool.query(
-      "UPDATE settings SET chatbot_id = $1, color = $2, offline_fallback_notification_email = $3 WHERE chatbot_id = $4",
+      "UPDATE settings SET chatbot_id = $1, color = $2, offline_fallback_notification_email = $3 WHERE chatbot_id = $1 RETURNING *",
       [
         chatbotData.id,
         chatbotData.color,
-        chatbotData.fallbackMessageEmail,
-        chatbotData.id,
+        chatbotData.offline_fallback_notification_email,
       ]
     );
+    return result1.rows[0];
   } catch (error) {
     console.log("Error updating chatbot", error);
   }

@@ -3,7 +3,12 @@ import { Separator } from "@/components/ui/separator";
 import Input from "@/components/ui/input";
 import CustomDropzone from "../CustomDropzone";
 import { search_right } from "@/assets/icons";
-function DataSource() {
+
+interface ChatbotDataInterface {
+  files?: String;
+  website_url?: String;
+}
+function DataSource({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
   const [detectedFiles, setDetectedFiles] = useState<number | null>(null);
 
   const handleFileUpload = (file: File) => {

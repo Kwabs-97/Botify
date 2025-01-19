@@ -1,7 +1,7 @@
 export interface ChatbotDataInterface {
   name?: string;
   color?: string;
-  fallbackMessageEmail?: string;
+  offline_fallback_notification_email?: string;
   id?: string;
   welcome_message?: string;
   isLive?: boolean;
