@@ -10,6 +10,7 @@ export async function GET() {
       );
     }
 
+    console.log("-----chatbots to be updated fetched successfully------")
     return NextResponse.json(
       { message: "chatbots fetched successfully", chatbots: res },
       { status: 200 }

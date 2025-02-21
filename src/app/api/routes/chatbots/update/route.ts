@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const chatbotData = body;
+  console.log(chatbotData)
   try {
     if (!chatbotData) {
       return NextResponse.json(
@@ -13,6 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     const res = await updateChatbot(chatbotData);
+
     return NextResponse.json(
       { message: "update success", data: res },
       { status: 201 }
