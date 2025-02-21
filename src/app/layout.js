@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -28,11 +29,19 @@ export default function RootLayout({ children }) {
     <StoreProvider>
       <html lang="en">
         <body
-          className={gellixRegular.className}
-          suppressHydrationWarning={true}
-          suppressContentEditableWarning
+        
+        className={gellixRegular.className}
+        suppressHydrationWarning={true}
+        suppressContentEditableWarning
+        >
+          <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
         >
           {children}
+          </ThemeProvider>
         </body>
       </html>
     </StoreProvider>

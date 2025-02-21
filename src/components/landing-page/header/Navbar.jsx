@@ -3,6 +3,7 @@ import Link from "next/link";
 import CustomButton from "../../form-elements/CustomButton";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/misc/Logo";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Navbar() {
   const links = ["Features", "Pricing", "contact"];
@@ -27,6 +28,7 @@ export default function Navbar() {
           >
             Sign up
           </CustomButton>
+          <ModeToggle />
         </section>
       </div>
     </nav>

@@ -1,8 +1,8 @@
-import pool from "../config/db";
+import client from "../config/db";
 import { ChatbotDataInterface } from "@/app/types";
 
 export const getChatbotById = async (id: string) => {
-  const res = await pool.query(
+  const res = await client.query(
     `SELECT name, last_trained, isvisible, islive, welcome_message, fallback_message, files, website_url, color, icon, display_brand_badge, offline_fallback_notification_email
    FROM details
    LEFT JOIN data_source ON details.id = data_source.chatbot_id
@@ -17,7 +17,7 @@ export const getChatbotById = async (id: string) => {
 
 export const getAllChatbots = async () => {
   try {
-    const res = await pool.query("SELECT * FROM details");
+    const res = await client.query("SELECT * FROM details");
     const chatbots = res.rows;
     if (!chatbots) return null;
     return chatbots;
@@ -38,24 +38,24 @@ export const createChatbot = async (chatbotData: ChatbotDataInterface) => {
     );
     const { name, fallback_message, welcome_message, website_url } =
       chatbotData;
-    const result1 = await pool.query(
+    const result1 = await client.query(
       "INSERT INTO details (name, welcome_message, fallback_message) VALUES ($1, $2, $3) RETURNING *",
       [name, welcome_message, fallback_message]
     );
 
     const id: string = result1.rows[0].id;
 
-    const result2 = await pool.query(
+    const result2 = await client.query(
       "INSERT INTO data_source (chatbot_id, website_url) VALUES ($1, $2) RETURNING *",
       [id, website_url]
     );
 
-    const result3 = await pool.query(
+    const result3 = await client.query(
       "INSERT INTO settings (chatbot_id) VALUES ($1) RETURNING *",
       [id]
     );
 
-    // const result3 = await pool.query("INSERT INTO settings (chatbot_id, color, display_brand_badge, offline_fallback_notification_email", [])
+    // const result3 = await client.query("INSERT INTO settings (chatbot_id, color, display_brand_badge, offline_fallback_notification_email", [])
     console.log(result2);
     return { details: result1.rows[0], data_source: result2.rows[0] };
   } catch (error) {
@@ -70,7 +70,7 @@ export const updateChatbot = async (chatbotData: ChatbotDataInterface) => {
     throw new Error("chatbot id is missing");
   }
   try {
-    const result1 = await pool.query(
+    const result1 = await client.query(
       "UPDATE settings SET chatbot_id = $1, color = $2, offline_fallback_notification_email = $3 WHERE chatbot_id = $1 RETURNING *",
       [
         chatbotData.id,
