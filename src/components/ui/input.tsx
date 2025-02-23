@@ -11,6 +11,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "email" | "password" | "number";
   name: string;
   label?: React.ReactNode;
+  id?: string;
   labelWithAutogenerate?: React.ReactNode;
   iconSrc?: string;
   register?: (name: string) => object;
@@ -33,6 +34,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       label,
       errors,
       register,
+      id,
       onFocus,
       name,
       className,
@@ -50,8 +52,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="flex flex-col gap-1">
-        {label && <Label>{label}</Label>}
-        {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>}
+        {label && <Label htmlFor={id}>{label}</Label>}
+        {/* {labelWithAutogenerate && <CustomLabel>{customLabel}</CustomLabel>} */}
 
         <div
           className={cn(
@@ -71,6 +73,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               setIsFocused(false);
               console.log("onBlur");
             }}
+            id={id}
             {...props}
           />
 

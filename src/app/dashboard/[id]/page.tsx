@@ -3,17 +3,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import NavigateBack from "@/components/misc/ArrowLeft";
 import CustomButton from "@/components/form-elements/CustomButton";
-import Chatbot from "@/components/misc/chatbot/chatbot";
+// import Chatbot from "@/components/misc/chatbot/chatbot";
 import Playground from "@/components/misc/chatbot/playground";
 import DataSource from "@/components/misc/chatbot/data-source";
 import Settings from "@/components/misc/chatbot/settings";
 import axios from "axios";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import Chatbot from "@/components/update-chatbots-components/details";
 import { ChatbotDataInterface } from "@/app/types";
 import { useForm } from "react-hook-form";
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
-  console.log(id);
+
   const tabs = ["Chatbot", "Data Sources", "Settings"];
   const [activeStep, setActiveStep] = useState("Chatbot");
   const [dashStyles, setDashStyles] = useState({});
@@ -51,6 +52,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         const res = await axios.get(`/api/routes/chatbots/${id}`);
         console.log(res);
         setChatbotData(res.data.chatbot);
+        console.log(res.data.chatbot)
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -61,45 +63,50 @@ const Page = ({ params }: { params: { id: string } }) => {
     getChatbot();
   }, [id]);
 
-  console.log("--- fetch for all chatbots---------", chatbotData);
+  // const autosaveOnBlur = handleSubmit(async (data) => {
+  //   const chatbotSettings = {
+  //     ...data,
+  //     id,
+  //   };
 
-  const autosaveOnBlur = handleSubmit(async (data) => {
-    const chatbotSettings = {
-      ...data,
-      id,
-    };
+  //   console.log(chatbotSettings);
 
-    console.log(chatbotSettings);
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:3000/api/routes/chatbots/update",
+  //       chatbotSettings
+  //     );
+  //     const resData = await res.data;
+      
+  //     setChatbotData(resData.data.details);
+  //   } catch (error) {
+  //     console.log("error updating chatbot", error);
+  //   }
+  // });
 
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/api/routes/chatbots/update",
-        chatbotSettings
-      );
-      const resData = await res.data;
-      console.log("response from chatbot update request", resData);
-    } catch (error) {
-      console.log("error updating chatbot", error);
-    }
-  });
+
 
   const chatbotDetails = {
-    name: chatbotData?.name,
-    welcome_message: chatbotData?.welcome_message,
-    fallback_message: chatbotData?.fallback_message,
-    collect_user_email: chatbotData?.collect_user_email,
+    id,
+    name: chatbotData && chatbotData?.name,
+    welcome_message: chatbotData && chatbotData?.welcome_message,
+    fallback_message: chatbotData && chatbotData?.fallback_message,
   };
 
   const settings = {
-    color: chatbotData?.color,
+    id,
+    color: chatbotData && chatbotData?.color,
     offline_fallback_notification_email:
-      chatbotData?.offline_fallback_notification_email,
+      chatbotData && chatbotData?.offline_fallback_notification_email,
   };
 
+  
   const dataSource = {
+    id,
     files: "",
-    website_url: chatbotData?.website_url,
+    website_url: chatbotData && chatbotData?.website_url,
   };
+  
 
   return (
     <div className="flex flex-col">
@@ -124,7 +131,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/*Main */}
-      <form onBlur={autosaveOnBlur}>
+     
         {isLoading && (
           <div>
             <LoadingSpinner className="" />
@@ -187,7 +194,6 @@ const Page = ({ params }: { params: { id: string } }) => {
             <Playground chatbotData={chatbotData} />
           </div>
         </div>
-      </form>
     </div>
   );
 };

@@ -1,9 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Separator } from "@/components/ui/separator";
-import { Upload } from "@/assets/icons";
 import Input from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { ChatbotDataInterface } from "@/app/types";
@@ -14,21 +12,9 @@ interface SettingsProps {
   watch?: UseFormWatch<FieldValues>;
 }
 function Settings({ register, chatbotData, watch }: SettingsProps) {
-  // const chatbotColors = [
-  //   "#2563EB",
-  //   // "#049BE5",
-  //   // "#4CAF50",
-  //   // "#F47D02",
-  //   // "#9C27B0",
-  //   // "#E91E63",
-  // ];
 
-  //watch form values for controlled inputs
-  const colorValue = watch?.("color", chatbotData?.color || "");
-  const fallbackEmailValue = watch?.(
-    "offline_fallback_notification_email",
-    chatbotData?.offline_fallback_notification_email || ""
-  );
+  console.log(chatbotData)
+  
   return (
     <>
       <div className="text-gray-900 gap-2 flex flex-col">
@@ -43,9 +29,8 @@ function Settings({ register, chatbotData, watch }: SettingsProps) {
             <div className="flex flex-row gap-1 max-w-[536px] flex-wrap">
               <input
                 name="color"
-                {...register?.("color", {
-                  value: chatbotData?.color || "",
-                })}
+                defaultValue={chatbotData&&chatbotData.color}
+                {...register?.("color")}
                 type="color"
                 className="w-24 h-[50px]"
               />
@@ -74,9 +59,8 @@ function Settings({ register, chatbotData, watch }: SettingsProps) {
               <input
                 className="w-full h-11 border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
                 placeholder="Enter email address"
-                {...register?.("offline_fallback_notification_email", {
-                  value: chatbotData?.offline_fallback_notification_email || "",
-                })}
+                defaultValue={chatbotData&&chatbotData.offline_fallback_notification_email}
+                {...register?.("offline_fallback_notification_email")}
               />
             </div>
           </div>

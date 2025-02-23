@@ -49,6 +49,7 @@ function Step1({ register, errors }: stepProps) {
           <section className="flex flex-col gap-2">
             <Input
               label="Website link"
+              id="website_link"
               name="website_url"
               register={register}
               errors={{ website_url: errors?.website_url }}

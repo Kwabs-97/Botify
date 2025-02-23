@@ -1,7 +1,7 @@
 import { updateChatbot } from "@/app/api/models/chatbot.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function PUT(req: NextRequest) {
   const body = await req.json();
   const chatbotData = body;
   console.log(chatbotData)
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const res = await updateChatbot(chatbotData);
 
     return NextResponse.json(
-      { message: "update success", data: res },
+      { message: "update success" },
       { status: 201 }
     );
   } catch (error) {

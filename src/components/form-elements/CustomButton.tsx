@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-interface CustomButtonProps {
+interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: React.ReactNode;
   iconSrc?: string;
@@ -18,12 +18,13 @@ export default function CustomButton({
   ...props
 }: CustomButtonProps) {
   return (
-    <Button
+    <button
       className={cn(
-        "bg-blue-600 rounded flex flex-row justify-center gap-1 items-center px-2 py-2.5 text-sm",
+        "bg-blue-600 rounded flex flex-row justify-center gap-1 items-center px-2 py-2.5 text-sm min-w-16",
         className
       )}
       onClick={onClick}
+    
     >
       {iconSrc && (
         <div className="">
@@ -31,6 +32,6 @@ export default function CustomButton({
         </div>
       )}
       {children}
-    </Button>
+    </button>
   );
 }
