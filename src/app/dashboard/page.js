@@ -60,7 +60,7 @@ function Page({ params }) {
         </div>
       </div>
       <div className="flex-grow px-12">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 h-full">
           {/* Search box */}
           <div className="search flex flex-row justify-between">
             <Input type="search" placeholder="Search..." iconSrc={Search} />
@@ -76,7 +76,7 @@ function Page({ params }) {
               <LoadingSpinner className="text-gray-500" />
             </div>
           ) : chatbots.length > 0 ? (
-            <div className="flex flex-row items-center gap-4 flex-wrap overflow-y-scroll max-h-[450px]">
+            <div className="flex flex-row gap-4 flex-wrap h-full">
               {
                 // Display chatbots if available
                 chatbots.map((chatbot) => (

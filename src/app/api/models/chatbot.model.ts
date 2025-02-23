@@ -88,34 +88,79 @@ export const updateChatbot = async (chatbotData: ChatbotDataInterface) => {
     name,
     id,
   } = chatbotData;
+  
   if (!id) {
     throw new Error("Chatbot ID is missing");
   }
 
   try {
-    // update details table
-    const result2 = await client.query(
-      "UPDATE details SET name = $1, welcome_message = $2, fallback_message = $3 WHERE id = $4 RETURNING *",
-      [name, welcome_message, fallback_message, id]
-    );
+    // Only update details if relevant fields are provided
+    if (name || welcome_message || fallback_message) {
+      const detailsFields = [];
+      const values = [];
+      let valueCount = 1;
 
-    // update data_source table
-    const result3 = await client.query(
-      "UPDATE data_source SET website_url = $1 WHERE id = $2 RETURNING *",
-      [website_url, id]
-    );
-    
-    // Update settings table
-    const result1 = await client.query(
-      "UPDATE settings SET color = $2, offline_fallback_notification_email = $3 WHERE id = $1 RETURNING *",
-      [id, color, offline_fallback_notification_email?.trim()]
-    );
+      if (name) {
+        detailsFields.push(`name = $${valueCount}`);
+        values.push(name);
+        valueCount++;
+      }
+      if (welcome_message) {
+        detailsFields.push(`welcome_message = $${valueCount}`);
+        values.push(welcome_message);
+        valueCount++;
+      }
+      if (fallback_message) {
+        detailsFields.push(`fallback_message = $${valueCount}`);
+        values.push(fallback_message);
+        valueCount++;
+      }
 
-    return {
-      details: result2.rows[0],
-      data_source: result3.rows[0],
-      settings: result1.rows[0],
-    };
+      if (detailsFields.length > 0) {
+        values.push(id);
+        await client.query(
+          `UPDATE details SET ${detailsFields.join(', ')} WHERE id = $${valueCount} RETURNING *`,
+          values
+        );
+      }
+    }
+
+    // Only update data_source if website_url is provided
+    if (website_url !== undefined) {
+      await client.query(
+        "UPDATE data_source SET website_url = $1 WHERE chatbot_id = $2 RETURNING *",
+        [website_url, id]
+      );
+    }
+
+    // Only update settings if relevant fields are provided
+    if (color !== undefined || offline_fallback_notification_email !== undefined) {
+      const settingsFields = [];
+      const values = [];
+      let valueCount = 1;
+
+      if (color !== undefined) {
+        settingsFields.push(`color = $${valueCount}`);
+        values.push(color);
+        valueCount++;
+      }
+      if (offline_fallback_notification_email !== undefined) {
+        settingsFields.push(`offline_fallback_notification_email = $${valueCount}`);
+        values.push(offline_fallback_notification_email?.trim());
+        valueCount++;
+      }
+
+      if (settingsFields.length > 0) {
+        values.push(id);
+        await client.query(
+          `UPDATE settings SET ${settingsFields.join(', ')} WHERE chatbot_id = $${valueCount} RETURNING *`,
+          values
+        );
+      }
+    }
+
+    // Return updated data
+    return await getChatbotById(id);
   } catch (error) {
     console.error("Error updating chatbot:", error);
     throw new Error("Failed to update chatbot");

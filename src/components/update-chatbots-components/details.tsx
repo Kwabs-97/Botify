@@ -17,16 +17,26 @@ function Chatbot({ chatbotData }: DetailsProps) {
   const [isUpdating, setIsUpdating] = useState<Boolean>(false);
 
   //form-handling
-  const { register, handleSubmit, setValue } = useForm({
-    defaultValues:{
+  const { register, handleSubmit, setValue, reset } = useForm({
+    defaultValues: {
       name: chatbotData && chatbotData?.name,
       welcome_message: chatbotData?.welcome_message,
-      fallback_message: chatbotData?.fallback_message
+      fallback_message: chatbotData?.fallback_message,
+    },
+  });
+
+  useEffect(() => {
+    if (chatbotData) {
+      reset({
+        name: chatbotData.name,
+        welcome_message: chatbotData.welcome_message,
+        fallback_message: chatbotData.fallback_message,
+      });
     }
   });
 
   const updateDetails = handleSubmit(async (data: ChatbotDataInterface) => {
-    setIsUpdating(true)
+    setIsUpdating(true);
     const chatbotDetails = {
       ...data,
       id: chatbotData?.id,
@@ -37,7 +47,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
         chatbotDetails
       );
       console.log(response);
-      setIsUpdating(false)
+      setIsUpdating(false);
     } catch (error) {
       console.log("error");
     }
@@ -77,7 +87,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
                 <label htmlFor="name">Name</label>
                 <input
                   id="name"
-                  // defaultValue={chatbotData && chatbotData.name}
+                
                   placeholder="Chatbot name"
                   className="w-full h-11 border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
                   {...register?.("name")}
@@ -90,7 +100,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
                   id="welcome_message"
                   name="welcome_message"
                   className="w-full border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
-                  // defaultValue={chatbotData && chatbotData.welcome_message}
+                  
                   placeholder="Enter your welcome message"
                 />
               </div>
@@ -101,7 +111,6 @@ function Chatbot({ chatbotData }: DetailsProps) {
                   id="fallback_message"
                   name="fallback_message"
                   className="w-full border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
-                  // defaultValue={chatbotData && chatbotData.fallback_message}
                   placeholder="Enter your welcome message"
                 />
               </div>
@@ -113,9 +122,9 @@ function Chatbot({ chatbotData }: DetailsProps) {
               />
             </div> */}
               <div className="flex flex-row gap-4 items-center justify-start text-white">
-                <CustomButton type="submit" disabled={!isUpdating}>{
-                  isUpdating ? <LoadingSpinner /> : "Save"
-                  }</CustomButton>
+                <CustomButton type="submit" disabled={!isUpdating}>
+                  {isUpdating ? <LoadingSpinner /> : "Save"}
+                </CustomButton>
               </div>
             </div>
           </div>
