@@ -1,11 +1,10 @@
 import { generateWelcomeMessage } from "@/app/api/models/groq.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
-  const url = new URL(req.url);
-  const pathname = url.pathname;
-  const pathSegments = pathname.split("/");
-  const companyName = pathSegments.at(-1);
+export async function POST(req: NextRequest) {
+  console.log("first")  
+  const companyName =  await req.text()          
+
   try {
     const res = await generateWelcomeMessage(companyName!);
     console.log(res);
@@ -13,6 +12,7 @@ export async function GET(req: NextRequest) {
       {
         message: "generate welcome message request succes",
         welcomeMessage: res,
+       
       },
       { status: 200 }
     );

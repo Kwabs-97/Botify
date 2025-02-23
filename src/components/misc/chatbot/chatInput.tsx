@@ -27,7 +27,7 @@ function ChatInput() {
       ref={containerRef}
     >
       <textarea
-        className="h-full border-none bg-transparent w-full  focus:outline-none focus:border-none text-gray-900"
+        className=" border-none bg-transparent w-full  focus:outline-none focus:border-none text-gray-900"
         placeholder="Ask Boti Anything"
         onBlur={() => setOnFocus(false)}
         onFocus={() => setOnFocus(true)}

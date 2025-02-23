@@ -1,14 +1,16 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import { Separator } from "../ui/separator";
-import { FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
+import Input from "../misc/forminput/input";
+import Textarea from "../misc/forminput/textarea";
 import { ChatbotDataInterface } from "@/app/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { useForm } from "react-hook-form";
 import CustomButton from "../form-elements/CustomButton";
 import axios from "axios";
+import GenerateWithAI from "../misc/forminput/generateWithAI";
 interface DetailsProps {
   chatbotData?: ChatbotDataInterface;
 }
@@ -17,13 +19,14 @@ function Chatbot({ chatbotData }: DetailsProps) {
   const [isUpdating, setIsUpdating] = useState<Boolean>(false);
 
   //form-handling
-  const { register, handleSubmit, setValue, reset } = useForm({
-    defaultValues: {
-      name: chatbotData && chatbotData?.name,
-      welcome_message: chatbotData?.welcome_message,
-      fallback_message: chatbotData?.fallback_message,
-    },
-  });
+  const { register, handleSubmit, reset, watch, setValue } =
+    useForm<ChatbotDataInterface>({
+      defaultValues: {
+        name: chatbotData && chatbotData?.name,
+        welcome_message: chatbotData?.welcome_message,
+        fallback_message: chatbotData?.fallback_message,
+      },
+    });
 
   useEffect(() => {
     if (chatbotData) {
@@ -33,7 +36,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
         fallback_message: chatbotData.fallback_message,
       });
     }
-  });
+  }, [reset, chatbotData]);
 
   const updateDetails = handleSubmit(async (data: ChatbotDataInterface) => {
     setIsUpdating(true);
@@ -53,6 +56,28 @@ function Chatbot({ chatbotData }: DetailsProps) {
     }
   });
 
+  // handle genereateWithBoti state
+  const [isGenerating, setIsGenerating] = useState<Boolean>(false);
+
+  const welcome_message = watch("welcome_message");
+  const fallback_message = watch("fallback_message");
+
+  async function handleGenerateWithAI() {
+    console.log(welcome_message);
+    try {
+      setIsGenerating(true);
+      const response = await axios.post(
+        "http://localhost:3000/api/routes/genWelcomeMessage",
+        welcome_message
+      );
+      const generatedMessage = response.data.welcomeMessage
+      setValue("welcome_message", generatedMessage);
+      setIsGenerating(false)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       {!chatbotData && (
@@ -61,66 +86,71 @@ function Chatbot({ chatbotData }: DetailsProps) {
         </div>
       )}
 
-      <div className="text-gray-900 gap-6 flex flex-col">
-        <div>
-          <div className="flex flex-row gap-2 ">
-            <div className="p-4 rounded-2xl bg-gray-50 flex flex-col">
-              <h4 className="font-semibold text-gray-900">Last Trained</h4>
-              <p className="text-gray-700">June 16, 2023</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-gray-50 flex flex-col">
-              <h4 className="font-semibold text-gray-900">Visibility</h4>
-              <p className="text-gray-700">Public</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-gray-50 flex flex-col">
-              <h4 className="font-semibold text-gray-900">Status</h4>
-              <p className="text-gray-700">Live</p>
-            </div>
+      <div className="text-gray-900 gap-6 flex flex-col w-[600px]">
+        <div className="flex flex-row gap-8">
+          <div className="p-4 rounded-2xl bg-gray-50 flex flex-col min-w-40 ">
+            <h4 className="font-semibold text-gray-900">Last Trained</h4>
+            <p className="text-gray-700">June 16, 2023</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-gray-50 flex flex-col min-w-40 ">
+            <h4 className="font-semibold text-gray-900">Visibility</h4>
+            <p className="text-gray-700">Public</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-gray-50 flex flex-col min-w-40 ">
+            <h4 className="font-semibold text-gray-900">Status</h4>
+            <p className="text-gray-700">Live</p>
           </div>
         </div>
 
         <Separator className="bg-gray-100" />
         <form action="" onSubmit={updateDetails}>
           <div className="">
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-4 ">
               <div className="flex flex-col gap-1">
-                <label htmlFor="name">Name</label>
-                <input
-                  id="name"
-                
-                  placeholder="Chatbot name"
-                  className="w-full h-11 border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
-                  {...register?.("name")}
+                <label htmlFor="Chatbot Name">Chatbot Name</label>
+                <Input
+                  id="Chatbot Name"
+                  name="name"
+                  register={register}
+                  placeholder="Chatbot Name"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label htmlFor="welcome_message">Welcome message</label>
-                <textarea
-                  {...register?.("welcome_message")}
-                  id="welcome_message"
+                <div className="flex flex-row justify-between">
+                  <label htmlFor="welcome_message">
+                    Customize your welcome message
+                  </label>
+                 {isGenerating ? <LoadingSpinner className="text-blue-500" /> : <GenerateWithAI genWithAI={handleGenerateWithAI} />} 
+                </div>
+
+                <Textarea
                   name="welcome_message"
-                  className="w-full border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
-                  
-                  placeholder="Enter your welcome message"
+                  id="welcome_message"
+                  register={register}
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label htmlFor="fallback_message">Fallback message</label>
-                <textarea
-                  {...register?.("fallback_message")}
-                  id="fallback_message"
+                <div className="flex flex-row justify-between">
+                  <label htmlFor="fallback_message">
+                    Customize your fallback message
+                  </label>
+                  <GenerateWithAI genWithAI={handleGenerateWithAI} />
+                </div>
+                <Textarea
                   name="fallback_message"
-                  className="w-full border px-4 py-3 bg-gray-50 border-lightGray rounded-lg focus:border-2 focus:border-blue-500 focus:outline-none duration-150 transition-all"
-                  placeholder="Enter your welcome message"
+                  id="fallback_message"
+                  register={register}
                 />
               </div>
 
-              {/* <div className="flex flex-row justify-between w-full p-3 border border-gray-200 rounded-lg">
-              <Label htmlFor="collectUsersEmail">Collect users email</Label>
-              <Switch id="collectUsersEmail" name="collectUsersEmail"    {...register?.("collect_user_email")}
-              defaultChecked={chatbotData?.collect_user_email}
-              />
-            </div> */}
+              <div className="flex flex-row justify-between p-4 border border-gray-200 rounded-lg">
+                <Label htmlFor="collectUsersEmail">Collect users email</Label>
+                <Switch
+                  id="collectUsersEmail"
+                  name="collectUsersEmail"
+                  defaultChecked={chatbotData?.collect_user_email}
+                />
+              </div>
               <div className="flex flex-row gap-4 items-center justify-start text-white">
                 <CustomButton type="submit" disabled={!isUpdating}>
                   {isUpdating ? <LoadingSpinner /> : "Save"}

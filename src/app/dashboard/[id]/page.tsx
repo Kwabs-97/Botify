@@ -52,7 +52,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         const res = await axios.get(`/api/routes/chatbots/${id}`);
         console.log(res);
         setChatbotData(res.data.chatbot);
-        console.log(res.data.chatbot)
+        console.log(res.data.chatbot);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -77,14 +77,12 @@ const Page = ({ params }: { params: { id: string } }) => {
   //       chatbotSettings
   //     );
   //     const resData = await res.data;
-      
+
   //     setChatbotData(resData.data.details);
   //   } catch (error) {
   //     console.log("error updating chatbot", error);
   //   }
   // });
-
-
 
   const chatbotDetails = {
     id,
@@ -100,13 +98,11 @@ const Page = ({ params }: { params: { id: string } }) => {
       chatbotData && chatbotData?.offline_fallback_notification_email,
   };
 
-  
   const dataSource = {
     id,
     files: "",
     website_url: chatbotData && chatbotData?.website_url,
   };
-  
 
   return (
     <div className="flex flex-col">
@@ -131,69 +127,61 @@ const Page = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/*Main */}
-     
-        {isLoading && (
-          <div>
-            <LoadingSpinner className="" />
-          </div>
-        )}
-        <div className="flex flex-row gap-6">
-          {/*Data */}
-          <div className="flex flex-col px-8 flex-1">
-            <div className="py-4">
-              {/*Navigation*/}
-              <nav className="flex flex-row gap-10 w-full relative border-b border-gray-200">
-                {tabs.map((navItem, i) => (
-                  <div
-                    key={i}
-                    ref={(el) => {
-                      tabRefs.current[i] = el;
-                    }}
-                    className="cursor-pointer"
-                    onClick={() => setActiveStep(navItem)}
-                  >
-                    <p
-                      className={`py-2.5 text-sm ${
-                        activeStep === navItem
-                          ? "text-blue-500"
-                          : "text-gray-500"
-                      }`}
-                    >
-                      {navItem}
-                    </p>
-                  </div>
-                ))}
-                <span
-                  className="absolute bottom-0 h-0.5 bg-blue-500 transition-all duration-300"
-                  style={dashStyles}
-                />
-              </nav>
-            </div>
 
-            {activeStep === "Chatbot" && (
-              <div>
-                <Chatbot chatbotData={chatbotDetails} />
-              </div>
-            )}
-            {activeStep === "Data Sources" && (
-              <div>
-                <DataSource chatbotData={dataSource} />
-              </div>
-            )}
-            {activeStep === "Settings" && (
-              <Settings
-                register={register}
-                chatbotData={settings}
-                watch={watch}
-              />
-            )}
-          </div>
-
-          {/*Chatbot playground */}
-          <div className="flex-1">
-            <Playground chatbotData={chatbotData} />
-          </div>
+      {isLoading && (
+        <div>
+          <LoadingSpinner className="" />
         </div>
+      )}
+      <div className="flex flex-row gap-6">
+        {/*Data */}
+        <div className="flex flex-col px-8 flex-1">
+          <div className="py-4">
+            {/*Navigation*/}
+            <nav className="flex flex-row gap-10 w-full relative border-b border-gray-200">
+              {tabs.map((navItem, i) => (
+                <div
+                  key={i}
+                  ref={(el) => {
+                    tabRefs.current[i] = el;
+                  }}
+                  className="cursor-pointer"
+                  onClick={() => setActiveStep(navItem)}
+                >
+                  <p
+                    className={`py-2.5 text-sm ${
+                      activeStep === navItem ? "text-blue-500" : "text-gray-500"
+                    }`}
+                  >
+                    {navItem}
+                  </p>
+                </div>
+              ))}
+              <span
+                className="absolute bottom-0 h-0.5 bg-blue-500 transition-all duration-300"
+                style={dashStyles}
+              />
+            </nav>
+          </div>
+
+          {activeStep === "Chatbot" && (
+            <div>
+              <Chatbot chatbotData={chatbotDetails} />
+            </div>
+          )}
+          {activeStep === "Data Sources" && (
+            <div>
+              <DataSource chatbotData={dataSource} />
+            </div>
+          )}
+          {activeStep === "Settings" && <Settings chatbotData={settings} />}
+        </div>
+
+        {/*Chatbot playground */}
+        <div className="flex-1">
+          <Playground chatbotData={chatbotData} />
+        </div>
+      </div>
     </div>
   );
 };
