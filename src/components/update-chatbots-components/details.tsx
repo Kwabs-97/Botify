@@ -58,17 +58,18 @@ function Chatbot({ chatbotData }: DetailsProps) {
 
   // handle genereateWithBoti state
   const [isGenerating, setIsGenerating] = useState<Boolean>(false);
-
+  const [isGeneratingfallback, setIsGeneratingFallback] = useState<Boolean>(false);
   const welcome_message = watch("welcome_message");
   const fallback_message = watch("fallback_message");
+  const name = watch("name")
 
   async function handleGenerateWithAI() {
     console.log(welcome_message);
     try {
       setIsGenerating(true);
       const response = await axios.post(
-        "http://localhost:3000/api/routes/genWelcomeMessage",
-        welcome_message
+        "http://localhost:3000/api/routes/genWelcomeMessage", name
+        
       );
       const generatedMessage = response.data.welcomeMessage
       setValue("welcome_message", generatedMessage);
@@ -77,6 +78,22 @@ function Chatbot({ chatbotData }: DetailsProps) {
       console.log(error);
     }
   }
+  async function handleGenerateFallbackMessageWithAI() {
+    setIsGeneratingFallback(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/routes/genFallbackMessage", name
+        
+      );
+      const generatedMessage = response.data.fallbackMessage
+      setValue("fallback_message", generatedMessage);
+      setIsGeneratingFallback(false)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
   return (
     <>
@@ -134,7 +151,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
                   <label htmlFor="fallback_message">
                     Customize your fallback message
                   </label>
-                  <GenerateWithAI genWithAI={handleGenerateWithAI} />
+                  {isGeneratingfallback ? <LoadingSpinner className="text-blue-500" /> : <GenerateWithAI genWithAI={handleGenerateFallbackMessageWithAI} />} 
                 </div>
                 <Textarea
                   name="fallback_message"
