@@ -10,7 +10,7 @@ import getUsers from "@/data/users";
 async function page() {
   const data = await getUsers();
   return (
-    <div className="flex flex-col gap-5 overflow-hidden ">
+    <div className="flex flex-col gap-5 overflow-hidden h-full ">
       <div className="header py-8 px-12 border-b border-b-gray-200">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col gap-1">
@@ -26,7 +26,7 @@ async function page() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-6 px-12">
+      <div className="flex flex-col gap-6 px-12 h-full py-6">
         <div className="flex flex-row w-full justify-between">
           <SearchIcon />
           <CustomButton iconSrc={exportIcon}>Export</CustomButton>

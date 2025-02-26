@@ -56,28 +56,37 @@ function Chatbot({ chatbotData }: DetailsProps) {
     }
   });
 
+
+  const genConstraints ={
+    genWelcomeMessage: false,
+    genFallBackMessage: false,
+    chatbotName: ""
+  }
+
   // handle genereateWithBoti state
   const [isGenerating, setIsGenerating] = useState<Boolean>(false);
   const [isGeneratingfallback, setIsGeneratingFallback] = useState<Boolean>(false);
-  const welcome_message = watch("welcome_message");
-  const fallback_message = watch("fallback_message");
+  // const welcome_message = watch("welcome_message");
+  // const fallback_message = watch("fallback_message");
+ 
   const name = watch("name")
 
   async function handleGenerateWithAI() {
-    console.log(welcome_message);
     try {
       setIsGenerating(true);
       const response = await axios.post(
         "http://localhost:3000/api/routes/genWelcomeMessage", name
         
       );
-      const generatedMessage = response.data.welcomeMessage
+      const generatedMessage = response.data.welcomeMessage.slice(1,-1)
       setValue("welcome_message", generatedMessage);
       setIsGenerating(false)
     } catch (error) {
       console.log(error);
     }
   }
+
+
   async function handleGenerateFallbackMessageWithAI() {
     setIsGeneratingFallback(true);
     try {
@@ -85,7 +94,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
         "http://localhost:3000/api/routes/genFallbackMessage", name
         
       );
-      const generatedMessage = response.data.fallbackMessage
+      const generatedMessage = response.data.fallbackMessage.slice(1,-1)
       setValue("fallback_message", generatedMessage);
       setIsGeneratingFallback(false)
     } catch (error) {

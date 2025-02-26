@@ -16,11 +16,6 @@ function Settings({ chatbotData }: SettingsProps) {
   // handling loading state
   const [isUpdating, setIsUpdating] = useState<Boolean>(false);
 
-  // handle genereateWithBoti state
-  const [botiMessage, setBotiMessage] = useState({
-    welcome_message: "",
-    fallback_message:""
-  })
 
   //form-handling
   const { register, handleSubmit, reset } = useForm({

@@ -8,7 +8,7 @@ export type Users = {
   name: string;
   email: string;
   botSource: string;
-  lastSeen: number;
+  lastSeen: Date;
 };
 
 export const columns: ColumnDef<Users>[] = [

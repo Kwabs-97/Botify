@@ -15,6 +15,7 @@
 **/.vs
 **/.vscode
 **/.next
+/secrets
 **/.cache
 **/*.*proj.user
 **/*.dbmdl

@@ -36,7 +36,7 @@ export function DataTable<TData, TValue>({
   const router = useRouter();
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border table h-full">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
