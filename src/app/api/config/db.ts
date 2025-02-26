@@ -2,7 +2,7 @@ import { Client } from "pg";
 import fs from "fs";
 
 // Function to read the content of secret files
-function readSecretFile(filePath:string) {
+function readSecretFile(filePath: string) {
   try {
     return fs.readFileSync(filePath, 'utf8').trim();
   } catch (error) {
@@ -24,26 +24,18 @@ const dbName = process.env.DATABASE_NAME_FILE ?
   readSecretFile(process.env.DATABASE_NAME_FILE) : 
   process.env.DATABASE_NAME;
 
-
 const dbHost = process.env.DATABASE_HOST_FILE ? 
-readSecretFile(process.env.DATABASE_HOST_FILE) : 
-process.env.DATABASE_HOST;
+  readSecretFile(process.env.DATABASE_HOST_FILE) : 
+  process.env.DATABASE_HOST;
 
 // Create client with the file contents
 const client = new Client({
-  host: "db",
-  port: parseInt(process.env.DATABASE_PORT || "5432"),
+  host: dbHost!,
+  port: 5432, // Connect to the exposed port
   user: dbUser!,
   password: dbPassword!,
   database: dbName!,
 });
-
-// console.log("Database connection configuration:");
-// console.log(`Host: ${process.env.DATABASE_HOST}`);
-// console.log(`Port: ${process.env.DATABASE_PORT}`);
-// console.log(`User: ${dbUser ? "[SET]" : "[NOT SET]"}`);
-// console.log(`Password: ${dbPassword ? "[SET]" : "[NOT SET]"}`);
-// console.log(`Database: ${dbName ? "[SET]" : "[NOT SET]"}`);
 
 try {
   client.connect();
