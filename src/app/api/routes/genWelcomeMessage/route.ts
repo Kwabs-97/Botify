@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   console.log("first")  
-  const companyName =  await req.text()          
+  const companyName =  await req.text()       
+  console.log(companyName)   
 
   try {
     const res = await generateWelcomeMessage(companyName!);
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

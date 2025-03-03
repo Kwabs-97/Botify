@@ -46,7 +46,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
     };
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/routes/chatbots/update/${chatbotData?.id}`,
+        `/api/routes/chatbots/update/${chatbotData?.id}`,
         chatbotDetails
       );
       console.log(response);
@@ -75,7 +75,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
     try {
       setIsGenerating(true);
       const response = await axios.post(
-        "http://localhost:3000/api/routes/genWelcomeMessage", name
+        "/api/routes/genWelcomeMessage", name
         
       );
       const generatedMessage = response.data.welcomeMessage.slice(1,-1)
@@ -91,7 +91,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
     setIsGeneratingFallback(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/routes/genFallbackMessage", name
+        "/api/routes/genFallbackMessage", name
         
       );
       const generatedMessage = response.data.fallbackMessage.slice(1,-1)
