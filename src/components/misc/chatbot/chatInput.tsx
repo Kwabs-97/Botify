@@ -1,5 +1,6 @@
 "use client";
 import { Send } from "@/assets/icons";
+import { SendHorizonal } from "lucide-react";
 import Attachement from "@/assets/icons/Attachement";
 import React, { useEffect } from "react";
 import { Smile } from "lucide-react";
@@ -12,8 +13,8 @@ function ChatInput() {
       <Textarea className="w-full min-h-10 max-h-36 text-gray-900 border-none" />
       <div className="flex flex-row gap-2 items-center">
         <Attachement />
-        <Smile color="gray"/>
-        <Send />
+        <Smile color="gray" className="hover:cursor-pointer"/>
+        <SendHorizonal color="blue" className="hover:cursor-pointer" />
       </div>
     </div>
     </div>
