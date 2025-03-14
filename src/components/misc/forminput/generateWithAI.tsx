@@ -5,9 +5,10 @@ import { sparksIcon } from "@/assets/icons";
 // Define the props interface with an optional genWithAI prop
 interface GenerateWithAIProps {
   genWithAI?: () => Promise<void>; // The ? makes this prop optional
+  error?: string;
 }
 
-function GenerateWithAI({ genWithAI = () => Promise.resolve() }: GenerateWithAIProps) {
+function GenerateWithAI({ genWithAI = () => Promise.resolve(), error }: GenerateWithAIProps) {
     return (
       <button
         type="button"
@@ -18,7 +19,9 @@ function GenerateWithAI({ genWithAI = () => Promise.resolve() }: GenerateWithAIP
         }}
       >
         <Image alt="sparks" src={sparksIcon} />
+        {error && <p className="text-red-500">{error}</p>}
         <p className="text-blue-500">Let Boti Generate</p>
+
       </button>
     );
   }

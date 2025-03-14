@@ -11,12 +11,28 @@ import { useForm } from "react-hook-form";
 import CustomButton from "../form-elements/CustomButton";
 import axios from "axios";
 import GenerateWithAI from "../misc/forminput/generateWithAI";
+
+// interface for the chatbot data
 interface DetailsProps {
   chatbotData?: ChatbotDataInterface;
+  
 }
+
+// Interface for API error
+interface APIError {
+  response: {
+    data: {
+      message: string;
+    };
+  };
+}
+
+
 function Chatbot({ chatbotData }: DetailsProps) {
   // handling loading state
   const [isUpdating, setIsUpdating] = useState<Boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [errorFallback, setErrorFallback] = useState<string>("");
 
   //form-handling
   const { register, handleSubmit, reset, watch, setValue } =
@@ -78,11 +94,17 @@ function Chatbot({ chatbotData }: DetailsProps) {
         "/api/routes/genWelcomeMessage", name
         
       );
-      const generatedMessage = response.data.welcomeMessage.slice(1,-1)
-      setValue("welcome_message", generatedMessage);
-      setIsGenerating(false)
+      console.log(response)
+      if(response.status === 200){
+        const generatedMessage = response.data.welcomeMessage.slice(1,-1)
+        setValue("welcome_message", generatedMessage);
+        setIsGenerating(false)
+      }
     } catch (error) {
-      console.log(error);
+      if (error && typeof error === "object" && "response" in error){
+        const apiError = error as APIError;
+        setIsGeneratingFallback(false)
+        setError(apiError.response.data.message)
     }
   }
 
@@ -97,7 +119,12 @@ function Chatbot({ chatbotData }: DetailsProps) {
       const generatedMessage = response.data.fallbackMessage.slice(1,-1)
       setValue("fallback_message", generatedMessage);
       setIsGeneratingFallback(false)
-    } catch (error) {
+    } catch (error:unknown) {
+      if (error && typeof error === "object" && "response" in error){
+      const apiError = error as APIError;
+      setIsGeneratingFallback(false)
+      setErrorFallback(apiError.response.data.message)
+      }
       console.log(error);
     }
   }
@@ -146,7 +173,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
                   <label htmlFor="welcome_message">
                     Customize your welcome message
                   </label>
-                 {isGenerating ? <LoadingSpinner className="text-blue-500" /> : <GenerateWithAI genWithAI={handleGenerateWithAI} />} 
+                 {isGenerating ? <LoadingSpinner className="text-blue-500" /> : <GenerateWithAI genWithAI={handleGenerateWithAI} error={error} />} 
                 </div>
 
                 <Textarea
@@ -160,7 +187,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
                   <label htmlFor="fallback_message">
                     Customize your fallback message
                   </label>
-                  {isGeneratingfallback ? <LoadingSpinner className="text-blue-500" /> : <GenerateWithAI genWithAI={handleGenerateFallbackMessageWithAI} />} 
+                  {isGeneratingfallback ? <LoadingSpinner className="text-blue-500" /> : <GenerateWithAI genWithAI={handleGenerateFallbackMessageWithAI} error={errorFallback} />} 
                 </div>
                 <Textarea
                   name="fallback_message"
