@@ -1,10 +1,16 @@
+'use client'
 import React from "react";
 import Container from "../../misc/Container";
 import Header1 from "../../typography/Header1";
 import CustomButton from "../../form-elements/CustomButton";
 import { fallbackMessage } from "@/assets/images";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const router = useRouter()
+  function NavigateToDashboard(){
+router.push("/dashboard")
+  }
   return (
     <Container className="gap-20">
       <div className="flex flex-col gap-6 justify-center items-center max-w-[600px]">
@@ -21,7 +27,7 @@ export default function Hero() {
           </p>
         </section>
         <section>
-          <CustomButton className="px-10">
+          <CustomButton className="px-10" onClick={NavigateToDashboard}>
             Start building your chatbot
           </CustomButton>
         </section>
