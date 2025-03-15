@@ -12,33 +12,35 @@ function readSecretFile(filePath: string) {
 }
 
 // Read secrets from files based on environment variables
-const dbUser = process.env.DATABASE_USERNAME_FILE 
-// ? 
+// const dbUser = 
+// process.env.DATABASE_USERNAME_FILE ? 
 //   readSecretFile(process.env.DATABASE_USERNAME_FILE) : 
-//   process.env.DATABASE_USERNAME;
+  // process.env.DATABASE_USERNAME;
 
-const dbPassword = process.env.DATABASE_PASSWORD_FILE 
-// ? 
+// const dbPassword = 
+// process.env.DATABASE_PASSWORD_FILE ? 
 //   readSecretFile(process.env.DATABASE_PASSWORD_FILE) : 
-//   process.env.DATABASE_PASSWORD;
+  // process.env.DATABASE_PASSWORD?.toString();
 
-const dbName = process.env.DATABASE_NAME_FILE 
+// const dbName = process.env.DATABASE_NAME_FILE 
 // ? 
 //   readSecretFile(process.env.DATABASE_NAME_FILE) : 
-//   process.env.DATABASE_NAME;
+  // process.env.DATABASE_NAME;
 
-const dbHost = process.env.DATABASE_HOST_FILE 
+// const dbHost = process.env.DATABASE_HOST_FILE 
 // ? 
 //   readSecretFile(process.env.DATABASE_HOST_FILE) : 
-//   process.env.DATABASE_HOST;
+  // process.env.DATABASE_HOST;
 
 // Create client with the file contents
+
+console.log(process.env.DATABASE_USERNAME)
 const client = new Client({
-  host: dbHost!,
+  host: process.env.DATABASE_HOST,
   port: 5432, // Connect to the exposed port
-  user: dbUser!,
-  password: dbPassword!,
-  database: dbName!,
+  user: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
   ssl: {
     rejectUnauthorized: false
   }
