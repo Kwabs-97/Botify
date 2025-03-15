@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
 import CustomLabel from "../misc/CustomLabel";
 import { Label } from "./label";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   type?: "text" | "email" | "password" | "number";
   name: string;

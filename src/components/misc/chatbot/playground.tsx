@@ -64,6 +64,7 @@ function Playground({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
       socket.send(JSON.stringify(content));
     }
   };
+  
   return (
     <div className="flex flex-col h-[calc(100vh-6rem)]">
     <header className="bg-white border-b px-6 py-2">

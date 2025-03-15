@@ -8,14 +8,14 @@ export type Users = {
   name: string;
   email: string;
   botSource: string;
-  lastSeen: Date;
+  lastSeen: string;
 };
 
 export const columns: ColumnDef<Users>[] = [
   {
     accessorKey: "name",
     header: () => (
-      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+      <div className="text-gray-900 font-medium text-xs leading-4 p-3">
         Name
       </div>
     ),
@@ -33,7 +33,7 @@ export const columns: ColumnDef<Users>[] = [
   {
     accessorKey: "email",
     header: () => (
-      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+      <div className="text-gray-900 font-medium text-xs leading-4 p-3">
         Email
       </div>
     ),
@@ -44,7 +44,7 @@ export const columns: ColumnDef<Users>[] = [
   {
     accessorKey: "botSource",
     header: () => (
-      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+      <div className="text-gray-900 font-medium text-xs leading-4 p-3">
         Bot Source
       </div>
     ),
@@ -55,12 +55,24 @@ export const columns: ColumnDef<Users>[] = [
   {
     accessorKey: "lastSeen",
     header: () => (
-      <div className="text-gray-800 font-medium text-xs leading-4 p-3">
+      <div className="text-gray-900 font-medium text-xs leading-4 p-3">
         Last Seen
       </div>
     ),
     cell: ({ row }) => {
-      return <div className="p-3">{row.getValue("lastSeen")}</div>;
+      const dateStr = row.getValue("lastSeen") as string;
+      const date = new Date(dateStr);
+      return (
+        <div className="p-3">
+          {date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </div>
+      );
     },
   },
 ];
