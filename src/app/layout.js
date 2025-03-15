@@ -26,24 +26,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <StoreProvider>
+  
       <html lang="en">
         <body
-        
         className={gellixRegular.className}
         suppressHydrationWarning={true}
-        suppressContentEditableWarning
-        >
-          <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
         >
           {children}
-          </ThemeProvider>
         </body>
       </html>
-    </StoreProvider>
+  
   );
 }

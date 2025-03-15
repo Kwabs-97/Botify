@@ -50,9 +50,9 @@ const Page = ({ params }: { params: { id: string } }) => {
       try {
         setIsLoading(true);
         const res = await axios.get(`/api/routes/chatbots/${id}`);
-        console.log(res);
+        // console.log(res);
         setChatbotData(res.data.chatbot);
-        console.log(res.data.chatbot);
+        // console.log(res.data.chatbot);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -63,26 +63,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     getChatbot();
   }, [id]);
 
-  // const autosaveOnBlur = handleSubmit(async (data) => {
-  //   const chatbotSettings = {
-  //     ...data,
-  //     id,
-  //   };
 
-  //   console.log(chatbotSettings);
-
-  //   try {
-  //     const res = await axios.post(
-  //       "http://localhost:3000/api/routes/chatbots/update",
-  //       chatbotSettings
-  //     );
-  //     const resData = await res.data;
-
-  //     setChatbotData(resData.data.details);
-  //   } catch (error) {
-  //     console.log("error updating chatbot", error);
-  //   }
-  // });
 
   const chatbotDetails = {
     id,

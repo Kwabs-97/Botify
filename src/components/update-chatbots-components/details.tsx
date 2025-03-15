@@ -73,11 +73,6 @@ function Chatbot({ chatbotData }: DetailsProps) {
   });
 
 
-  const genConstraints ={
-    genWelcomeMessage: false,
-    genFallBackMessage: false,
-    chatbotName: ""
-  }
 
   // handle genereateWithBoti state
   const [isGenerating, setIsGenerating] = useState<Boolean>(false);
@@ -105,6 +100,7 @@ function Chatbot({ chatbotData }: DetailsProps) {
         const apiError = error as APIError;
         setIsGeneratingFallback(false)
         setError(apiError.response.data.message)
+      }
     }
   }
 

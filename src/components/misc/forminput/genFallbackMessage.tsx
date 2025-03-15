@@ -17,7 +17,7 @@ function GenerateFallbackWithAI({ genWithAI = () => Promise.resolve() }: Generat
           await genWithAI(); // Safe to call because genWithAI is always a function
         }}
       >
-        <Image alt="sparks" src={sparksIcon} />
+        <Image alt="sparks" src={sparksIcon} className="w-auto h-auto"/>
         <p className="text-blue-500">Let Boti Generate</p>
       </button>
     );

@@ -3,7 +3,7 @@ import { ChatOllama } from "@langchain/ollama";
 
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 const model = new ChatOllama({
-  model: "",
+  model: "llama3.2",
 });
 
 export async function generateWelcomeMessage(companyName: string) {

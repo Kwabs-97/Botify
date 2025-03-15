@@ -1,4 +1,4 @@
-import { generateWelcomeMessage } from "@/app/api/models/groq.model";
+import { generateWelcomeMessage } from "@/app/api/models/ollama.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
