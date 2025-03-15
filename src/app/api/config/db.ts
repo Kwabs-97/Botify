@@ -35,6 +35,9 @@ const client = new Client({
   user: dbUser!,
   password: dbPassword!,
   database: dbName!,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 try {
