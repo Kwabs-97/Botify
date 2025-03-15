@@ -12,21 +12,25 @@ function readSecretFile(filePath: string) {
 }
 
 // Read secrets from files based on environment variables
-const dbUser = process.env.DATABASE_USERNAME_FILE ? 
-  readSecretFile(process.env.DATABASE_USERNAME_FILE) : 
-  process.env.DATABASE_USERNAME;
+const dbUser = process.env.DATABASE_USERNAME_FILE 
+// ? 
+//   readSecretFile(process.env.DATABASE_USERNAME_FILE) : 
+//   process.env.DATABASE_USERNAME;
 
-const dbPassword = process.env.DATABASE_PASSWORD_FILE ? 
-  readSecretFile(process.env.DATABASE_PASSWORD_FILE) : 
-  process.env.DATABASE_PASSWORD;
+const dbPassword = process.env.DATABASE_PASSWORD_FILE 
+// ? 
+//   readSecretFile(process.env.DATABASE_PASSWORD_FILE) : 
+//   process.env.DATABASE_PASSWORD;
 
-const dbName = process.env.DATABASE_NAME_FILE ? 
-  readSecretFile(process.env.DATABASE_NAME_FILE) : 
-  process.env.DATABASE_NAME;
+const dbName = process.env.DATABASE_NAME_FILE 
+// ? 
+//   readSecretFile(process.env.DATABASE_NAME_FILE) : 
+//   process.env.DATABASE_NAME;
 
-const dbHost = process.env.DATABASE_HOST_FILE ? 
-  readSecretFile(process.env.DATABASE_HOST_FILE) : 
-  process.env.DATABASE_HOST;
+const dbHost = process.env.DATABASE_HOST_FILE 
+// ? 
+//   readSecretFile(process.env.DATABASE_HOST_FILE) : 
+//   process.env.DATABASE_HOST;
 
 // Create client with the file contents
 const client = new Client({
