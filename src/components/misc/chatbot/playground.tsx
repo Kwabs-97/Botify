@@ -15,41 +15,41 @@ function Playground({ chatbotData }: { chatbotData: ChatbotDataInterface }) {
 
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
-  useEffect(() => {
-    // Initialize WebSocket connection
-    const ws = new WebSocket('ws://localhost:8080/api/routes/chat');
+  // useEffect(() => {
+  //   // Initialize WebSocket connection
+  //   const ws = new WebSocket('ws://localhost:8080/api/routes/chat');
     
-    ws.onopen = () => {
-      console.log('WebSocket Connected');
-      setSocket(ws);
-    };
+  //   ws.onopen = () => {
+  //     console.log('WebSocket Connected');
+  //     setSocket(ws);
+  //   };
 
-    ws.onmessage = (event) => {
-      const message = event.data;
-      setMessages(prev => [...prev, {
-        id: crypto.randomUUID(),
-        content: message.content,
-        role: 'assistant',
-        timestamp: new Date()
-      }]);
-    };
+  //   ws.onmessage = (event) => {
+  //     const message = event.data;
+  //     setMessages(prev => [...prev, {
+  //       id: crypto.randomUUID(),
+  //       content: message.content,
+  //       role: 'assistant',
+  //       timestamp: new Date()
+  //     }]);
+  //   };
 
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
+  //   ws.onerror = (error) => {
+  //     console.error('WebSocket error:', error);
+  //   };
 
-    ws.onclose = () => {
-      console.log('WebSocket disconnected');
-      setSocket(null);
-    };
+  //   ws.onclose = () => {
+  //     console.log('WebSocket disconnected');
+  //     setSocket(null);
+  //   };
 
-    // Cleanup on unmount
-    return () => {
-      if (ws) {
-        ws.close();
-      }
-    };
-  }, []);
+  //   // Cleanup on unmount
+  //   return () => {
+  //     if (ws) {
+  //       ws.close();
+  //     }
+  //   };
+  // }, []);
 
   const sendMessage = (content: string) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
