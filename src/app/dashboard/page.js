@@ -24,7 +24,6 @@ function Page({ params }) {
       try {
         setIsLoading(true);
         const res = await axios.get("api/routes/chatbots");
-        console.log(res.data.chatbots);
         setChatbots(res.data.chatbots);
       } catch (error) {
         console.error("Failed to fetch chatbots:", error);

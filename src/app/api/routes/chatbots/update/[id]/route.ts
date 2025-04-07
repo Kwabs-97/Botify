@@ -14,6 +14,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const res = await updateChatbot(chatbotData);
+    console.log(res)
 
     return NextResponse.json(
       { message: "update success" },
