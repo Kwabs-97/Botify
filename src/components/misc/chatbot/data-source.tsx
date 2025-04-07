@@ -39,7 +39,7 @@ function DataSource({ chatbotData }: DataSourceProps) {
     };
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/routes/chatbots/update/${chatbotData?.id}`,
+        `/api/routes/chatbots/update/${chatbotData?.id}`,
         chatbotDataSource
       );
       console.log(response);

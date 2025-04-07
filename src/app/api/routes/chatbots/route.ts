@@ -3,6 +3,7 @@ import { getAllChatbots, getChatbotById } from "../../models/chatbot.model";
 export async function GET() {
   try {
     const res = await getAllChatbots();
+    console.log(res)
     if (!res) {
       return NextResponse.json(
         { message: "no chatbots found" },

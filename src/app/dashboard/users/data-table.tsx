@@ -34,28 +34,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-  // When the columnId is undefined, we're searching all columns
-  if (!columnId) {
-    const itemsToSearch = row.getAllCells().map(cell => {
-      let value = cell.getValue();
-      // Convert dates to strings for searching
-      if (value instanceof Date) {
-        return value.toLocaleString();
-      }
-      return String(value ?? '').toLowerCase();
-    });
-    
-    const searchValue = value.toLowerCase();
-    return itemsToSearch.some(item => item.includes(searchValue));
-  }
-
-  // For specific column searches
-  const itemValue = row.getValue(columnId);
-  const searchValue = value.toLowerCase();
-  return String(itemValue ?? '').toLowerCase().includes(searchValue);
-};
-
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -81,10 +59,6 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    filterFns: {
-      fuzzy: fuzzyFilter,
-    },
-    globalFilterFn: fuzzyFilter,
     state: {
       sorting,
       columnFilters,

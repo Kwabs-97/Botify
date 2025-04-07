@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { createClient } from "@supabase/supabase-js";
 import fs from "fs";
 
 // Function to read the content of secret files
@@ -12,45 +12,25 @@ function readSecretFile(filePath: string) {
 }
 
 // Read secrets from files based on environment variables
-// const dbUser = 
-// process.env.DATABASE_USERNAME_FILE ? 
-//   readSecretFile(process.env.DATABASE_USERNAME_FILE) : 
-  // process.env.DATABASE_USERNAME;
+const dbUser = process.env.DATABASE_USERNAME_FILE ? 
+  readSecretFile(process.env.DATABASE_USERNAME_FILE) : 
+  process.env.DATABASE_USERNAME;
 
-// const dbPassword = 
-// process.env.DATABASE_PASSWORD_FILE ? 
-//   readSecretFile(process.env.DATABASE_PASSWORD_FILE) : 
-  // process.env.DATABASE_PASSWORD?.toString();
+const dbPassword = process.env.DATABASE_PASSWORD_FILE ? 
+  readSecretFile(process.env.DATABASE_PASSWORD_FILE) : 
+  process.env.DATABASE_PASSWORD;
 
-// const dbName = process.env.DATABASE_NAME_FILE 
-// ? 
-//   readSecretFile(process.env.DATABASE_NAME_FILE) : 
-  // process.env.DATABASE_NAME;
+const dbName = process.env.DATABASE_NAME_FILE ? 
+  readSecretFile(process.env.DATABASE_NAME_FILE) : 
+  process.env.DATABASE_NAME;
 
-// const dbHost = process.env.DATABASE_HOST_FILE 
-// ? 
-//   readSecretFile(process.env.DATABASE_HOST_FILE) : 
-  // process.env.DATABASE_HOST;
+const dbHost = process.env.DATABASE_HOST_FILE ? 
+  readSecretFile(process.env.DATABASE_HOST_FILE) : 
+  process.env.DATABASE_HOST;
 
-// Create client with the file contents
-
-console.log(process.env.DATABASE_USERNAME)
-const client = new Client({
-  host: process.env.DATABASE_HOST,
-  port: 5432, // Connect to the exposed port
-  user: process.env.DATABASE_USERNAME,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-try {
-  client.connect();
-  console.log("Connected to PostgreSQL successfully");
-} catch (error) {
-  console.error("Error connecting to PostgreSQL:", error);
-}
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const client = createClient(supabaseUrl, supabaseKey);
 
 export default client;

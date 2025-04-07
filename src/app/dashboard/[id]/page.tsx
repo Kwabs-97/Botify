@@ -50,7 +50,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       try {
         setIsLoading(true);
         const res = await axios.get(`/api/routes/chatbots/${id}`);
-        // console.log(res);
+        console.log(res);
         setChatbotData(res.data.chatbot);
         // console.log(res.data.chatbot);
         setIsLoading(false);
